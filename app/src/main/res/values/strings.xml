@@ -3,4 +3,8 @@
     <string name="menu_home">Home</string>
     <string name="menu_admin">Administración</string>
     <string name="menu_report">Reportes</string>
+    <string name="login_welcome">Bienvenido a SuperAdmin</string>
+    <string name="user_hint">Usuario</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="login_button">Ingresar</string>
 </resources>

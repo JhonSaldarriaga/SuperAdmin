@@ -7,4 +7,5 @@
     <string name="user_hint">Usuario</string>
     <string name="password_hint">Contraseña</string>
     <string name="login_button">Ingresar</string>
+    <string name="login_recovery_password">Recuperar contraseña</string>
 </resources>

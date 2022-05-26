@@ -13,5 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.bottomNavigationView.selectedItemId = R.id.homeMenu
+
+        startActivity(Intent(this,LoginActivity::class.java))
     }
 }

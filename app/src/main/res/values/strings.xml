@@ -8,6 +8,7 @@
     <string name="password_hint">Contraseña</string>
     <string name="login_button">Ingresar</string>
     <string name="login_recovery_password">Recuperar contraseña</string>
+    <string name="login_error_empty_fields">ERROR: No se permiten campos vacíos</string>
     <string name="change_password_welcome">Por favor, ingresa tu nueva \ncontraseña</string>
     <string name="change_password_hint">Nueva contraseña</string>
     <string name="change_password_confirm_hint">Confirmar contraseña</string>
@@ -17,4 +18,6 @@
     <string name="change_password_condition_3">Una letra en mayúscula</string>
     <string name="change_password_condition_4">Un número</string>
     <string name="change_password_button">Cambiar contraseña</string>
+    <string name="change_password_error_not_equal">ERROR: Las constraseñas no son iguales</string>
+    <string name="change_password_error_condition">ERROR: No se han cumplido todas las condiciones para crear la contraseña</string>
 </resources>

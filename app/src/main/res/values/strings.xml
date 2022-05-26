@@ -8,4 +8,13 @@
     <string name="password_hint">Contraseña</string>
     <string name="login_button">Ingresar</string>
     <string name="login_recovery_password">Recuperar contraseña</string>
+    <string name="change_password_welcome">Por favor, ingresa tu nueva \ncontraseña</string>
+    <string name="change_password_hint">Nueva contraseña</string>
+    <string name="change_password_confirm_hint">Confirmar contraseña</string>
+    <string name="change_password_condition_title">La contraseña debe tener:</string>
+    <string name="change_password_condition_1">Una letra en minúscula</string>
+    <string name="change_password_condition_2">Mínimo 8 carácteres</string>
+    <string name="change_password_condition_3">Una letra en mayúscula</string>
+    <string name="change_password_condition_4">Un número</string>
+    <string name="change_password_button">Cambiar contraseña</string>
 </resources>

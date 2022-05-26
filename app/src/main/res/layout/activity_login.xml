@@ -20,7 +20,6 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,25 +27,21 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:fontFamily="@font/nunito_semi_bold"
             android:text="@string/login_welcome"
-            android:textColor="@color/blue_super_admin"
-            android:textSize="16sp"
+            style="@style/welcomeTitleStyle1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <EditText
             android:id="@+id/userET"
+            style="@style/editTextStyle1"
             android:layout_marginStart="48dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="48dp"
             android:layout_marginEnd="48dp"
             android:hint="@string/user_hint"
             android:inputType="textPersonName"
-            style="@style/editTextStyle1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -75,7 +70,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
-            android:layout_marginBottom="72dp"
             android:fontFamily="@font/nunito_italic"
             android:text="@string/login_recovery_password"
             android:textColor="@color/blue_super_admin"

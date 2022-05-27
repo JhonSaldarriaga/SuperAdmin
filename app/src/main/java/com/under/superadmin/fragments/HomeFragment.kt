@@ -24,9 +24,7 @@ class HomeFragment : Fragment() {
 
         binding.userNameTV.text = getCurrentUserName()
 
-        binding.logoutButton.setOnClickListener {
-            //Toast.makeText(requireContext(),"hola", Toast.LENGTH_SHORT).show()
-        }
+        binding.logoutButton.setOnClickListener { listener?.onLogoutClickListener() }
 
         binding.userNameTV.setOnClickListener { listener?.onUserNameClickListener() }
 
@@ -50,5 +48,6 @@ class HomeFragment : Fragment() {
 
     interface Listener{
         fun onUserNameClickListener()
+        fun onLogoutClickListener()
     }
 }

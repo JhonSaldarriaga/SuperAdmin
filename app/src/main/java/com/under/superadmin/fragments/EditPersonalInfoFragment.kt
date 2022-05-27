@@ -34,6 +34,7 @@ class EditPersonalInfoFragment : Fragment() {
                 setGoneFirstPage()
                 setVisibleSecondPage()
                 binding.nextSaveButton.text = getString(R.string.text_button_save)
+                binding.pageIndicatorTV.text = getString(R.string.edit_personal_info_page_2)
             }
         }
 
@@ -43,6 +44,7 @@ class EditPersonalInfoFragment : Fragment() {
                 setGoneSecondPage()
                 setVisibleFirstPage()
                 binding.nextSaveButton.text = getString(R.string.text_button_next)
+                binding.pageIndicatorTV.text = getString(R.string.edit_personal_info_page_1)
             } else listener?.onBackHome()
         }
 

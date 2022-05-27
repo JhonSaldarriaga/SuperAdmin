@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.Listener, EditPersonalInf
         editPersonalInfoFragment.listener = this
 
         showFragment(homeFragment) // Default fragment
-        //startActivity(Intent(this,LoginActivity::class.java)) // PASS to LOGIN
     }
 
     private fun showFragment (fragment: Fragment){
@@ -39,6 +38,10 @@ class MainActivity : AppCompatActivity(), HomeFragment.Listener, EditPersonalInf
     //HOME_FRAGMENT LISTENER
     override fun onUserNameClickListener() {
         showFragment(editPersonalInfoFragment)
+    }
+    override fun onLogoutClickListener() {
+        //LOGOUT IN DATABASE
+        startActivity(Intent(this,LoginActivity::class.java)) // PASS to LOGIN
     }
 
     //EDIT_PERSONAL_INFO LISTENER

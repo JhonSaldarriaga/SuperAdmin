@@ -8,7 +8,7 @@ import com.under.superadmin.databinding.ActivityMainBinding
 import com.under.superadmin.fragments.EditPersonalInfoFragment
 import com.under.superadmin.fragments.HomeFragment
 
-class MainActivity : AppCompatActivity(), HomeFragment.Listener {
+class MainActivity : AppCompatActivity(), HomeFragment.Listener, EditPersonalInfoFragment.Listener {
 
 
     private lateinit var homeFragment: HomeFragment
@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.Listener {
         homeFragment = HomeFragment.newInstance()
         homeFragment.listener = this
         editPersonalInfoFragment = EditPersonalInfoFragment.newInstance()
+        editPersonalInfoFragment.listener = this
 
         showFragment(homeFragment) // Default fragment
         //startActivity(Intent(this,LoginActivity::class.java)) // PASS to LOGIN
@@ -38,5 +39,13 @@ class MainActivity : AppCompatActivity(), HomeFragment.Listener {
     //HOME_FRAGMENT LISTENER
     override fun onUserNameClickListener() {
         showFragment(editPersonalInfoFragment)
+    }
+
+    //EDIT_PERSONAL_INFO LISTENER
+    override fun onSaveUserInfo() {
+        //SAVE NEW INFO IN DATABASE
+    }
+    override fun onBackHome() {
+        showFragment(homeFragment)
     }
 }

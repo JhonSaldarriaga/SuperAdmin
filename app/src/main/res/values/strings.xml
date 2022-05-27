@@ -22,6 +22,22 @@
     <string name="change_password_error_condition">ERROR: No se han cumplido todas las condiciones para crear la contraseña</string>
     <string name="home_fragment_logout_text">cerrar sesión</string>
     <string name="home_fragment_welcome">Bienvenido de vuelta</string>
+    <string name="edit_personal_info_fragment_title">Información Personal</string>
+    <string name="text_button_next">Siguiente</string>
+    <string name="text_button_save">Guardar</string>
+    <string-array name="edit_personal_info_spinner_id">
+        <item>Cédula de ciudadanía</item>
+        <item>Pasaporte</item>
+    </string-array>
+    <string-array name="edit_personal_info_spinner_company">
+        <item>SUPERGIROS</item>
+        <item>SUPERGIROS2</item>
+    </string-array>
+    <string-array name="edit_personal_info_spinner_rol">
+        <item>SUPERADMIN</item>
+        <item>SUPERADMIN2</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

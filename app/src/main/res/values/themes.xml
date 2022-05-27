@@ -70,4 +70,22 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="titleFragmentStyle1" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/nunito_semi_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/blue_super_admin</item>
+    </style>
+
+    <style name="spinnerStyle1" parent="Widget.AppCompat.Spinner">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/circle</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:fontFamily">@font/nunito_medium</item>
+        <item name="android:ems">10</item>
+    </style>
+
 </resources>

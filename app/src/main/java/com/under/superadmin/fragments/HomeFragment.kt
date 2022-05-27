@@ -22,6 +22,8 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
 
+        binding.userNameTV.text = getCurrentUserName()
+
         binding.logoutButton.setOnClickListener {
             //Toast.makeText(requireContext(),"hola", Toast.LENGTH_SHORT).show()
         }
@@ -29,6 +31,11 @@ class HomeFragment : Fragment() {
         binding.userNameTV.setOnClickListener { listener?.onUserNameClickListener() }
 
             return binding.root
+    }
+
+    private fun getCurrentUserName():String{
+        //GET FROM DATABASE
+        return "JHON SALDARRIAGA LÓPEZ"
     }
 
     override fun onDestroyView() {

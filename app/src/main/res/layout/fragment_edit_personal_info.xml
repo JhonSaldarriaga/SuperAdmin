@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +9,153 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/titleFragmentStyle1"
+            android:layout_width="0dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="48dp"
+            android:text="@string/edit_personal_info_fragment_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/backIV" />
+
+        <ImageView
+            android:id="@+id/backIV"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_baseline_keyboard_backspace_24"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/idTypeSpinner"
+            style="@style/spinnerStyle1"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <EditText
+            android:id="@+id/idET"
+            style="@style/editTextStyle1"
+            android:layout_marginTop="16dp"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/idTypeSpinner"
+            tools:hint="1193476214" />
+
+        <EditText
+            android:id="@+id/nameET"
+            style="@style/editTextStyle1"
+            android:layout_marginTop="16dp"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/idET"
+            tools:hint="JHON" />
+
+        <EditText
+            android:id="@+id/firstLastNameET"
+            style="@style/editTextStyle1"
+            android:layout_marginTop="16dp"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/nameET"
+            tools:hint="SALDARRIAGA" />
+
+        <EditText
+            android:id="@+id/secondLastNameET"
+            style="@style/editTextStyle1"
+            android:layout_marginTop="16dp"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/firstLastNameET"
+            tools:hint="LÓPEZ" />
+
+        <EditText
+            android:id="@+id/emailET"
+            style="@style/editTextStyle1"
+            android:layout_marginTop="16dp"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/secondLastNameET"
+            tools:hint="jhonsaldarriagalopez@gmail.com" />
+
+        <EditText
+            android:id="@+id/userNumberET"
+            style="@style/editTextStyle1"
+            android:layout_marginTop="32dp"
+            android:inputType="number"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/emailET"
+            tools:hint="3153290416" />
+
+        <EditText
+            android:id="@+id/userPhoneET"
+            style="@style/editTextStyle1"
+            android:layout_marginTop="16dp"
+            android:inputType="number"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/userNumberET"
+            tools:hint="5547257" />
+
+        <Spinner
+            android:id="@+id/rolSpinner"
+            style="@style/spinnerStyle1"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/userPhoneET"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <EditText
+            android:id="@+id/statusET"
+            style="@style/editTextStyle1"
+            android:layout_marginTop="16dp"
+            android:inputType="textPersonName"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/rolSpinner"
+            tools:hint="ACTIVO" />
+
+        <Spinner
+            android:id="@+id/companySpinner"
+            style="@style/spinnerStyle1"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/statusET"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/nextSaveButton"
+            style="@style/buttonStyle1"
+            android:layout_marginTop="60dp"
+            android:text="@string/text_button_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/companySpinner" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

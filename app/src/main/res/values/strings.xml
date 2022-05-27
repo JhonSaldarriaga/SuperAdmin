@@ -20,4 +20,8 @@
     <string name="change_password_button">Cambiar contraseña</string>
     <string name="change_password_error_not_equal">ERROR: Las constraseñas no son iguales</string>
     <string name="change_password_error_condition">ERROR: No se han cumplido todas las condiciones para crear la contraseña</string>
+    <string name="home_fragment_logout_text">cerrar sesión</string>
+    <string name="home_fragment_welcome">Bienvenido de vuelta</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

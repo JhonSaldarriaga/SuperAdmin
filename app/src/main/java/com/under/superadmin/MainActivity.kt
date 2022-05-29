@@ -6,17 +6,20 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.under.superadmin.databinding.ActivityMainBinding
 import com.under.superadmin.dialog_fragment.UpdateUserConfirmationDialogFragment
+import com.under.superadmin.fragments.AdminFragment
 import com.under.superadmin.fragments.EditPersonalInfoFragment
 import com.under.superadmin.fragments.HomeFragment
 
 class MainActivity : AppCompatActivity(),
     HomeFragment.Listener,
     EditPersonalInfoFragment.Listener,
-    UpdateUserConfirmationDialogFragment.Listener {
+    UpdateUserConfirmationDialogFragment.Listener,
+    AdminFragment.Listener {
 
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var editPersonalInfoFragment: EditPersonalInfoFragment
+    private lateinit var adminFragment: AdminFragment
     private var updateUserConfirmationDialogFragment = UpdateUserConfirmationDialogFragment()
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -28,9 +31,11 @@ class MainActivity : AppCompatActivity(),
         binding.bottomNavigationView.selectedItemId = R.id.homeMenu
         homeFragment = HomeFragment.newInstance()
         editPersonalInfoFragment = EditPersonalInfoFragment.newInstance()
+        adminFragment = AdminFragment.newInstance()
 
         homeFragment.listener = this
         editPersonalInfoFragment.listener = this
+        adminFragment.listener = this
         updateUserConfirmationDialogFragment.listener = this
 
         showFragment(homeFragment) // Default fragment
@@ -38,8 +43,8 @@ class MainActivity : AppCompatActivity(),
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){
                 R.id.homeMenu -> {showFragment(homeFragment)}
+                R.id.adminMenu -> {showFragment(adminFragment)}
                 //R.id.reportMenu -> {showFragment()}
-                //R.id.adminMenu -> {showFragment()}
             }
             true
         }

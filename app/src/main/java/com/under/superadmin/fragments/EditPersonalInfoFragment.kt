@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.under.superadmin.R
 import com.under.superadmin.databinding.FragmentEditPersonalInfoBinding
 
@@ -26,7 +27,7 @@ class EditPersonalInfoFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentEditPersonalInfoBinding.inflate(inflater,container,false)
-
+        secondPage = false
         loadUserInfo()
         loadSpinners()
 
@@ -36,7 +37,7 @@ class EditPersonalInfoFragment : Fragment() {
             if(secondPage) listener?.onSaveUserInfo()
             else{
                 secondPage = true
-                crossFadeFirstPageToSecondPage()
+                crossFade(binding.constraintPage1,binding.constraintPage2)
                 binding.nextSaveButton.text = getString(R.string.text_button_save)
                 binding.pageIndicatorTV.text = getString(R.string.edit_personal_info_page_2)
             }
@@ -45,7 +46,7 @@ class EditPersonalInfoFragment : Fragment() {
         binding.backIV.setOnClickListener {
             if(secondPage) {
                 secondPage = false
-                crossFadeSecondPageToFirstPage()
+                crossFade(binding.constraintPage2,binding.constraintPage1)
                 binding.nextSaveButton.text = getString(R.string.text_button_next)
                 binding.pageIndicatorTV.text = getString(R.string.edit_personal_info_page_1)
             } else listener?.onBackHome()
@@ -72,8 +73,9 @@ class EditPersonalInfoFragment : Fragment() {
         adapterRol.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     }
 
-    private fun crossFadeFirstPageToSecondPage() {
-        binding.constraintPage2.apply {
+    //p1 -> p2
+    private fun crossFade(p1: View, p2: View) {
+        p2.apply {
             alpha = 0f
             visibility = View.VISIBLE
             animate()
@@ -81,31 +83,12 @@ class EditPersonalInfoFragment : Fragment() {
                 .setDuration(shortAnimationDuration.toLong())
                 .setListener(null)
         }
-        binding.constraintPage1.animate()
+        p1.animate()
             .alpha(0f)
             .setDuration(shortAnimationDuration.toLong())
             .setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
-                    binding.constraintPage1.visibility = View.GONE
-                }
-            })
-    }
-
-    private fun crossFadeSecondPageToFirstPage() {
-        binding.constraintPage1.apply {
-            alpha = 0f
-            visibility = View.VISIBLE
-            animate()
-                .alpha(1f)
-                .setDuration(shortAnimationDuration.toLong())
-                .setListener(null)
-        }
-        binding.constraintPage2.animate()
-            .alpha(0f)
-            .setDuration(shortAnimationDuration.toLong())
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    binding.constraintPage2.visibility = View.GONE
+                    p1.visibility = View.GONE
                 }
             })
     }

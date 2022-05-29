@@ -10,6 +10,7 @@ import com.under.superadmin.databinding.FragmentAdminBinding
 
 class AdminFragment : Fragment() {
 
+    var listener: Listener? = null
     private var _binding: FragmentAdminBinding? = null
     private val binding get() = _binding!!
 
@@ -19,6 +20,8 @@ class AdminFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentAdminBinding.inflate(inflater,container,false)
+
+        
 
         return binding.root
     }
@@ -31,5 +34,9 @@ class AdminFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = AdminFragment()
+    }
+
+    interface Listener{
+
     }
 }

@@ -9,6 +9,8 @@
     <string name="login_button">Ingresar</string>
     <string name="login_recovery_password">Recuperar contraseña</string>
     <string name="login_error_empty_fields">ERROR: No se permiten campos vacíos</string>
+    <string name="change_password_dialog_fragment_title">RECUPERAR\nCONTRASEÑA</string>
+    <string name="change_password_dialog_fragment_add_email">Por favor\ningresa tu correo.</string>
     <string name="change_password_welcome">Por favor, ingresa tu nueva \ncontraseña</string>
     <string name="change_password_hint">Nueva contraseña</string>
     <string name="change_password_confirm_hint">Confirmar contraseña</string>
@@ -27,6 +29,7 @@
     <string name="edit_personal_info_page_2">2/2</string>
     <string name="text_button_next">Siguiente</string>
     <string name="text_button_save">Guardar</string>
+    <string name="email_hint">Correo</string>
     <string-array name="edit_personal_info_spinner_id">
         <item>Cédula de ciudadanía</item>
         <item>Pasaporte</item>

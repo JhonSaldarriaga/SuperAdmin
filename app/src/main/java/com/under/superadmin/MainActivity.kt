@@ -25,8 +25,17 @@ class MainActivity : AppCompatActivity(), HomeFragment.Listener, EditPersonalInf
         homeFragment.listener = this
         editPersonalInfoFragment = EditPersonalInfoFragment.newInstance()
         editPersonalInfoFragment.listener = this
-
         showFragment(homeFragment) // Default fragment
+
+        binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.homeMenu -> {showFragment(homeFragment)}
+                //R.id.reportMenu -> {showFragment()}
+                //R.id.adminMenu -> {showFragment()}
+            }
+            true
+        }
+
     }
 
     private fun showFragment (fragment: Fragment){
@@ -42,6 +51,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.Listener, EditPersonalInf
     override fun onLogoutClickListener() {
         //LOGOUT IN DATABASE
         startActivity(Intent(this,LoginActivity::class.java)) // PASS to LOGIN
+        finish()
     }
 
     //EDIT_PERSONAL_INFO LISTENER

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/reportAdmin"
+        android:id="@+id/adminMenu"
         android:icon="@drawable/menuitem_admin_selector"
         android:title = "@string/menu_admin"/>
     <item

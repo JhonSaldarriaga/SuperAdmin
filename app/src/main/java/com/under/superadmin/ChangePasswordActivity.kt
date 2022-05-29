@@ -1,5 +1,6 @@
 package com.under.superadmin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -15,6 +16,8 @@ class ChangePasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        val email = (intent.extras?.getString("email")).toString()
 
         binding.newPasseordET.addTextChangedListener (object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -55,5 +58,6 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     private fun changePassword(newPass:String){
         //-->> do the change password process
+        startActivity(Intent(this,LoginActivity::class.java))
     }
 }

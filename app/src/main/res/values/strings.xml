@@ -33,6 +33,23 @@
     <string name="text_button_save">Guardar</string>
     <string name="text_button_accept">ACEPTAR</string>
     <string name="email_hint">Correo</string>
+    <string name="admin_fragment_title">Administración</string>
+    <string name="admin_fragment_text">Por favor, selecciona un módulo</string>
+    <string name="admin_module_title">Módulo Administrativo</string>
+    <string name="transactional_module_title">Módulo Transaccional</string>
+    <string name="admin_user_section_title">Administrar usuarios</string>
+    <string name="admin_user_section_create_user_title">Crear usuarios</string>
+    <string name="admin_user_section_edit_user_title">Editar usuarios</string>
+    <string name="transactional_module_update_client">Actualizar Cliente</string>
+    <string name="transactional_module_close_company">Cierre Empresa</string>
+    <string name="transactional_module_connections">Conexiones</string>
+    <string name="transactional_module_unlock_account">Desbloquear cuenta</string>
+    <string name="transactional_module_validate_transaction_p2p">Validar transaccion P2P</string>
+    <string name="transactional_module_homologation">Homologaciones</string>
+    <string name="transactional_module_product">Producto</string>
+    <string name="transactional_module_sub_product">Subproducto</string>
+    <string name="transactional_module_forwarding_of_receip">Reenvío de comprobante</string>
+    <string name="transactional_module_colab">Colaboradores</string>
 
     <string-array name="edit_personal_info_spinner_id">
         <item>Cédula de ciudadanía</item>

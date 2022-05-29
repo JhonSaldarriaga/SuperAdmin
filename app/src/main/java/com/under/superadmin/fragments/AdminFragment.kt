@@ -32,6 +32,7 @@ class AdminFragment : Fragment() {
         _binding = FragmentAdminBinding.inflate(inflater,container,false)
         shortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
 
+        //INITIAL VALUES
         ADMIN_PAGE = "${getString(R.string.admin_fragment_title)}"
         MODULE_ADMIN = "${getString(R.string.admin_fragment_title)}/${getString(R.string.admin_module_title)}"
         ADMIN_USERS = ".../${getString(R.string.admin_user_section_title)}"
@@ -42,57 +43,57 @@ class AdminFragment : Fragment() {
         binding.backAdminButton.setOnClickListener {
             when(page){
                 MODULE_ADMIN -> {
-                    page = ADMIN_PAGE
-                    binding.pageAdminIndicatorTV.text = page
-                    crossFade(binding.constraintAdminModule, binding.constraintAdmin)
-                    binding.adminDescriptionTV.visibility = View.VISIBLE
-                    binding.adminFragmentTitleTV.text = getString(R.string.admin_fragment_title)
-                    binding.backAdminButton.visibility = View.GONE
+                    changePage(ADMIN_PAGE,
+                        View.VISIBLE,View.GONE,getString(R.string.admin_fragment_title),
+                        binding.constraintAdminModule,binding.constraintAdmin)
                 }
                 MODULE_TRANSACTIONAL -> {
-                    page = ADMIN_PAGE
-                    binding.pageAdminIndicatorTV.text = page
-                    crossFade(binding.constraintTransactionalModule, binding.constraintAdmin)
-                    binding.adminDescriptionTV.visibility = View.VISIBLE
-                    binding.adminFragmentTitleTV.text = getString(R.string.admin_fragment_title)
-                    binding.backAdminButton.visibility = View.GONE
+                    changePage(ADMIN_PAGE,
+                        View.VISIBLE,View.GONE,getString(R.string.admin_fragment_title),
+                        binding.constraintTransactionalModule,binding.constraintAdmin)
                 }
                 ADMIN_USERS -> {
-                    page = MODULE_ADMIN
-                    binding.pageAdminIndicatorTV.text = page
-                    crossFade(binding.constraintAdminModuleAdminUser, binding.constraintAdminModule)
-                    binding.adminFragmentTitleTV.text = getString(R.string.admin_module_title)
+                    changePage(MODULE_ADMIN,
+                        View.INVISIBLE,View.VISIBLE,getString(R.string.admin_module_title),
+                        binding.constraintAdminModuleAdminUser,binding.constraintAdminModule)
                 }
             }
         }
 
         binding.adminModuleButton.setOnClickListener {
-            page = MODULE_ADMIN
-            binding.pageAdminIndicatorTV.text = page
-            binding.adminDescriptionTV.visibility = View.INVISIBLE
-            binding.backAdminButton.visibility = View.VISIBLE
-            binding.adminFragmentTitleTV.text = getString(R.string.admin_module_title)
-            crossFade(binding.constraintAdmin,binding.constraintAdminModule)
+            changePage(MODULE_ADMIN,
+                View.INVISIBLE,View.VISIBLE,getString(R.string.admin_module_title),
+                binding.constraintAdmin,binding.constraintAdminModule)
         }
 
         binding.adminUserButton.setOnClickListener {
-            page = ADMIN_USERS
-            binding.pageAdminIndicatorTV.text = page
-            binding.adminDescriptionTV.visibility = View.INVISIBLE
-            binding.adminFragmentTitleTV.text = getString(R.string.admin_user_section_title)
-            crossFade(binding.constraintAdminModule,binding.constraintAdminModuleAdminUser)
+            changePage(ADMIN_USERS,
+                View.INVISIBLE,View.VISIBLE,getString(R.string.admin_user_section_title),
+                binding.constraintAdminModule,binding.constraintAdminModuleAdminUser)
         }
 
         binding.transactionalModuleButton.setOnClickListener {
-            page = MODULE_TRANSACTIONAL
-            binding.pageAdminIndicatorTV.text = page
-            binding.adminDescriptionTV.visibility = View.INVISIBLE
-            binding.backAdminButton.visibility = View.VISIBLE
-            binding.adminFragmentTitleTV.text = getString(R.string.transactional_module_title)
-            crossFade(binding.constraintAdmin,binding.constraintTransactionalModule)
+            changePage(MODULE_TRANSACTIONAL,
+                View.INVISIBLE,View.VISIBLE,getString(R.string.transactional_module_title),
+                binding.constraintAdmin,binding.constraintTransactionalModule)
         }
 
         return binding.root
+    }
+
+    private fun changePage(
+        page:String,
+        adminDescriptionVisibility:Int,
+        backAdminButtonVisibility:Int,
+        adminFragmentTitleTV:String,
+        page1:View,
+        page2:View){
+        this.page = page
+        binding.pageAdminIndicatorTV.text = page
+        binding.adminDescriptionTV.visibility = adminDescriptionVisibility
+        binding.backAdminButton.visibility = backAdminButtonVisibility
+        binding.adminFragmentTitleTV.text = adminFragmentTitleTV
+        crossFade(page1,page2)
     }
 
     //p1 -> p2

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,9 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_regular"
-            tools:text="Administración"
             app:layout_constraintBottom_toTopOf="@+id/adminFragmentTitleTV"
-            app:layout_constraintStart_toStartOf="@+id/adminFragmentTitleTV" />
+            app:layout_constraintStart_toStartOf="@+id/adminFragmentTitleTV"
+            tools:text="Administración" />
 
         <TextView
             android:id="@+id/adminFragmentTitleTV"
@@ -139,7 +138,6 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/admin_user_section_title"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

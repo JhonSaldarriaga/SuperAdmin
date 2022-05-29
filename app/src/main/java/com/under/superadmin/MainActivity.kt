@@ -5,14 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.under.superadmin.databinding.ActivityMainBinding
+import com.under.superadmin.dialog_fragment.UpdateUserConfirmationDialogFragment
 import com.under.superadmin.fragments.EditPersonalInfoFragment
 import com.under.superadmin.fragments.HomeFragment
 
-class MainActivity : AppCompatActivity(), HomeFragment.Listener, EditPersonalInfoFragment.Listener {
+class MainActivity : AppCompatActivity(),
+    HomeFragment.Listener,
+    EditPersonalInfoFragment.Listener,
+    UpdateUserConfirmationDialogFragment.Listener {
 
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var editPersonalInfoFragment: EditPersonalInfoFragment
+    private var updateUserConfirmationDialogFragment = UpdateUserConfirmationDialogFragment()
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
@@ -22,9 +27,12 @@ class MainActivity : AppCompatActivity(), HomeFragment.Listener, EditPersonalInf
 
         binding.bottomNavigationView.selectedItemId = R.id.homeMenu
         homeFragment = HomeFragment.newInstance()
-        homeFragment.listener = this
         editPersonalInfoFragment = EditPersonalInfoFragment.newInstance()
+
+        homeFragment.listener = this
         editPersonalInfoFragment.listener = this
+        updateUserConfirmationDialogFragment.listener = this
+
         showFragment(homeFragment) // Default fragment
 
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
@@ -57,8 +65,16 @@ class MainActivity : AppCompatActivity(), HomeFragment.Listener, EditPersonalInf
     //EDIT_PERSONAL_INFO LISTENER
     override fun onSaveUserInfo() {
         //SAVE NEW INFO IN DATABASE
+        val id = "1193476214" // LOAD CURRENT USER ID
+        updateUserConfirmationDialogFragment.setIdText(id)
+        updateUserConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
     }
     override fun onBackHome() {
+        showFragment(homeFragment)
+    }
+
+    // UPDATE_USER_CONFIRMATION_DIALOG LISTENER
+    override fun onAcceptButton() {
         showFragment(homeFragment)
     }
 }

@@ -27,17 +27,23 @@
     <string name="edit_personal_info_fragment_title">Información Personal</string>
     <string name="edit_personal_info_page_1">1/2</string>
     <string name="edit_personal_info_page_2">2/2</string>
+    <string name="confirm_edit_personal_info_dialog_text">Se ha actualizado correctamente\nal usuario identificado con la cedula:</string>
+    <string name="confirm_edit_personal_info_dialog_title">Actualización de usuario</string>
     <string name="text_button_next">Siguiente</string>
     <string name="text_button_save">Guardar</string>
+    <string name="text_button_accept">ACEPTAR</string>
     <string name="email_hint">Correo</string>
+
     <string-array name="edit_personal_info_spinner_id">
         <item>Cédula de ciudadanía</item>
         <item>Pasaporte</item>
     </string-array>
+
     <string-array name="edit_personal_info_spinner_company">
         <item>SUPERGIROS</item>
         <item>SUPERGIROS2</item>
     </string-array>
+
     <string-array name="edit_personal_info_spinner_rol">
         <item>SUPERADMIN</item>
         <item>SUPERADMIN2</item>

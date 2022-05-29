@@ -8,7 +8,68 @@
     tools:context=".fragments.EditPersonalInfoFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/constraintPage2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+        <EditText
+            android:id="@+id/userNumberET"
+            style="@style/editTextStyle1"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:hint="3153290416" />
+
+        <EditText
+            android:id="@+id/userPhoneET"
+            style="@style/editTextStyle1"
+            android:layout_marginTop="16dp"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userNumberET"
+            tools:hint="5547257" />
+
+        <Spinner
+            android:id="@+id/rolSpinner"
+            style="@style/spinnerStyle1"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userPhoneET"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <EditText
+            android:id="@+id/statusET"
+            style="@style/editTextStyle1"
+            android:layout_marginTop="16dp"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rolSpinner"
+            tools:hint="ACTIVO" />
+
+        <Spinner
+            android:id="@+id/companySpinner"
+            style="@style/spinnerStyle1"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statusET"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintPage1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -74,58 +135,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/secondLastNameET"
             tools:hint="jhonsaldarriagalopez@gmail.com" />
-
-        <EditText
-            android:id="@+id/userNumberET"
-            style="@style/editTextStyle1"
-            android:inputType="number"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailET"
-            tools:hint="3153290416" />
-
-        <EditText
-            android:id="@+id/userPhoneET"
-            style="@style/editTextStyle1"
-            android:layout_marginTop="16dp"
-            android:inputType="number"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userNumberET"
-            tools:hint="5547257" />
-
-        <Spinner
-            android:id="@+id/rolSpinner"
-            style="@style/spinnerStyle1"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userPhoneET"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <EditText
-            android:id="@+id/statusET"
-            style="@style/editTextStyle1"
-            android:layout_marginTop="16dp"
-            android:inputType="textPersonName"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rolSpinner"
-            tools:hint="ACTIVO" />
-
-        <Spinner
-            android:id="@+id/companySpinner"
-            style="@style/spinnerStyle1"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/statusET"
-            tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

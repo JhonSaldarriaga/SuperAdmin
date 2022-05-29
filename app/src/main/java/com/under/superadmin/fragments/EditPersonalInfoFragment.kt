@@ -1,5 +1,7 @@
 package com.under.superadmin.fragments
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +18,7 @@ class EditPersonalInfoFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var secondPage:Boolean = false
+    private var shortAnimationDuration: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,12 +30,13 @@ class EditPersonalInfoFragment : Fragment() {
         loadUserInfo()
         loadSpinners()
 
+        shortAnimationDuration = resources.getInteger(android.R.integer.config_mediumAnimTime)
+
         binding.nextSaveButton.setOnClickListener {
             if(secondPage) listener?.onSaveUserInfo()
             else{
                 secondPage = true
-                setGoneFirstPage()
-                setVisibleSecondPage()
+                crossFadeFirstPageToSecondPage()
                 binding.nextSaveButton.text = getString(R.string.text_button_save)
                 binding.pageIndicatorTV.text = getString(R.string.edit_personal_info_page_2)
             }
@@ -41,8 +45,7 @@ class EditPersonalInfoFragment : Fragment() {
         binding.backIV.setOnClickListener {
             if(secondPage) {
                 secondPage = false
-                setGoneSecondPage()
-                setVisibleFirstPage()
+                crossFadeSecondPageToFirstPage()
                 binding.nextSaveButton.text = getString(R.string.text_button_next)
                 binding.pageIndicatorTV.text = getString(R.string.edit_personal_info_page_1)
             } else listener?.onBackHome()
@@ -69,38 +72,42 @@ class EditPersonalInfoFragment : Fragment() {
         adapterRol.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     }
 
-    private fun setGoneFirstPage(){
-        binding.idTypeSpinner.visibility = View.GONE
-        binding.idET.visibility = View.GONE
-        binding.nameET.visibility = View.GONE
-        binding.firstLastNameET.visibility = View.GONE
-        binding.secondLastNameET.visibility = View.GONE
-        binding.emailET.visibility = View.GONE
+    private fun crossFadeFirstPageToSecondPage() {
+        binding.constraintPage2.apply {
+            alpha = 0f
+            visibility = View.VISIBLE
+            animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration.toLong())
+                .setListener(null)
+        }
+        binding.constraintPage1.animate()
+            .alpha(0f)
+            .setDuration(shortAnimationDuration.toLong())
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    binding.constraintPage1.visibility = View.GONE
+                }
+            })
     }
 
-    private fun setGoneSecondPage(){
-        binding.userNumberET.visibility = View.GONE
-        binding.userPhoneET.visibility = View.GONE
-        binding.rolSpinner.visibility = View.GONE
-        binding.statusET.visibility = View.GONE
-        binding.companySpinner.visibility = View.GONE
-    }
-
-    private fun setVisibleFirstPage(){
-        binding.idTypeSpinner.visibility = View.VISIBLE
-        binding.idET.visibility = View.VISIBLE
-        binding.nameET.visibility = View.VISIBLE
-        binding.firstLastNameET.visibility = View.VISIBLE
-        binding.secondLastNameET.visibility = View.VISIBLE
-        binding.emailET.visibility = View.VISIBLE
-    }
-
-    private fun setVisibleSecondPage(){
-        binding.userNumberET.visibility = View.VISIBLE
-        binding.userPhoneET.visibility = View.VISIBLE
-        binding.rolSpinner.visibility = View.VISIBLE
-        binding.statusET.visibility = View.VISIBLE
-        binding.companySpinner.visibility = View.VISIBLE
+    private fun crossFadeSecondPageToFirstPage() {
+        binding.constraintPage1.apply {
+            alpha = 0f
+            visibility = View.VISIBLE
+            animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration.toLong())
+                .setListener(null)
+        }
+        binding.constraintPage2.animate()
+            .alpha(0f)
+            .setDuration(shortAnimationDuration.toLong())
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    binding.constraintPage2.visibility = View.GONE
+                }
+            })
     }
 
     override fun onDestroyView() {

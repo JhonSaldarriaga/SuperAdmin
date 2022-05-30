@@ -77,8 +77,8 @@ class UserConfirmationDialogFragment : DialogFragment() {
         binding.centerTV.text = center
         binding.idTV.text = id
         binding.acceptChangeInfoButton.setOnClickListener {
-            dismiss()
             listener?.onAcceptButton(mode)
+            dismiss()
         }
 
         return binding.root

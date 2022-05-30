@@ -8,33 +8,46 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.under.superadmin.R
-import com.under.superadmin.databinding.FragmentEditPersonalInfoBinding
+import com.under.superadmin.databinding.FragmentCreateOrEditUserBinding
 
-class EditPersonalInfoFragment : Fragment() {
+class CreateOrEditUserFragment : Fragment() {
 
     var listener: Listener? = null
-    private var _binding: FragmentEditPersonalInfoBinding? = null
+    private var _binding: FragmentCreateOrEditUserBinding? = null
     private val binding get() = _binding!!
 
     private var secondPage:Boolean = false
     private var shortAnimationDuration: Int = 0
+
+    //val currentUser : User? = null -> Use to load userInformation when EditPersonalInfo
+    var mode : String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentEditPersonalInfoBinding.inflate(inflater,container,false)
+        _binding = FragmentCreateOrEditUserBinding.inflate(inflater,container,false)
         secondPage = false
-        loadUserInfo()
         loadSpinners()
+        shortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
 
-        shortAnimationDuration = resources.getInteger(android.R.integer.config_mediumAnimTime)
+        val createUser : String = getString(R.string.admin_user_section_create_user_title)
+        val editPersonalInfo : String = getString(R.string.edit_personal_info_fragment_title)
+
+        if (mode == editPersonalInfo) loadUserInfo()
+
+        binding.titleEditOrCreatTV.text = mode
 
         binding.nextSaveButton.setOnClickListener {
-            if(secondPage) listener?.onSaveUserInfo()
+            if(secondPage){
+                when(mode){
+                    createUser -> listener?.onCreateNewUser()
+                    editPersonalInfo -> listener?.onSaveUserInfo()
+                }
+                clearField()
+            }
             else{
                 secondPage = true
                 crossFade(binding.constraintPage1,binding.constraintPage2)
@@ -49,7 +62,13 @@ class EditPersonalInfoFragment : Fragment() {
                 crossFade(binding.constraintPage2,binding.constraintPage1)
                 binding.nextSaveButton.text = getString(R.string.text_button_next)
                 binding.pageIndicatorTV.text = getString(R.string.edit_personal_info_page_1)
-            } else listener?.onBackHome()
+            } else {
+                when(mode){
+                    createUser -> listener?.onBackUserAdmin()
+                    editPersonalInfo -> listener?.onBackHome()
+                }
+                clearField()
+            }
         }
 
         return binding.root
@@ -71,6 +90,26 @@ class EditPersonalInfoFragment : Fragment() {
         val adapterRol = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, resources.getStringArray(R.array.edit_personal_info_spinner_rol))
         binding.rolSpinner.adapter = adapterRol
         adapterRol.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    }
+
+    private fun clearField(){
+        binding.userNumberET.setText("")
+        binding.userPhoneET.setText("")
+        binding.statusET.setText("")
+        binding.idET.setText("")
+        binding.nameET.setText("")
+        binding.firstLastNameET.setText("")
+        binding.secondLastNameET.setText("")
+        binding.emailET.setText("")
+
+        binding.userNumberET.hint = ""
+        binding.userPhoneET.hint = ""
+        binding.statusET.hint = ""
+        binding.idET.hint = ""
+        binding.nameET.hint = ""
+        binding.firstLastNameET.hint = ""
+        binding.secondLastNameET.hint = ""
+        binding.emailET.hint = ""
     }
 
     //p1 -> p2
@@ -100,11 +139,14 @@ class EditPersonalInfoFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = EditPersonalInfoFragment()
+        fun newInstance() = CreateOrEditUserFragment()
     }
 
     interface Listener{
         fun onSaveUserInfo()
         fun onBackHome()
+
+        fun onCreateNewUser()
+        fun onBackUserAdmin()
     }
 }

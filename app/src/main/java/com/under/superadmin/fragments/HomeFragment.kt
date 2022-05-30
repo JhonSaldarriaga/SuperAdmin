@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
 
         binding.userNameTV.setOnClickListener { listener?.onUserNameClickListener() }
 
-            return binding.root
+        return binding.root
     }
 
     private fun getCurrentUserName():String{

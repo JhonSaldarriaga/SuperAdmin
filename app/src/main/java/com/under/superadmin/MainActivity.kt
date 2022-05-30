@@ -5,22 +5,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.under.superadmin.databinding.ActivityMainBinding
-import com.under.superadmin.dialog_fragment.UpdateUserConfirmationDialogFragment
+import com.under.superadmin.dialog_fragment.UserConfirmationDialogFragment
 import com.under.superadmin.fragments.AdminFragment
-import com.under.superadmin.fragments.EditPersonalInfoFragment
+import com.under.superadmin.fragments.CreateOrEditUserFragment
 import com.under.superadmin.fragments.HomeFragment
 
 class MainActivity : AppCompatActivity(),
     HomeFragment.Listener,
-    EditPersonalInfoFragment.Listener,
-    UpdateUserConfirmationDialogFragment.Listener,
+    CreateOrEditUserFragment.Listener,
+    UserConfirmationDialogFragment.Listener,
     AdminFragment.Listener {
 
 
     private lateinit var homeFragment: HomeFragment
-    private lateinit var editPersonalInfoFragment: EditPersonalInfoFragment
+    private lateinit var createOrEditUserFragment: CreateOrEditUserFragment
     private lateinit var adminFragment: AdminFragment
-    private var updateUserConfirmationDialogFragment = UpdateUserConfirmationDialogFragment()
+    private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
@@ -30,13 +30,13 @@ class MainActivity : AppCompatActivity(),
 
         binding.bottomNavigationView.selectedItemId = R.id.homeMenu
         homeFragment = HomeFragment.newInstance()
-        editPersonalInfoFragment = EditPersonalInfoFragment.newInstance()
+        createOrEditUserFragment = CreateOrEditUserFragment.newInstance()
         adminFragment = AdminFragment.newInstance()
 
         homeFragment.listener = this
-        editPersonalInfoFragment.listener = this
+        createOrEditUserFragment.listener = this
         adminFragment.listener = this
-        updateUserConfirmationDialogFragment.listener = this
+        userConfirmationDialogFragment.listener = this
 
         showFragment(homeFragment) // Default fragment
 
@@ -49,6 +49,14 @@ class MainActivity : AppCompatActivity(),
             true
         }
 
+        binding.bottomNavigationView.setOnItemReselectedListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.homeMenu -> {showFragment(homeFragment)}
+                R.id.adminMenu -> {showFragment(adminFragment)}
+                //R.id.reportMenu -> {showFragment()}
+            }
+            true
+        }
     }
 
     private fun showFragment (fragment: Fragment){
@@ -57,29 +65,100 @@ class MainActivity : AppCompatActivity(),
         transaction.commit()
     }
 
-    //HOME_FRAGMENT LISTENER
+    // HOME_FRAGMENT LISTENER
     override fun onUserNameClickListener() {
-        showFragment(editPersonalInfoFragment)
+        createOrEditUserFragment.mode = getString(R.string.edit_personal_info_fragment_title)
+        showFragment(createOrEditUserFragment)
     }
+
     override fun onLogoutClickListener() {
         //LOGOUT IN DATABASE
         startActivity(Intent(this,LoginActivity::class.java)) // PASS to LOGIN
         finish()
     }
 
-    //EDIT_PERSONAL_INFO LISTENER
+    // EDIT_OR_CREATE_USER LISTENER
     override fun onSaveUserInfo() {
         //SAVE NEW INFO IN DATABASE
         val id = "1193476214" // LOAD CURRENT USER ID
-        updateUserConfirmationDialogFragment.setIdText(id)
-        updateUserConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
+        userConfirmationDialogFragment.mode = getString(R.string.confirm_edit_personal_info_dialog_title)
+        userConfirmationDialogFragment.setIdText(id)
+        userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
     }
     override fun onBackHome() {
         showFragment(homeFragment)
     }
 
-    // UPDATE_USER_CONFIRMATION_DIALOG LISTENER
-    override fun onAcceptButton() {
-        showFragment(homeFragment)
+    override fun onCreateNewUser() {
+        //SAVE NEW USER IN DATABASE
+        val id = "1193476214" // LOAD NEW USER ID
+        userConfirmationDialogFragment.mode = getString(R.string.confirm_create_user_dialog_title)
+        userConfirmationDialogFragment.setIdText(id)
+        userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
+    }
+
+    override fun onBackUserAdmin() {
+        showFragment(adminFragment)
+    }
+
+    // USER_CONFIRMATION_DIALOG LISTENER
+    override fun onAcceptButton(mode: String) {
+        val createUser : String = getString(R.string.confirm_create_user_dialog_title)
+        val editPersonalInfo : String = getString(R.string.confirm_edit_personal_info_dialog_title)
+        when(mode){
+            createUser -> showFragment(adminFragment)
+            editPersonalInfo -> showFragment(homeFragment)
+        }
+    }
+
+    // ADMIN_FRAGMENT LISTENER
+    // ADMIN_USER
+    override fun onCreateUserClickListener() {
+        createOrEditUserFragment.mode = getString(R.string.admin_user_section_create_user_title)
+        showFragment(createOrEditUserFragment)
+    }
+
+    override fun onEditUserClickListener() {
+        TODO("Not yet implemented")
+    }
+    // TRANSACTIONAL_MODULE
+    override fun onUpdateClientClickListener() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onCloseCompanyClickListener() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onConnectionsClickListener() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onUnlockAccountClickListener() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onValidateTransactionClickListener() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onHomologationsClickListener() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onProductClickListener() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSubProductClickListener() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onForwardingOfReceiptClickListener() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onColabClickListener() {
+        TODO("Not yet implemented")
     }
 }

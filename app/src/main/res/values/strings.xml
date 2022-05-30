@@ -29,6 +29,8 @@
     <string name="edit_personal_info_page_2">2/2</string>
     <string name="confirm_edit_personal_info_dialog_text">Se ha actualizado correctamente\nal usuario identificado con la cedula:</string>
     <string name="confirm_edit_personal_info_dialog_title">Actualización de usuario</string>
+    <string name="confirm_create_user_dialog_text">Se ha creado correctamente\nal usuario identificado con la cedula:</string>
+    <string name="confirm_create_user_dialog_title">Creación de usuario</string>
     <string name="text_button_next">Siguiente</string>
     <string name="text_button_save">Guardar</string>
     <string name="text_button_accept">ACEPTAR</string>

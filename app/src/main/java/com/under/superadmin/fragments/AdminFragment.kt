@@ -78,7 +78,28 @@ class AdminFragment : Fragment() {
                 binding.constraintAdmin,binding.constraintTransactionalModule)
         }
 
+        setOnClickListenerAdminUser()
+        setOnClickListenerTransactionalModule()
+
         return binding.root
+    }
+
+    private fun setOnClickListenerAdminUser(){
+        binding.createUserButton.setOnClickListener { listener?.onCreateUserClickListener() }
+        binding.editUserButton.setOnClickListener { listener?.onEditUserClickListener() }
+    }
+
+    private fun setOnClickListenerTransactionalModule(){
+        binding.updateClientButton.setOnClickListener { listener?.onUpdateClientClickListener() }
+        binding.closeCompanyButton.setOnClickListener { listener?.onCloseCompanyClickListener() }
+        binding.connectionsButton.setOnClickListener { listener?.onConnectionsClickListener() }
+        binding.unlockAccountButton.setOnClickListener { listener?.onUnlockAccountClickListener() }
+        binding.validateTransactionP2PButton.setOnClickListener { listener?.onValidateTransactionClickListener() }
+        binding.homologationsButton.setOnClickListener { listener?.onHomologationsClickListener() }
+        binding.productButton.setOnClickListener { listener?.onProductClickListener() }
+        binding.subProductButton.setOnClickListener { listener?.onSubProductClickListener() }
+        binding.forwardingOfReceiptButton.setOnClickListener { listener?.onForwardingOfReceiptClickListener() }
+        binding.colabButton.setOnClickListener { listener?.onColabClickListener() }
     }
 
     private fun changePage(
@@ -127,6 +148,20 @@ class AdminFragment : Fragment() {
     }
 
     interface Listener{
+        //ADMIN USER
+        fun onCreateUserClickListener()
+        fun onEditUserClickListener()
 
+        //TRANSACTIONAL MODULE
+        fun onUpdateClientClickListener()
+        fun onCloseCompanyClickListener()
+        fun onConnectionsClickListener()
+        fun onUnlockAccountClickListener()
+        fun onValidateTransactionClickListener()
+        fun onHomologationsClickListener()
+        fun onProductClickListener()
+        fun onSubProductClickListener()
+        fun onForwardingOfReceiptClickListener()
+        fun onColabClickListener()
     }
 }

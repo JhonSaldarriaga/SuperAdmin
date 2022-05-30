@@ -6,19 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.under.superadmin.R
-import com.under.superadmin.databinding.FragmentUpdateUserConfirmationDialogBinding
+import com.under.superadmin.databinding.FragmentUserConfirmationDialogBinding
 
-class UpdateUserConfirmationDialogFragment : DialogFragment() {
+class UserConfirmationDialogFragment : DialogFragment() {
 
     var listener:Listener? = null
 
-    private var _binding: FragmentUpdateUserConfirmationDialogBinding? = null
+    private var _binding: FragmentUserConfirmationDialogBinding? = null
     private val binding get() = _binding!!
 
-    private var id:String? = null
+    private var id:String = ""
+    var mode : String = ""
 
     //ACOMODA LA VISTA
     override fun onStart() {
@@ -34,11 +34,31 @@ class UpdateUserConfirmationDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentUpdateUserConfirmationDialogBinding.inflate(inflater,container,false)
+        _binding = FragmentUserConfirmationDialogBinding.inflate(inflater,container,false)
+
+        val createUser : String = getString(R.string.confirm_create_user_dialog_title)
+        val editPersonalInfo : String = getString(R.string.confirm_edit_personal_info_dialog_title)
+
+        var title : String = ""
+        var center : String = ""
+
+        when(mode){
+            createUser -> {
+                title = getString(R.string.confirm_create_user_dialog_title)
+                center = getString(R.string.confirm_create_user_dialog_text)
+            }
+            editPersonalInfo -> {
+                title = getString(R.string.confirm_edit_personal_info_dialog_title)
+                center = getString(R.string.confirm_edit_personal_info_dialog_text)
+            }
+        }
+
+        binding.titleTV.text = title
+        binding.centerTV.text = center
         binding.idTV.text = id
         binding.acceptChangeInfoButton.setOnClickListener {
             dismiss()
-            listener?.onAcceptButton()
+            listener?.onAcceptButton(mode)
         }
 
         return binding.root
@@ -54,6 +74,6 @@ class UpdateUserConfirmationDialogFragment : DialogFragment() {
     }
 
     interface Listener{
-        fun onAcceptButton()
+        fun onAcceptButton(mode:String)
     }
 }

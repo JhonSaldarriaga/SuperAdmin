@@ -52,6 +52,7 @@
     <string name="transactional_module_sub_product">Subproducto</string>
     <string name="transactional_module_forwarding_of_receip">Reenvío de comprobante</string>
     <string name="transactional_module_colab">Colaboradores</string>
+    <string name="edit_user_title">Editar usuario</string>
 
     <string-array name="edit_personal_info_spinner_id">
         <item>Cédula de ciudadanía</item>

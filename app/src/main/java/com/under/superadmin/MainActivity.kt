@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     // EDIT_OR_CREATE_USER LISTENER
+    // EDIT PERSONAL INFO
     override fun onSaveUserInfo() {
         //SAVE NEW INFO IN DATABASE
         val id = "1193476214" // LOAD CURRENT USER ID
@@ -89,6 +90,7 @@ class MainActivity : AppCompatActivity(),
         showFragment(homeFragment)
     }
 
+    //CREATE NEW USER
     override fun onCreateNewUser() {
         //SAVE NEW USER IN DATABASE
         val id = "1193476214" // LOAD NEW USER ID
@@ -99,6 +101,19 @@ class MainActivity : AppCompatActivity(),
 
     override fun onBackUserAdmin() {
         showFragment(adminFragment)
+    }
+
+    //EDIT USER
+    override fun onEditUser() {
+        //SAVE NEW INFO IN DATABASE
+        val id = "1193476214" // LOAD CURRENT USER ID
+        userConfirmationDialogFragment.mode = getString(R.string.confirm_edit_personal_info_dialog_title)
+        userConfirmationDialogFragment.setIdText(id)
+        userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
+    }
+
+    override fun onBackEditUser() {
+        TODO("Not yet implemented")
     }
 
     // USER_CONFIRMATION_DIALOG LISTENER

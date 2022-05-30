@@ -34,6 +34,7 @@ class CreateOrEditUserFragment : Fragment() {
         shortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
 
         val createUser : String = getString(R.string.admin_user_section_create_user_title)
+        val editUser : String = getString(R.string.edit_user_title)
         val editPersonalInfo : String = getString(R.string.edit_personal_info_fragment_title)
 
         if (mode == editPersonalInfo) loadUserInfo()
@@ -45,6 +46,7 @@ class CreateOrEditUserFragment : Fragment() {
                 when(mode){
                     createUser -> listener?.onCreateNewUser()
                     editPersonalInfo -> listener?.onSaveUserInfo()
+                    editUser -> listener?.onEditUser()
                 }
                 clearField()
             }
@@ -66,6 +68,7 @@ class CreateOrEditUserFragment : Fragment() {
                 when(mode){
                     createUser -> listener?.onBackUserAdmin()
                     editPersonalInfo -> listener?.onBackHome()
+                    editUser -> listener?.onBackEditUser()
                 }
                 clearField()
             }
@@ -148,5 +151,8 @@ class CreateOrEditUserFragment : Fragment() {
 
         fun onCreateNewUser()
         fun onBackUserAdmin()
+
+        fun onEditUser()
+        fun onBackEditUser()
     }
 }

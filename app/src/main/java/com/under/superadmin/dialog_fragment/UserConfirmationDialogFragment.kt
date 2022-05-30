@@ -12,6 +12,26 @@ import com.under.superadmin.databinding.FragmentUserConfirmationDialogBinding
 
 class UserConfirmationDialogFragment : DialogFragment() {
 
+    /*
+        Este DialogFragment, con la opción de ahorrar código, lo utilizo para:
+        Confirmacion de crear usuario
+        Confirmacion de editar usuario
+        Confirmacion de editar usuario logeado
+
+        Para escoger con que modo iniciar el DialogFragment, antes de mostrarlo en la MainActivity,
+        deben de pasarle a la referencia del userConfimationDialogFragment un mode
+        que corresponda al uso que le quieren dar.
+
+        Para confirmacion de crear usuario:
+        userConfirmationDialogFragment.mode = getString(R.string.confirm_create_user_dialog_title)
+
+        Para confirmacion de editar usuario:
+        userConfirmationDialogFragment.mode = getString(R.string.confirm_edit_personal_info_dialog_title)
+
+        Ademas de eso, también deben de pasar el id del usuario. Ya sea el creado o editado:
+        userConfirmationDialogFragment.id = EL ID
+     */
+
     var listener:Listener? = null
 
     private var _binding: FragmentUserConfirmationDialogBinding? = null

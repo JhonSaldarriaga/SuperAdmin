@@ -13,6 +13,29 @@ import com.under.superadmin.databinding.FragmentCreateOrEditUserBinding
 
 class CreateOrEditUserFragment : Fragment() {
 
+    /*
+        Este fragment, con la opción de ahorrar código, lo utilizo para:
+        Editar información del usuario logeado.
+        Editar información de un usuario.
+        Crear usuario.
+        Para escoger con que modo iniciar el fragment, antes de utilizar el método showFragment()
+        en la MainActivity, deben de pasarle a la referencia del createOrEditUserFragment un mode
+        que corresponda al uso que le quieren dar.
+
+        Para crear usuario:
+        createOrEditUserFragment.mode = getString(R.string.admin_user_section_create_user_title)
+
+        Para editar usuario:
+        createOrEditUserFragment.mode = getString(R.string.edit_user_title)
+
+        Para editar información de un usuario logeado:
+        createOrEditUserFragment.mode = getString(R.string.edit_personal_info_fragment_title)
+
+        en cualquiera de los dos casos de edición debería de pasarse también a un atributo llamado
+        currentUser el usuario que se quiere editar, para poder cargar toda esa información en los
+        editText y Spinner. No la coloco porque falta el modelo del user
+     */
+
     var listener: Listener? = null
     private var _binding: FragmentCreateOrEditUserBinding? = null
     private val binding get() = _binding!!
@@ -20,7 +43,7 @@ class CreateOrEditUserFragment : Fragment() {
     private var secondPage:Boolean = false
     private var shortAnimationDuration: Int = 0
 
-    //val currentUser : User? = null -> Use to load userInformation when EditPersonalInfo
+    //var currentUser : User? = null -> cargar userInformation when EditPersonalInfo or EditUser
     var mode : String = ""
 
     override fun onCreateView(
@@ -37,7 +60,8 @@ class CreateOrEditUserFragment : Fragment() {
         val editUser : String = getString(R.string.edit_user_title)
         val editPersonalInfo : String = getString(R.string.edit_personal_info_fragment_title)
 
-        if (mode == editPersonalInfo) loadUserInfo()
+        //Aqui verifica si está en un modo de edición, para cargar la información del usuario
+        if (mode == editPersonalInfo || mode == editUser) loadUserInfo()
 
         binding.titleEditOrCreatTV.text = mode
 
@@ -77,10 +101,41 @@ class CreateOrEditUserFragment : Fragment() {
         return binding.root
     }
 
+    /*
+        Aqui se debería de implementar el cargar la información del usuario en los editText
+        y spinners. El texto en blanco debería de cambiarse por la información del currentUser
+     */
     private fun loadUserInfo(){
-        //LOAD CURRENT USER FROM DATABASE
+    /*
+        binding.userNumberET.setText("")
+        binding.userPhoneET.setText("")
+        binding.statusET.setText("")
+        binding.idET.setText("")
+        binding.nameET.setText("")
+        binding.firstLastNameET.setText("")
+        binding.secondLastNameET.setText("")
+        binding.emailET.setText("")
+
+        binding.userNumberET.hint = ""
+        binding.userPhoneET.hint = ""
+        binding.statusET.hint = ""
+        binding.idET.hint = ""
+        binding.nameET.hint = ""
+        binding.firstLastNameET.hint = ""
+        binding.secondLastNameET.hint = ""
+        binding.emailET.hint = ""
+
+        setSpinText(binding.companySpinner, "")
+        setSpinText(binding.idTypeSpinner, "")
+        setSpinText(binding.rolSpinner, "")
+         */
     }
 
+    /*
+        Carga los spinners. Como no se muy bien que información maneja cada spinner.
+        Se puede agregar el values/strings ahí se encuentran los arreglos de los 3 spinners.
+        Para agregarle elementos solo es ir creando <item>Texto</item>
+     */
     private fun loadSpinners(){
         val adapterId = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, resources.getStringArray(R.array.edit_personal_info_spinner_id))
         binding.idTypeSpinner.adapter = adapterId
@@ -115,6 +170,7 @@ class CreateOrEditUserFragment : Fragment() {
         binding.emailET.hint = ""
     }
 
+    // Animacion de transicion
     //p1 -> p2
     private fun crossFade(p1: View, p2: View) {
         p2.apply {

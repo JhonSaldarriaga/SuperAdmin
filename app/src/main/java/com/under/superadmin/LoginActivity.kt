@@ -30,11 +30,14 @@ class LoginActivity : AppCompatActivity(), ChangePasswordDialogFragment.Listener
         }
     }
 
+    // AQUI DEBERÍAMOS IMPLEMENTE EL AUTH DE FIREBASE
     private fun login(user:String, password:String){
         //--> Database login
     }
 
     //ChangePasswordDialogFragment
+    // PatronObserver con el ChangePasswordDialogFragment, cuando se le de al boton siguiente
+    // pasamos el email por el intent a la actividad CHANGE PASSWORD
     override fun onNextButton(email:String) {
         startActivity(Intent(this,ChangePasswordActivity::class.java).apply {
             putExtra("email",email)

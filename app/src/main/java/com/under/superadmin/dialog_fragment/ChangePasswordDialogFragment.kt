@@ -34,6 +34,7 @@ class ChangePasswordDialogFragment : DialogFragment() {
         _binding = FragmentChangePasswordDialogBinding.inflate(inflater,container,false)
 
         binding.goToChangePasswordButton.setOnClickListener {
+            // SE VERIFICA QUE EL TEXTO NO ESTÉ VACÍO
             val email = binding.emailChangePasswordET.text.toString()
             if (email!="") listener?.onNextButton(binding.emailChangePasswordET.text.toString())
             else Toast.makeText(requireContext(), R.string.login_error_empty_fields, Toast.LENGTH_SHORT).show()

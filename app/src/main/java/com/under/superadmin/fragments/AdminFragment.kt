@@ -12,6 +12,14 @@ import com.under.superadmin.databinding.FragmentAdminBinding
 
 class AdminFragment : Fragment() {
 
+    /*
+       Este fragmento carga todas las opciones de la parte administrativa, es decir
+       Modulo administrativo y Modulo transaccional. Tiene las transiciones de las navegaciones
+       para cuando se escoge cada opción.
+       Las opciones finales de cada modulo, tipo Crear usuario, editar usuarios o Actualizar cliente
+       etc ... Ya deberían de llevar hacia otro fragmento.
+     */
+
     private var ADMIN_PAGE : String = ""
     private var MODULE_ADMIN : String = ""
     private var ADMIN_USERS : String = ""
@@ -39,6 +47,8 @@ class AdminFragment : Fragment() {
         MODULE_TRANSACTIONAL = "${getString(R.string.admin_fragment_title)}/${getString(R.string.transactional_module_title)}"
         page = ADMIN_PAGE
         binding.pageAdminIndicatorTV.text = page
+
+        // Programada la lógica de la navegación. El back button etc.
 
         binding.backAdminButton.setOnClickListener {
             when(page){
@@ -84,6 +94,10 @@ class AdminFragment : Fragment() {
         return binding.root
     }
 
+    /*
+        En estas dos funciones, se hace uso del listener que conecta con la MainActivity, para que
+        la MainActivity sea la que se encargue de todas las transiciones de las posibles opciones.
+     */
     private fun setOnClickListenerAdminUser(){
         binding.createUserButton.setOnClickListener { listener?.onCreateUserClickListener() }
         binding.editUserButton.setOnClickListener { listener?.onEditUserClickListener() }
@@ -117,6 +131,7 @@ class AdminFragment : Fragment() {
         crossFade(page1,page2)
     }
 
+    // Animación
     //p1 -> p2
     private fun crossFade(p1: View, p2: View) {
         p2.apply {

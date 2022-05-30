@@ -15,6 +15,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    //var currentUser : User? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,7 +34,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getCurrentUserName():String{
-        //GET FROM DATABASE
+        //Se usa la información del currentUser para obtener el nombre, primer apellido y segundo
         return "JHON SALDARRIAGA LÓPEZ"
     }
 

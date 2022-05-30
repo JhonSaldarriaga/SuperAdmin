@@ -17,6 +17,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        //AQUI SE RECIBE EL EMAIL PASADO DESDE EL LOGIN CUANDO LE DAMOS SIGUIENTE AL DIALOG FRAGMENT
         val email = (intent.extras?.getString("email")).toString()
 
         binding.newPasseordET.addTextChangedListener (object : TextWatcher {

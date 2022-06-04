@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "218873540846",
+    "project_id": "superadmin-acd28",
+    "storage_bucket": "superadmin-acd28.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218873540846:android:6a31e423c27c835556c3ff",
+        "android_client_info": {
+          "package_name": "com.under.superadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218873540846-8m4su8b53hrkhc04lejp0lqmtfbf4d6f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNhm20NqdHzqZ5pzHO18yzLUUhD0Yu5AQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218873540846-8m4su8b53hrkhc04lejp0lqmtfbf4d6f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

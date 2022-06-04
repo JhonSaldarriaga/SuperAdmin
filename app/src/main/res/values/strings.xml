@@ -56,17 +56,19 @@
 
     <string-array name="edit_personal_info_spinner_id">
         <item>Cédula de ciudadanía</item>
-        <item>Pasaporte</item>
+        <item>Tarjeta de identidad</item>
+        <item>Cédula de extranjería</item>
     </string-array>
 
     <string-array name="edit_personal_info_spinner_company">
         <item>SUPERGIROS</item>
-        <item>SUPERGIROS2</item>
+        <item>CODESA</item>
+        <item>GANE</item>
     </string-array>
 
     <string-array name="edit_personal_info_spinner_rol">
         <item>SUPERADMIN</item>
-        <item>SUPERADMIN2</item>
+        <item>LOGISTICA</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -22,7 +22,7 @@ class UnlockAccountFragment : Fragment() {
         _binding = FragmentUnlockAccountBinding.inflate(inflater, container, false)
 
         binding.unlockUserBackButton.setOnClickListener { listener!!.onBackUserAdmin() }
-        binding.unlockAccountSearchButton.setOnClickListener { listener!!.onSearch(
+        binding.unlockAccountSearchButton.setOnClickListener { listener!!.onSearchLockedAccount(
             binding.unlockAccountAccountField.toString(),
             binding.unlockAccountIdentificationField.toString()
         ) }
@@ -37,11 +37,11 @@ class UnlockAccountFragment : Fragment() {
 
     interface Listener{
         fun onBackUserAdmin()
-        fun onSearch(account: String, identification: String)
+        fun onSearchLockedAccount(account: String, identification: String)
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = UnlockAccountFragment
+        fun newInstance() = UnlockAccountFragment()
     }
 }

@@ -27,7 +27,8 @@ class MainActivity : AppCompatActivity(),
     AdminFragment.Listener,
     SearchUserFragment.Listener,
     SearchResultFragment.Listener,
-    ResultViewHolder.Listener {
+    ResultViewHolder.Listener,
+    UnlockAccountFragment.Listener {
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var createOrEditUserFragment: CreateOrEditUserFragment
@@ -291,7 +292,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onUnlockAccountClickListener() {
-        TODO("Not yet implemented")
+        showFragment(unlockAccountFragment)
+    }
+
+    override fun onSearchLockedAccount (account: String, identification: String) {
+        
     }
 
     override fun onValidateTransactionClickListener() {

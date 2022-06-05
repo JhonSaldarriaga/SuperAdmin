@@ -7,8 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isGone
 import com.under.superadmin.R
 import com.under.superadmin.databinding.FragmentAdminBinding
+import kotlin.math.log
 
 class AdminFragment : Fragment() {
 
@@ -71,7 +74,8 @@ class AdminFragment : Fragment() {
         }
 
         binding.adminModuleButton.setOnClickListener {
-            changePage(MODULE_ADMIN,
+            if(listener!!.verifyLogisticType()) Toast.makeText(requireContext(),R.string.no_permissions,Toast.LENGTH_SHORT).show()
+            else changePage(MODULE_ADMIN,
                 View.INVISIBLE,View.VISIBLE,getString(R.string.admin_module_title),
                 binding.constraintAdmin,binding.constraintAdminModule)
         }
@@ -158,6 +162,8 @@ class AdminFragment : Fragment() {
     }
 
     interface Listener{
+        fun verifyLogisticType():Boolean
+
         //ADMIN USER
         fun onCreateUserClickListener()
         fun onEditUserClickListener()

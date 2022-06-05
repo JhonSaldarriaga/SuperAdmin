@@ -202,6 +202,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     // <<ADMIN_FRAGMENT LISTENER>>
+
+    override fun verifyLogisticType(): Boolean {
+        return user!!.rol == "LOGISTICA"
+    }
+
     // <ADMIN_USER>
     // Nos envía a crear usuario
     override fun onCreateUserClickListener() {

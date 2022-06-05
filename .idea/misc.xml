@@ -29,6 +29,11 @@
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/menu/menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.132" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.132" />
+        <entry key="app/src/main/res/layout/fragment_admin.xml" value="0.16893115942028986" />
+        <entry key="app/src/main/res/layout/fragment_create_or_edit_user.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_search_user.xml" value="0.2015625" />
+        <entry key="app/src/main/res/layout/fragment_unlock_account.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_user_confirmation_dialog.xml" value="0.2015625" />
       </map>
     </option>
   </component>

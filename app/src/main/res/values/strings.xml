@@ -75,6 +75,11 @@
     <string name="cel_string">Celular:</string>
     <string name="edit_button">Editar</string>
     <string name="users_not_found">No se han encontrado usuarios con los parametros escogidos</string>
+    <string name="unlock_account_title">Desbloquar Cuenta</string>
+    <string name="unlock_account_text">Por favor ingresa la cuenta o la identificación del propietario de la cuenta para validar su estado</string>
+    <string name="unlock_account_hint_1">Cuenta</string>
+    <string name="unlock_account_hint_2">Identificación</string>
+    <string name="unlock_account_button_text">Buscar</string>
 
     <string-array name="search_option_spinner">
         <item>Tipo de identificación</item>

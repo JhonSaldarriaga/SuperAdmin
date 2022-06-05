@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(),
     private lateinit var adminFragment: AdminFragment
     private lateinit var searchUserFragment: SearchUserFragment
     private lateinit var resultSearchUserFragment: SearchResultFragment
+    private lateinit var unlockAccountFragment: UnlockAccountFragment
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity(),
         adminFragment = AdminFragment.newInstance()
         searchUserFragment = SearchUserFragment.newInstance()
         resultSearchUserFragment = SearchResultFragment.newInstance()
+        unlockAccountFragment = UnlockAccountFragment.newInstance()
 
         // SE PASA EL LISTENER PARA EL PATRON OBSERVER DE CADA FRAGMENT
         homeFragment.listener = this
@@ -66,6 +68,7 @@ class MainActivity : AppCompatActivity(),
         searchUserFragment.listener = this
         resultSearchUserFragment.listenerViewHolder = this
         resultSearchUserFragment.listener = this
+        unlockAccountFragment.listener = this
 
         /*
          Cada que se quisiera hacer showFragment(homeFragment) debería de hacerse:

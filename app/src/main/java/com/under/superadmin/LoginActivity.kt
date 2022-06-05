@@ -36,19 +36,27 @@ class LoginActivity : AppCompatActivity(), ChangePasswordDialogFragment.Listener
     }
 
     // AQUI DEBERÍAMOS IMPLEMENTE EL AUTH DE FIREBASE
-    private fun login(user:String, password:String){
+    private fun login(userEmail:String, password:String){
         //--> Database login
-        Firebase.auth.signInWithEmailAndPassword(user,password).addOnSuccessListener {
+        Firebase.auth.signInWithEmailAndPassword(userEmail,password).addOnSuccessListener {
             val fbuser = Firebase.auth.currentUser
-            Firebase.firestore.collection("users").document(fbuser!!.email.toString()).get().addOnSuccessListener {
+            Firebase.firestore.collection("users").document(userEmail).get().addOnSuccessListener {
                 val user = it.toObject(User::class.java)
-                startActivity(Intent(this,MainActivity::class.java).apply {
-                    putExtra("user", Gson().toJson(user))
-                })
+                saveUser(user!!)
+                startActivity(Intent(this,MainActivity::class.java))
                 finish()
             }
-        }.addOnFailureListener {
-            Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener { exception ->
+            Firebase.firestore.collection("users").document(userEmail).get().addOnSuccessListener {
+                val user = it.toObject(User::class.java)
+                if(user!=null){
+                    if(user.claveAuto){
+                        startActivity(Intent(this,ChangePasswordActivity::class.java).apply {
+                            putExtra("email", user.email)
+                        })
+                    }
+                }else Toast.makeText(this,exception.message,Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener { Toast.makeText(this,exception.message,Toast.LENGTH_SHORT).show() }
         }
     }
 
@@ -62,5 +70,11 @@ class LoginActivity : AppCompatActivity(), ChangePasswordDialogFragment.Listener
         })
          */
         Toast.makeText(this, "Se implementará luego", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun saveUser(user:User){
+        val sp = getSharedPreferences("superadmin", MODE_PRIVATE)
+        val json = Gson().toJson(user)
+        sp.edit().putString("user",json).apply()
     }
 }

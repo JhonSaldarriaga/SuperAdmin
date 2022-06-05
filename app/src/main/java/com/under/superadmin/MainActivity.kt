@@ -38,8 +38,11 @@ class MainActivity : AppCompatActivity(),
         setContentView(binding.root)
 
         //Primero antes de todo deberia de cargarse el usuario logeado en el currentUser
-        val userTxt = (intent.extras?.getString("user")).toString()
-        user = Gson().fromJson(userTxt,User::class.java)
+        user = loadUser()
+        if(user==null || Firebase.auth.currentUser == null){
+            startActivity(Intent(this,LoginActivity::class.java))
+            finish()
+        }else Log.e(">>>","Se ha cargado el mainactivity correctamente")
 
         // SE GUARDAN LAS INSTANCIAS DE LOS FRAGMENTS
         binding.bottomNavigationView.selectedItemId = R.id.homeMenu
@@ -79,6 +82,16 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
+    fun loadUser():User?{
+        val sp = getSharedPreferences("superadmin", MODE_PRIVATE)
+        val json = sp.getString("user", "NO_USER")
+        if(json == "NO_USER"){
+            return null
+        }else{
+            return Gson().fromJson(json, User::class.java)
+        }
+    }
+
     // Funcion que muestra en el fragmentContainer el fragment pasado por el parametro
     private fun showFragment (fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
@@ -102,6 +115,8 @@ class MainActivity : AppCompatActivity(),
     override fun onLogoutClickListener() {
         //LOGOUT IN DATABASE AUTH
         startActivity(Intent(this,LoginActivity::class.java)) // PASS to LOGIN
+        getSharedPreferences("superadmin", MODE_PRIVATE).edit().clear().apply()
+        Firebase.auth.signOut()
         finish()
     }
 

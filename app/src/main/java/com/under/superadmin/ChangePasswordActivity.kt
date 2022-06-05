@@ -76,8 +76,8 @@ class ChangePasswordActivity : AppCompatActivity() {
                 Log.e(">>>", "El usuario tiene claveAuto en falso correctamente")
                 Firebase.firestore.collection("users").document(currentEmail).get().addOnSuccessListener {
                     val user = it.toObject(User::class.java)
+                    saveUser(user!!)
                     startActivity(Intent(this,MainActivity::class.java).apply {
-                        putExtra("user", Gson().toJson(user))
                         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     })
                 }
@@ -85,5 +85,11 @@ class ChangePasswordActivity : AppCompatActivity() {
         }.addOnFailureListener {
             Toast.makeText(this,it.message,Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun saveUser(user:User){
+        val sp = getSharedPreferences("superadmin", MODE_PRIVATE)
+        val json = Gson().toJson(user)
+        sp.edit().putString("user",json).apply()
     }
 }

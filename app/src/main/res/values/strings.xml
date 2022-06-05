@@ -55,6 +55,15 @@
     <string name="transactional_module_forwarding_of_receip">Reenvío de comprobante</string>
     <string name="transactional_module_colab">Colaboradores</string>
     <string name="edit_user_title">Editar usuario</string>
+    <string name="create_user_first_lastname_hint">Primer apellido</string>
+    <string name="create_user_second_lastname_hint">Segundo apellido</string>
+    <string name="create_user_name_hint">Nombre</string>
+    <string name="create_user_number_hint">Número de celular</string>
+    <string name="create_user_phone_hint">Telefono</string>
+    <string name="create_user_status_hint">Estado</string>
+    <string name="create_user_id_hint">Número de identificación</string>
+    <string name="create_user_email_hint">Correo electrónico</string>
+
 
     <string-array name="edit_personal_info_spinner_id">
         <item>Cédula de ciudadanía</item>

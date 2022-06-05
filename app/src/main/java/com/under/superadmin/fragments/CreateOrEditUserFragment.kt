@@ -75,23 +75,32 @@ class CreateOrEditUserFragment : Fragment() {
 
         //Aqui verifica si está en un modo de edición, para cargar la información del usuario
         if (mode == editPersonalInfo || mode == editUser) loadUserInfo(currentUser!!)
+        else loadDefaultHints()
 
         binding.titleEditOrCreatTV.text = mode
 
         binding.nextSaveButton.setOnClickListener {
             if(secondPage){
-                if(!verifyEmptyFields()) Toast.makeText(requireContext(), R.string.login_error_empty_fields, Toast.LENGTH_SHORT).show()
-                else{
-                    when(mode){
-                        createUser -> listener?.onCreateNewUser(extractUserInfo().apply {
-                            claveAuto = true
-                            claveAutomatica = UUID.randomUUID().toString()
-                        })
-                        editPersonalInfo -> listener?.onSaveUserInfo(extractUserInfo())
-                        editUser -> listener?.onEditUser(extractUserInfo())
+                when(mode){
+                    createUser -> {
+                        if(!verifyEmptyFieldsCreate()) Toast.makeText(requireContext(), R.string.login_error_empty_fields, Toast.LENGTH_SHORT).show()
+                        else{
+                            listener?.onCreateNewUser(extractUserInfo().apply {
+                                claveAuto = true
+                                claveAutomatica = UUID.randomUUID().toString()
+                            })
+                        }
                     }
-                    clearField()
+                    editPersonalInfo -> {
+                        if(!verifyEmptyFieldsEdit()) Toast.makeText(requireContext(), R.string.login_error_empty_fields, Toast.LENGTH_SHORT).show()
+                        else listener?.onSaveUserInfo(extractUserInfo())
+                    }
+                    editUser -> {
+                        if(!verifyEmptyFieldsEdit()) Toast.makeText(requireContext(), R.string.login_error_empty_fields, Toast.LENGTH_SHORT).show()
+                        else listener?.onEditUser(extractUserInfo())
+                    }
                 }
+                clearField()
             }
             else{
                 secondPage = true
@@ -120,7 +129,7 @@ class CreateOrEditUserFragment : Fragment() {
         return binding.root
     }
 
-    private fun verifyEmptyFields(): Boolean{
+    private fun verifyEmptyFieldsEdit(): Boolean{
         var userNumber: String = if(binding.userNumberET.text.toString() != "") binding.userNumberET.text.toString() else binding.userNumberET.hint.toString()
         var userPhone = if(binding.userPhoneET.text.toString() != "") binding.userPhoneET.text.toString() else binding.userPhoneET.hint.toString()
         var status = if(binding.statusET.text.toString()!="")binding.statusET.text.toString() else binding.statusET.hint.toString()
@@ -129,6 +138,22 @@ class CreateOrEditUserFragment : Fragment() {
         var firstLastName = if(binding.firstLastNameET.text.toString()!="") binding.firstLastNameET.text.toString() else binding.firstLastNameET.hint.toString()
         var secondLastName = if(binding.secondLastNameET.text.toString()!="") binding.secondLastNameET.text.toString() else binding.secondLastNameET.hint.toString()
         var email = if(binding.emailET.text.toString()!="") binding.emailET.text.toString() else binding.emailET.hint.toString()
+
+        Log.e(">>>","userNumber: $userNumber userPhone: $userPhone status: $status id: $id" +
+                "name: $name first: $firstLastName second: $secondLastName email: $email")
+
+        return userNumber != "" && userPhone != "" && status != "" && id != "" && name != "" && firstLastName != "" && secondLastName != "" && email != ""
+    }
+
+    private fun verifyEmptyFieldsCreate(): Boolean{
+        var userNumber: String = if(binding.userNumberET.text.toString() != "") binding.userNumberET.text.toString() else ""
+        var userPhone = if(binding.userPhoneET.text.toString() != "") binding.userPhoneET.text.toString()  else ""
+        var status = if(binding.statusET.text.toString()!="")binding.statusET.text.toString() else ""
+        var id = if(binding.idET.text.toString()!="") binding.idET.text.toString() else ""
+        var name = if(binding.nameET.text.toString()!="") binding.nameET.text.toString() else ""
+        var firstLastName = if(binding.firstLastNameET.text.toString()!="") binding.firstLastNameET.text.toString() else ""
+        var secondLastName = if(binding.secondLastNameET.text.toString()!="") binding.secondLastNameET.text.toString() else ""
+        var email = if(binding.emailET.text.toString()!="") binding.emailET.text.toString() else ""
 
         Log.e(">>>","userNumber: $userNumber userPhone: $userPhone status: $status id: $id" +
                 "name: $name first: $firstLastName second: $secondLastName email: $email")
@@ -169,6 +194,18 @@ class CreateOrEditUserFragment : Fragment() {
         binding.rolSpinner.setSelection(editPersonalInfoSpinnerRol.indexOf(user.rol))
         binding.companySpinner.setSelection(editPersonalInfoSpinnerCompany.indexOf(user.colaborador))
         binding.idTypeSpinner.setSelection(editPersonalInfoSpinnerId.indexOf(user.tipoIdetificacion))
+    }
+
+    private fun loadDefaultHints(){
+        binding.userNumberET.hint = getString(R.string.create_user_number_hint)
+        binding.userPhoneET.hint = getString(R.string.create_user_phone_hint)
+        binding.statusET.hint = getString(R.string.create_user_status_hint)
+        binding.idET.hint = getString(R.string.create_user_id_hint)
+        binding.nameET.hint = getString(R.string.create_user_name_hint)
+        binding.firstLastNameET.hint = getString(R.string.create_user_first_lastname_hint)
+        binding.secondLastNameET.hint = getString(R.string.create_user_second_lastname_hint)
+        binding.emailET.hint = getString(R.string.create_user_email_hint)
+        binding.emailET.isEnabled = true
     }
 
     /*

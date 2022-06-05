@@ -3,6 +3,7 @@ package com.under.superadmin.fragments
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -79,7 +80,7 @@ class CreateOrEditUserFragment : Fragment() {
 
         binding.nextSaveButton.setOnClickListener {
             if(secondPage){
-                if(verifyEmptyFields()) Toast.makeText(requireContext(), R.string.login_error_empty_fields, Toast.LENGTH_SHORT).show()
+                if(!verifyEmptyFields()) Toast.makeText(requireContext(), R.string.login_error_empty_fields, Toast.LENGTH_SHORT).show()
                 else{
                     when(mode){
                         createUser -> listener?.onCreateNewUser(extractUserInfo().apply {
@@ -128,6 +129,9 @@ class CreateOrEditUserFragment : Fragment() {
         var firstLastName = if(binding.firstLastNameET.text.toString()!="") binding.firstLastNameET.text.toString() else binding.firstLastNameET.hint.toString()
         var secondLastName = if(binding.secondLastNameET.text.toString()!="") binding.secondLastNameET.text.toString() else binding.secondLastNameET.hint.toString()
         var email = if(binding.emailET.text.toString()!="") binding.emailET.text.toString() else binding.emailET.hint.toString()
+
+        Log.e(">>>","userNumber: $userNumber userPhone: $userPhone status: $status id: $id" +
+                "name: $name first: $firstLastName second: $secondLastName email: $email")
 
         return userNumber != "" && userPhone != "" && status != "" && id != "" && name != "" && firstLastName != "" && secondLastName != "" && email != ""
     }

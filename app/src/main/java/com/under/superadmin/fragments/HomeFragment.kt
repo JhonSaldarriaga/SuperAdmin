@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.under.superadmin.databinding.FragmentHomeBinding
+import com.under.superadmin.model.User
 
 
 class HomeFragment : Fragment() {
@@ -15,7 +16,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    //var currentUser : User? = null
+    var currentUser : User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +24,8 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
+
+        currentUser = listener!!.onInitHomeFragment()
 
         binding.userNameTV.text = getCurrentUserName()
 
@@ -37,7 +40,7 @@ class HomeFragment : Fragment() {
 
     private fun getCurrentUserName():String{
         //Se usa la información del currentUser para obtener el nombre, primer apellido y segundo
-        return "JHON SALDARRIAGA LÓPEZ"
+        return "${currentUser!!.nombre} ${currentUser!!.apellido1} ${currentUser!!.apellido2}"
     }
 
     override fun onDestroyView() {
@@ -51,6 +54,7 @@ class HomeFragment : Fragment() {
     }
 
     interface Listener{
+        fun onInitHomeFragment():User
         fun onChangePasswordListener()
         fun onUserNameClickListener()
         fun onLogoutClickListener()

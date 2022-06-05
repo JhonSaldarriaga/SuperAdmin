@@ -40,7 +40,6 @@ class LoginActivity : AppCompatActivity(), ChangePasswordDialogFragment.Listener
     private fun login(userEmail:String, password:String){
         //--> Database login
         Firebase.auth.signInWithEmailAndPassword(userEmail,password).addOnSuccessListener {
-            val fbuser = Firebase.auth.currentUser
             Firebase.firestore.collection("users").document(userEmail).get().addOnSuccessListener {
                 val user = it.toObject(User::class.java)
                 saveUser(user!!)
@@ -54,6 +53,7 @@ class LoginActivity : AppCompatActivity(), ChangePasswordDialogFragment.Listener
                     if(user.claveAuto && user.claveAutomatica == password){
                         startActivity(Intent(this,ChangePasswordActivity::class.java).apply {
                             putExtra("email", user.email)
+                            putExtra("mode", ChangePasswordActivity.loginFirstTime)
                         })
                     }else Toast.makeText(this,exception.message,Toast.LENGTH_SHORT).show()
                 }else Toast.makeText(this,exception.message,Toast.LENGTH_SHORT).show()

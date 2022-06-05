@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    fun loadUser():User?{
+    private fun loadUser():User?{
         val sp = getSharedPreferences("superadmin", MODE_PRIVATE)
         val json = sp.getString("user", "NO_USER")
         if(json == "NO_USER"){
@@ -90,6 +90,13 @@ class MainActivity : AppCompatActivity(),
         }else{
             return Gson().fromJson(json, User::class.java)
         }
+    }
+
+    private fun saveUser(user:User){
+        val sp = getSharedPreferences("superadmin", MODE_PRIVATE)
+        val json = Gson().toJson(user)
+        sp.edit().putString("user",json).apply()
+        this.user = user
     }
 
     // Funcion que muestra en el fragmentContainer el fragment pasado por el parametro
@@ -101,14 +108,18 @@ class MainActivity : AppCompatActivity(),
 
     // <<HOME_FRAGMENT LISTENER>>
 
+
+    override fun onInitHomeFragment(): User {
+        return user!!
+    }
+
     // Esto nos lleva a editar la informacion del usuario que se encuentra logeado
     // falta implementar el modelo del usuario, para poder pasarselo al fragment
     // y asi pueda cargar toda la informacion como un hint, y pueda editarla
     override fun onUserNameClickListener() {
-        showFragment(createOrEditUserFragment.apply {
-            mode = getString(R.string.edit_personal_info_fragment_title)
-            currentUser = user
-        })
+        createOrEditUserFragment.mode = getString(R.string.edit_personal_info_fragment_title)
+        createOrEditUserFragment.currentUser = user
+        showFragment(createOrEditUserFragment)
     }
 
     // Cerrar sesión
@@ -122,7 +133,10 @@ class MainActivity : AppCompatActivity(),
 
     // Cambiar contraseña
     override fun onChangePasswordListener() {
-        startActivity(Intent(this,ChangePasswordActivity::class.java)) // PASS to LOGIN
+        startActivity(Intent(this,ChangePasswordActivity::class.java).apply {
+            putExtra("mode", ChangePasswordActivity.changePassword)
+            putExtra("email", user!!.email)
+        }) // PASS to LOGIN
     }
 
     //<<EDIT_OR_CREATE_USER LISTENER>>
@@ -135,6 +149,7 @@ class MainActivity : AppCompatActivity(),
             userConfirmationDialogFragment.mode = getString(R.string.confirm_edit_personal_info_dialog_title)
             userConfirmationDialogFragment.setIdText(passUser.numeroidentificacion)
             userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
+            saveUser(passUser)
         }
     }
     // Vuelve al fragmentHome
@@ -149,11 +164,10 @@ class MainActivity : AppCompatActivity(),
         //SAVE NEW USER IN DATABASE
         Firebase.firestore.collection("users").document(user.email).set(user).addOnSuccessListener {
             Log.e(">>>", "Se ha agregado correctamente el usuario al firestore")
+            userConfirmationDialogFragment.mode = getString(R.string.confirm_create_user_dialog_title)
+            userConfirmationDialogFragment.setIdText(user.numeroidentificacion)
+            userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
         }
-
-        userConfirmationDialogFragment.mode = getString(R.string.confirm_create_user_dialog_title)
-        userConfirmationDialogFragment.setIdText(user.numeroidentificacion)
-        userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
     }
 
     override fun onBackUserAdmin() {
@@ -165,9 +179,11 @@ class MainActivity : AppCompatActivity(),
        Debería de recibir un objeto tipo USER, con la nueva información. */
     override fun onEditUser(user: User) {
         //SAVE NEW INFO IN DATABASE
-        userConfirmationDialogFragment.mode = getString(R.string.confirm_edit_personal_info_dialog_title)
-        userConfirmationDialogFragment.setIdText(user.numeroidentificacion)
-        userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
+        Firebase.firestore.collection("users").document(user.email).set(user).addOnSuccessListener {
+            userConfirmationDialogFragment.mode = getString(R.string.confirm_edit_personal_info_dialog_title)
+            userConfirmationDialogFragment.setIdText(user.numeroidentificacion)
+            userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
+        }
     }
 
     override fun onBackEditUser() {
@@ -189,14 +205,14 @@ class MainActivity : AppCompatActivity(),
     // <ADMIN_USER>
     // Nos envía a crear usuario
     override fun onCreateUserClickListener() {
-        showFragment(createOrEditUserFragment.apply { mode = getString(R.string.admin_user_section_create_user_title) })
+        createOrEditUserFragment.mode = getString(R.string.admin_user_section_create_user_title)
+        showFragment(createOrEditUserFragment)
     }
 
     override fun onEditUserClickListener() {
-        showFragment(createOrEditUserFragment.apply {
-            mode = getString(R.string.edit_user_title)
-            currentUser = user
-        })
+        createOrEditUserFragment.mode = getString(R.string.edit_user_title)
+        createOrEditUserFragment.currentUser = user
+        showFragment(createOrEditUserFragment)
     }
 
     // <TRANSACTIONAL_MODULE>
@@ -239,4 +255,5 @@ class MainActivity : AppCompatActivity(),
     override fun onColabClickListener() {
         TODO("Not yet implemented")
     }
+
 }

@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -18,9 +19,15 @@ import java.util.*
 
 class ChangePasswordActivity : AppCompatActivity() {
 
+    companion object{
+        const val loginFirstTime = "LOGIN"
+        const val changePassword = "CHANGE PASSWORD"
+    }
+
     private val binding: ActivityChangePasswordBinding by lazy { ActivityChangePasswordBinding.inflate(layoutInflater) }
 
     private var currentEmail: String = ""
+    private var mode : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +35,7 @@ class ChangePasswordActivity : AppCompatActivity() {
 
         //AQUI SE RECIBE EL EMAIL PASADO DESDE EL LOGIN CUANDO LE DAMOS SIGUIENTE AL DIALOG FRAGMENT
         currentEmail = (intent.extras?.getString("email")).toString()
+        mode = (intent.extras?.getString("mode")).toString()
 
         binding.newPasseordET.addTextChangedListener (object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -59,14 +67,33 @@ class ChangePasswordActivity : AppCompatActivity() {
                 val newPassword = binding.newPasseordET.text.toString()
                 val confirmPassword = binding.confirmPasswordET.text.toString()
                 if(newPassword == confirmPassword){
-                    changePassword(newPassword)
+                    if(mode==loginFirstTime) changePasswordFirstTime(newPassword) else changePassword(newPassword)
                 }else Toast.makeText(this,R.string.change_password_error_not_equal,Toast.LENGTH_SHORT).show()
 
             }else Toast.makeText(this,R.string.change_password_error_condition,Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun changePassword(newPass:String){
+    private fun changePassword(newPass: String){
+        val builder = AlertDialog.Builder(this)
+            .setTitle(R.string.change_password)
+            .setMessage("¿Desea cambiar la contraseña?")
+            .setPositiveButton("Si"){ dialog, _ ->
+                Firebase.auth.currentUser?.updatePassword(newPass)?.addOnSuccessListener {
+                    Toast.makeText(this,R.string.change_password_successful,Toast.LENGTH_LONG).show()
+                    dialog.dismiss()
+                    onBackPressed()
+                }?.addOnFailureListener {
+                    dialog.dismiss()
+                    Toast.makeText(this,it.message,Toast.LENGTH_LONG).show()
+                }
+            }
+            .setNegativeButton("No"){ dialog, _ ->
+                dialog.dismiss()
+            }
+    }
+
+    private fun changePasswordFirstTime(newPass:String){
         //-->> do the change password process
         Firebase.auth.createUserWithEmailAndPassword(
             currentEmail, newPass

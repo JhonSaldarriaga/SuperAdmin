@@ -3,6 +3,7 @@ package com.under.superadmin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -50,11 +51,11 @@ class LoginActivity : AppCompatActivity(), ChangePasswordDialogFragment.Listener
             Firebase.firestore.collection("users").document(userEmail).get().addOnSuccessListener {
                 val user = it.toObject(User::class.java)
                 if(user!=null){
-                    if(user.claveAuto){
+                    if(user.claveAuto && user.claveAutomatica == password){
                         startActivity(Intent(this,ChangePasswordActivity::class.java).apply {
                             putExtra("email", user.email)
                         })
-                    }
+                    }else Toast.makeText(this,exception.message,Toast.LENGTH_SHORT).show()
                 }else Toast.makeText(this,exception.message,Toast.LENGTH_SHORT).show()
             }.addOnFailureListener { Toast.makeText(this,exception.message,Toast.LENGTH_SHORT).show() }
         }

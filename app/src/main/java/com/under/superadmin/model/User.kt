@@ -12,5 +12,6 @@ data class User(
     var numeroTelefono : String = "",
     var numeroidentificacion : String = "",
     var tipoIdetificacion : String = "",
-    var rol : String = ""
+    var rol : String = "",
+    var claveAutomatica : String = ""
 )

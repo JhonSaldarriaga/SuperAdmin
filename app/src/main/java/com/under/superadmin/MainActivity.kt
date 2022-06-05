@@ -129,12 +129,13 @@ class MainActivity : AppCompatActivity(),
     //<EDIT PERSONAL INFO>
     /* Guardar la informacion editada del usuario logeado
        Debería de recibir un objeto tipo USER, con la nueva información. */
-    override fun onSaveUserInfo(user: User) {
+    override fun onSaveUserInfo(passUser: User) {
         //SAVE NEW INFO IN DATABASE
-        val id = "1193476214" // DEBE DE PONERSE EL ID DEL USUARIO RECIBIDO
-        userConfirmationDialogFragment.mode = getString(R.string.confirm_edit_personal_info_dialog_title)
-        userConfirmationDialogFragment.setIdText(id)
-        userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
+        Firebase.firestore.collection("users").document(passUser.email).set(passUser).addOnSuccessListener {
+            userConfirmationDialogFragment.mode = getString(R.string.confirm_edit_personal_info_dialog_title)
+            userConfirmationDialogFragment.setIdText(passUser.numeroidentificacion)
+            userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
+        }
     }
     // Vuelve al fragmentHome
     override fun onBackHome() {

@@ -82,7 +82,10 @@ class CreateOrEditUserFragment : Fragment() {
                 if(verifyEmptyFields()) Toast.makeText(requireContext(), R.string.login_error_empty_fields, Toast.LENGTH_SHORT).show()
                 else{
                     when(mode){
-                        createUser -> listener?.onCreateNewUser(extractUserInfo().apply { claveAuto = true })
+                        createUser -> listener?.onCreateNewUser(extractUserInfo().apply {
+                            claveAuto = true
+                            claveAutomatica = UUID.randomUUID().toString()
+                        })
                         editPersonalInfo -> listener?.onSaveUserInfo(extractUserInfo())
                         editUser -> listener?.onEditUser(extractUserInfo())
                     }
@@ -158,6 +161,7 @@ class CreateOrEditUserFragment : Fragment() {
         binding.firstLastNameET.hint = user.apellido1
         binding.secondLastNameET.hint = user.apellido2
         binding.emailET.hint = user.email
+        binding.emailET.isEnabled = false
         binding.rolSpinner.setSelection(editPersonalInfoSpinnerRol.indexOf(user.rol))
         binding.companySpinner.setSelection(editPersonalInfoSpinnerCompany.indexOf(user.colaborador))
         binding.idTypeSpinner.setSelection(editPersonalInfoSpinnerId.indexOf(user.tipoIdetificacion))
@@ -200,6 +204,8 @@ class CreateOrEditUserFragment : Fragment() {
         binding.firstLastNameET.hint = ""
         binding.secondLastNameET.hint = ""
         binding.emailET.hint = ""
+
+        binding.emailET.isEnabled = true
     }
 
     // Animacion de transicion

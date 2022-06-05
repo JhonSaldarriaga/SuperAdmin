@@ -81,6 +81,12 @@
     <string name="unlock_account_hint_2">Identificación</string>
     <string name="unlock_account_button_text">Buscar</string>
     <string name="clients_not_found">No se han encontrado clientes con los parametros escogidos</string>
+    <string name="result_unlock_account_identification">Identificación:</string>
+    <string name="result_unlock_account_restrictive_list">Propietaria lista restrictiva:</string>
+    <string name="result_unlock_account_account">Cuenta:</string>
+    <string name="result_unlock_account_locked_account">¿Cuenta Bloqueada?</string>
+    <string name="result_unlock_account_user_locked">¿Usuario Bloqueado?</string>
+    <string name="result_unlock_account_facial_locked">¿Bloqueado por reconocimiento facial?</string>
 
     <string-array name="search_option_spinner">
         <item>Tipo de identificación</item>

@@ -58,6 +58,7 @@ class UserConfirmationDialogFragment : DialogFragment() {
 
         val createUser : String = getString(R.string.confirm_create_user_dialog_title)
         val editPersonalInfo : String = getString(R.string.confirm_edit_personal_info_dialog_title)
+        val editUser : String = getString(R.string.edit_user_title)
 
         var title : String = ""
         var center : String = ""
@@ -68,6 +69,10 @@ class UserConfirmationDialogFragment : DialogFragment() {
                 center = getString(R.string.confirm_create_user_dialog_text)
             }
             editPersonalInfo -> {
+                title = getString(R.string.confirm_edit_personal_info_dialog_title)
+                center = getString(R.string.confirm_edit_personal_info_dialog_text)
+            }
+            editUser -> {
                 title = getString(R.string.confirm_edit_personal_info_dialog_title)
                 center = getString(R.string.confirm_edit_personal_info_dialog_text)
             }

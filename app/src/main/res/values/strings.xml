@@ -64,6 +64,22 @@
     <string name="create_user_id_hint">Número de identificación</string>
     <string name="create_user_email_hint">Correo electrónico</string>
     <string name="no_permissions">No tienes permisos</string>
+    <string name="search_user_text">Por favor busca un usuario para poder\neditar su información</string>
+    <string name="seach_button">Buscar</string>
+    <string name="result_search_title">Resultados de búsqueda</string>
+    <string name="state_active_string">Activo</string>
+    <string name="state_inactive_string">Inactivo</string>
+    <string name="cc_string">Cc:</string>
+    <string name="rol_string">Rol:</string>
+    <string name="tel_string">Tel:</string>
+    <string name="cel_string">Celular:</string>
+    <string name="edit_button">Editar</string>
+    <string name="users_not_found">No se han encontrado usuarios con los parametros escogidos</string>
+
+    <string-array name="search_option_spinner">
+        <item>Tipo de identificación</item>
+        <item>Rol</item>
+    </string-array>
 
     <string-array name="edit_personal_info_spinner_id">
         <item>Cédula de ciudadanía</item>
@@ -71,15 +87,15 @@
         <item>Cédula de extranjería</item>
     </string-array>
 
+    <string-array name="edit_personal_info_spinner_rol">
+        <item>SUPERADMIN</item>
+        <item>LOGISTICA</item>
+    </string-array>
+
     <string-array name="edit_personal_info_spinner_company">
         <item>SUPERGIROS</item>
         <item>CODESA</item>
         <item>GANE</item>
-    </string-array>
-
-    <string-array name="edit_personal_info_spinner_rol">
-        <item>SUPERADMIN</item>
-        <item>LOGISTICA</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

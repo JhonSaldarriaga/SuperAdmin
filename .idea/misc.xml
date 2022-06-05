@@ -13,7 +13,7 @@
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/drawable/menuitem_report_selector.xml" value="0.1" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/drawable/rectangle_buttom_navigation.xml" value="0.3255" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/font/nunito.xml" value="0.396875" />
-        <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/activity_change_password.xml" value="0.5" />
+        <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/activity_change_password.xml" value="0.33" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/fragment_admin.xml" value="0.33" />
@@ -21,8 +21,11 @@
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/fragment_create_or_edit_user.xml" value="0.33" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/fragment_edit_personal_info.xml" value="0.33" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/fragment_search_result.xml" value="0.33" />
+        <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/fragment_search_user.xml" value="0.33" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/fragment_update_user_confirmation_dialog.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/fragment_user_confirmation_dialog.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/layout/result_row.xml" value="0.5" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/menu/menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.132" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.132" />

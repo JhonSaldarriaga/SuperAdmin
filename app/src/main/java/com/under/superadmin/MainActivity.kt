@@ -7,27 +7,33 @@ import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.under.superadmin.databinding.ActivityMainBinding
 import com.under.superadmin.dialog_fragment.UserConfirmationDialogFragment
-import com.under.superadmin.fragments.AdminFragment
-import com.under.superadmin.fragments.CreateOrEditUserFragment
-import com.under.superadmin.fragments.HomeFragment
+import com.under.superadmin.fragments.*
+import com.under.superadmin.fragments.search_user_recycler_model.ResultViewHolder
 import com.under.superadmin.model.User
 import java.util.*
+import kotlin.collections.ArrayList
 
 // ACTIVIDAD QUE SOPORTA EL BOTTOM NAVIGATION BAR
 class MainActivity : AppCompatActivity(),
     HomeFragment.Listener,
     CreateOrEditUserFragment.Listener,
     UserConfirmationDialogFragment.Listener,
-    AdminFragment.Listener {
+    AdminFragment.Listener,
+    SearchUserFragment.Listener,
+    SearchResultFragment.Listener,
+    ResultViewHolder.Listener {
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var createOrEditUserFragment: CreateOrEditUserFragment
     private lateinit var adminFragment: AdminFragment
+    private lateinit var searchUserFragment: SearchUserFragment
+    private lateinit var resultSearchUserFragment: SearchResultFragment
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -49,12 +55,17 @@ class MainActivity : AppCompatActivity(),
         homeFragment = HomeFragment.newInstance()
         createOrEditUserFragment = CreateOrEditUserFragment.newInstance()
         adminFragment = AdminFragment.newInstance()
+        searchUserFragment = SearchUserFragment.newInstance()
+        resultSearchUserFragment = SearchResultFragment.newInstance()
 
         // SE PASA EL LISTENER PARA EL PATRON OBSERVER DE CADA FRAGMENT
         homeFragment.listener = this
         createOrEditUserFragment.listener = this
         adminFragment.listener = this
         userConfirmationDialogFragment.listener = this
+        searchUserFragment.listener = this
+        resultSearchUserFragment.listenerViewHolder = this
+        resultSearchUserFragment.listener = this
 
         /*
          Cada que se quisiera hacer showFragment(homeFragment) debería de hacerse:
@@ -179,15 +190,18 @@ class MainActivity : AppCompatActivity(),
        Debería de recibir un objeto tipo USER, con la nueva información. */
     override fun onEditUser(user: User) {
         //SAVE NEW INFO IN DATABASE
+        if(user.email == this.user!!.email){
+            saveUser(user)
+        }
         Firebase.firestore.collection("users").document(user.email).set(user).addOnSuccessListener {
-            userConfirmationDialogFragment.mode = getString(R.string.confirm_edit_personal_info_dialog_title)
+            userConfirmationDialogFragment.mode = getString(R.string.edit_user_title)
             userConfirmationDialogFragment.setIdText(user.numeroidentificacion)
             userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
         }
     }
 
     override fun onBackEditUser() {
-        TODO("Not yet implemented")
+        showFragment(searchUserFragment)
     }
 
     // <<USER_CONFIRMATION_DIALOG LISTENER>>
@@ -195,9 +209,11 @@ class MainActivity : AppCompatActivity(),
     override fun onAcceptButton(mode: String) {
         val createUser : String = getString(R.string.confirm_create_user_dialog_title)
         val editPersonalInfo : String = getString(R.string.confirm_edit_personal_info_dialog_title)
+        val editUser : String = getString(R.string.edit_user_title)
         when(mode){
             createUser -> showFragment(adminFragment)
             editPersonalInfo -> showFragment(homeFragment)
+            editUser -> showFragment(searchUserFragment)
         }
     }
 
@@ -215,6 +231,44 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onEditUserClickListener() {
+        showFragment(searchUserFragment)
+    }
+
+    // SEARCH USER FRAGMENT
+    override fun onSearch(colab: String, searchBy: String, option: String) {
+
+        Log.e(">>>", "colab:$colab searchBy:$searchBy option:$option")
+
+        Firebase.firestore.collection("users").whereEqualTo("colaborador", colab).get().addOnCompleteListener{ task ->
+                if(task.result?.size() != 0){
+                    var usersFound = ArrayList<User>()
+                    for(document in task.result!!) {
+                        val userFound = document.toObject(User::class.java)
+                        if(searchBy == "Tipo de identificación") {
+                            if(userFound.tipoIdetificacion == option) {
+                                Log.e(">>>","usertypeIdentificatonFound: ${userFound.tipoIdetificacion}")
+                                usersFound.add(userFound)
+                            }
+                        }else if(searchBy == "Rol") {
+                            Log.e(">>>","userRolFound: ${userFound.rol}")
+                            if(userFound.rol == option) usersFound.add(userFound)
+                        }
+                    }
+                    if(usersFound.size>0){
+                        resultSearchUserFragment.userList = usersFound
+                        showFragment(resultSearchUserFragment)
+                    }else Toast.makeText(this, R.string.users_not_found, Toast.LENGTH_SHORT).show()
+                }else Toast.makeText(this, R.string.users_not_found, Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    // RESULT SEARCH USER
+    override fun onBackSearchResult() {
+        showFragment(searchUserFragment)
+    }
+
+    // RESULT VIEW HOLDER FRAGMENT
+    override fun onGoToEditUser(user: User) {
         createOrEditUserFragment.mode = getString(R.string.edit_user_title)
         createOrEditUserFragment.currentUser = user
         showFragment(createOrEditUserFragment)

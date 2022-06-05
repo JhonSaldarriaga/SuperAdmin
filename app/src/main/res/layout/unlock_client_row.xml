@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/unlockAccount_nameClient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -35,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15">
+            app:layout_constraintTop_toBottomOf="@+id/unlockAccount_nameClient">
 
             <TextView
                 android:id="@+id/textView17"
@@ -144,7 +144,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView21"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView21"
-                app:srcCompat="@android:drawable/ic_partial_secure" />
+                app:srcCompat="@android:drawable/ic_secure" />
 
             <ImageView
                 android:id="@+id/unlockAccount_userButton"
@@ -168,7 +168,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView23"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView23"
-                app:srcCompat="@android:drawable/ic_partial_secure" />
+                app:srcCompat="@android:drawable/ic_secure" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

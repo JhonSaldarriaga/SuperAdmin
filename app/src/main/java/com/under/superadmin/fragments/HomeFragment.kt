@@ -30,6 +30,8 @@ class HomeFragment : Fragment() {
 
         binding.userNameTV.setOnClickListener { listener?.onUserNameClickListener() }
 
+        binding.changePasswordTV.setOnClickListener{ listener?.onChangePasswordListener() }
+
         return binding.root
     }
 
@@ -49,6 +51,7 @@ class HomeFragment : Fragment() {
     }
 
     interface Listener{
+        fun onChangePasswordListener()
         fun onUserNameClickListener()
         fun onLogoutClickListener()
     }

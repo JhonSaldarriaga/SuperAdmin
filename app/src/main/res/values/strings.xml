@@ -9,6 +9,7 @@
     <string name="login_button">Ingresar</string>
     <string name="login_recovery_password">Recuperar contraseña</string>
     <string name="login_error_empty_fields">ERROR: No se permiten campos vacíos</string>
+    <string name="change_password">Cambiar contraseña</string>
     <string name="change_password_dialog_fragment_title">RECUPERAR\nCONTRASEÑA</string>
     <string name="change_password_dialog_fragment_add_email">Por favor\ningresa tu correo.</string>
     <string name="change_password_welcome">Por favor, ingresa tu nueva \ncontraseña</string>

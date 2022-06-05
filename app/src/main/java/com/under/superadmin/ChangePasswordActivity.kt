@@ -5,20 +5,29 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isVisible
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import com.under.superadmin.databinding.ActivityChangePasswordBinding
+import com.under.superadmin.model.User
+import java.util.*
 
 class ChangePasswordActivity : AppCompatActivity() {
 
     private val binding: ActivityChangePasswordBinding by lazy { ActivityChangePasswordBinding.inflate(layoutInflater) }
+
+    private var currentEmail: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         //AQUI SE RECIBE EL EMAIL PASADO DESDE EL LOGIN CUANDO LE DAMOS SIGUIENTE AL DIALOG FRAGMENT
-        val email = (intent.extras?.getString("email")).toString()
+        currentEmail = (intent.extras?.getString("email")).toString()
 
         binding.newPasseordET.addTextChangedListener (object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -59,6 +68,22 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     private fun changePassword(newPass:String){
         //-->> do the change password process
-        startActivity(Intent(this,LoginActivity::class.java))
+        Firebase.auth.createUserWithEmailAndPassword(
+            currentEmail, newPass
+        ).addOnSuccessListener {
+            Log.e(">>>","Se ha agregado correctamente el usuario al auth")
+            Firebase.firestore.collection("users").document(currentEmail).update("claveAuto", false).addOnSuccessListener {
+                Log.e(">>>", "El usuario tiene claveAuto en falso correctamente")
+                Firebase.firestore.collection("users").document(currentEmail).get().addOnSuccessListener {
+                    val user = it.toObject(User::class.java)
+                    startActivity(Intent(this,MainActivity::class.java).apply {
+                        putExtra("user", Gson().toJson(user))
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    })
+                }
+            }
+        }.addOnFailureListener {
+            Toast.makeText(this,it.message,Toast.LENGTH_LONG).show()
+        }
     }
 }

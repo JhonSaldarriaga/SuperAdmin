@@ -3,12 +3,21 @@ package com.under.superadmin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import com.under.superadmin.databinding.ActivityMainBinding
 import com.under.superadmin.dialog_fragment.UserConfirmationDialogFragment
 import com.under.superadmin.fragments.AdminFragment
 import com.under.superadmin.fragments.CreateOrEditUserFragment
 import com.under.superadmin.fragments.HomeFragment
+import com.under.superadmin.model.User
+import java.util.*
+
 // ACTIVIDAD QUE SOPORTA EL BOTTOM NAVIGATION BAR
 class MainActivity : AppCompatActivity(),
     HomeFragment.Listener,
@@ -22,13 +31,15 @@ class MainActivity : AppCompatActivity(),
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    //private var currentUser : User? = null
+    private var user : User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         //Primero antes de todo deberia de cargarse el usuario logeado en el currentUser
+        val userTxt = (intent.extras?.getString("user")).toString()
+        user = Gson().fromJson(userTxt,User::class.java)
 
         // SE GUARDAN LAS INSTANCIAS DE LOS FRAGMENTS
         binding.bottomNavigationView.selectedItemId = R.id.homeMenu
@@ -81,8 +92,10 @@ class MainActivity : AppCompatActivity(),
     // falta implementar el modelo del usuario, para poder pasarselo al fragment
     // y asi pueda cargar toda la informacion como un hint, y pueda editarla
     override fun onUserNameClickListener() {
-        createOrEditUserFragment.mode = getString(R.string.edit_personal_info_fragment_title)
-        showFragment(createOrEditUserFragment)
+        showFragment(createOrEditUserFragment.apply {
+            mode = getString(R.string.edit_personal_info_fragment_title)
+            currentUser = user
+        })
     }
 
     // Cerrar sesión
@@ -92,11 +105,16 @@ class MainActivity : AppCompatActivity(),
         finish()
     }
 
+    // Cambiar contraseña
+    override fun onChangePasswordListener() {
+        startActivity(Intent(this,ChangePasswordActivity::class.java)) // PASS to LOGIN
+    }
+
     //<<EDIT_OR_CREATE_USER LISTENER>>
     //<EDIT PERSONAL INFO>
     /* Guardar la informacion editada del usuario logeado
        Debería de recibir un objeto tipo USER, con la nueva información. */
-    override fun onSaveUserInfo() {
+    override fun onSaveUserInfo(user: User) {
         //SAVE NEW INFO IN DATABASE
         val id = "1193476214" // DEBE DE PONERSE EL ID DEL USUARIO RECIBIDO
         userConfirmationDialogFragment.mode = getString(R.string.confirm_edit_personal_info_dialog_title)
@@ -111,11 +129,14 @@ class MainActivity : AppCompatActivity(),
     //<CREATE NEW USER>
     /* Crea un nuevo usuario en la base de datos
        Debería de recibir un objeto tipo USER, con el nuevo usuario que se quiere agregar */
-    override fun onCreateNewUser() {
+    override fun onCreateNewUser(user: User) {
         //SAVE NEW USER IN DATABASE
-        val id = "1193476214" // DEBE DE PONERSE EL ID DEL USUARIO RECIBIDO
+        Firebase.firestore.collection("users").document(user.email).set(user).addOnSuccessListener {
+            Log.e(">>>", "Se ha agregado correctamente el usuario al firestore")
+        }
+
         userConfirmationDialogFragment.mode = getString(R.string.confirm_create_user_dialog_title)
-        userConfirmationDialogFragment.setIdText(id)
+        userConfirmationDialogFragment.setIdText(user.numeroidentificacion)
         userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
     }
 
@@ -126,11 +147,10 @@ class MainActivity : AppCompatActivity(),
     //<EDIT USER>
     /* Guardar la informacion editada del usuario seleccionado
        Debería de recibir un objeto tipo USER, con la nueva información. */
-    override fun onEditUser() {
+    override fun onEditUser(user: User) {
         //SAVE NEW INFO IN DATABASE
-        val id = "1193476214" // DEBE DE PONERSE EL ID DEL USUARIO RECIBIDO
         userConfirmationDialogFragment.mode = getString(R.string.confirm_edit_personal_info_dialog_title)
-        userConfirmationDialogFragment.setIdText(id)
+        userConfirmationDialogFragment.setIdText(user.numeroidentificacion)
         userConfirmationDialogFragment.show(supportFragmentManager,"Confirm update user info")
     }
 
@@ -153,12 +173,14 @@ class MainActivity : AppCompatActivity(),
     // <ADMIN_USER>
     // Nos envía a crear usuario
     override fun onCreateUserClickListener() {
-        createOrEditUserFragment.mode = getString(R.string.admin_user_section_create_user_title)
-        showFragment(createOrEditUserFragment)
+        showFragment(createOrEditUserFragment.apply { mode = getString(R.string.admin_user_section_create_user_title) })
     }
 
     override fun onEditUserClickListener() {
-        TODO("Not yet implemented")
+        showFragment(createOrEditUserFragment.apply {
+            mode = getString(R.string.edit_user_title)
+            currentUser = user
+        })
     }
 
     // <TRANSACTIONAL_MODULE>

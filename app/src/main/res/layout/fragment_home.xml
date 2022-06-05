@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/nunito_bold"
+            android:includeFontPadding="false"
             android:textColor="@color/blue_super_admin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,5 +75,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logoutButton" />
+
+        <TextView
+            android:id="@+id/changePasswordTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/nunito_italic"
+            android:text="@string/change_password"
+            android:textColor="@color/blue_super_admin"
+            app:layout_constraintEnd_toEndOf="@+id/userNameTV"
+            app:layout_constraintStart_toStartOf="@+id/userNameTV"
+            app:layout_constraintTop_toBottomOf="@+id/userNameTV" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,8 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.under.superadmin.R
 import com.under.superadmin.databinding.FragmentCreateOrEditUserBinding
+import com.under.superadmin.model.User
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CreateOrEditUserFragment : Fragment() {
 
@@ -36,6 +40,10 @@ class CreateOrEditUserFragment : Fragment() {
         editText y Spinner. No la coloco porque falta el modelo del user
      */
 
+    private var editPersonalInfoSpinnerCompany : ArrayList<String> = ArrayList()
+    private var editPersonalInfoSpinnerId : ArrayList<String> = ArrayList()
+    private var editPersonalInfoSpinnerRol : ArrayList<String> = ArrayList()
+
     var listener: Listener? = null
     private var _binding: FragmentCreateOrEditUserBinding? = null
     private val binding get() = _binding!!
@@ -43,7 +51,7 @@ class CreateOrEditUserFragment : Fragment() {
     private var secondPage:Boolean = false
     private var shortAnimationDuration: Int = 0
 
-    //var currentUser : User? = null -> cargar userInformation when EditPersonalInfo or EditUser
+    var currentUser : User? = null
     var mode : String = ""
 
     override fun onCreateView(
@@ -52,6 +60,10 @@ class CreateOrEditUserFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentCreateOrEditUserBinding.inflate(inflater,container,false)
+
+        Collections.addAll(editPersonalInfoSpinnerCompany, *resources.getStringArray(R.array.edit_personal_info_spinner_company))
+        Collections.addAll(editPersonalInfoSpinnerId, *resources.getStringArray(R.array.edit_personal_info_spinner_id))
+        Collections.addAll(editPersonalInfoSpinnerRol, *resources.getStringArray(R.array.edit_personal_info_spinner_rol))
         secondPage = false
         loadSpinners()
         shortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
@@ -61,18 +73,21 @@ class CreateOrEditUserFragment : Fragment() {
         val editPersonalInfo : String = getString(R.string.edit_personal_info_fragment_title)
 
         //Aqui verifica si está en un modo de edición, para cargar la información del usuario
-        if (mode == editPersonalInfo || mode == editUser) loadUserInfo()
+        if (mode == editPersonalInfo || mode == editUser) loadUserInfo(currentUser!!)
 
         binding.titleEditOrCreatTV.text = mode
 
         binding.nextSaveButton.setOnClickListener {
             if(secondPage){
-                when(mode){
-                    createUser -> listener?.onCreateNewUser()
-                    editPersonalInfo -> listener?.onSaveUserInfo()
-                    editUser -> listener?.onEditUser()
+                if(verifyEmptyFields()) Toast.makeText(requireContext(), R.string.login_error_empty_fields, Toast.LENGTH_SHORT).show()
+                else{
+                    when(mode){
+                        createUser -> listener?.onCreateNewUser(extractUserInfo().apply { claveAuto = true })
+                        editPersonalInfo -> listener?.onSaveUserInfo(extractUserInfo())
+                        editUser -> listener?.onEditUser(extractUserInfo())
+                    }
+                    clearField()
                 }
-                clearField()
             }
             else{
                 secondPage = true
@@ -101,34 +116,51 @@ class CreateOrEditUserFragment : Fragment() {
         return binding.root
     }
 
+    private fun verifyEmptyFields(): Boolean{
+        var userNumber: String = if(binding.userNumberET.text.toString() != "") binding.userNumberET.text.toString() else binding.userNumberET.hint.toString()
+        var userPhone = if(binding.userPhoneET.text.toString() != "") binding.userPhoneET.text.toString() else binding.userPhoneET.hint.toString()
+        var status = if(binding.statusET.text.toString()!="")binding.statusET.text.toString() else binding.statusET.hint.toString()
+        var id = if(binding.idET.text.toString()!="") binding.idET.text.toString() else binding.idET.hint.toString()
+        var name = if(binding.nameET.text.toString()!="") binding.nameET.text.toString() else binding.nameET.hint.toString()
+        var firstLastName = if(binding.firstLastNameET.text.toString()!="") binding.firstLastNameET.text.toString() else binding.firstLastNameET.hint.toString()
+        var secondLastName = if(binding.secondLastNameET.text.toString()!="") binding.secondLastNameET.text.toString() else binding.secondLastNameET.hint.toString()
+        var email = if(binding.emailET.text.toString()!="") binding.emailET.text.toString() else binding.emailET.hint.toString()
+
+        return userNumber != "" && userPhone != "" && status != "" && id != "" && name != "" && firstLastName != "" && secondLastName != "" && email != ""
+    }
+
+    private fun extractUserInfo():User{
+        var userNumber: String = if(binding.userNumberET.text.toString() != "") binding.userNumberET.text.toString() else binding.userNumberET.hint.toString()
+        var userPhone = if(binding.userPhoneET.text.toString() != "") binding.userPhoneET.text.toString() else binding.userPhoneET.hint.toString()
+        var status = if(binding.statusET.text.toString()!="")binding.statusET.text.toString() else binding.statusET.hint.toString()
+        var id = if(binding.idET.text.toString()!="") binding.idET.text.toString() else binding.idET.hint.toString()
+        var name = if(binding.nameET.text.toString()!="") binding.nameET.text.toString() else binding.nameET.hint.toString()
+        var firstLastName = if(binding.firstLastNameET.text.toString()!="") binding.firstLastNameET.text.toString() else binding.firstLastNameET.hint.toString()
+        var secondLastName = if(binding.secondLastNameET.text.toString()!="") binding.secondLastNameET.text.toString() else binding.secondLastNameET.hint.toString()
+        var email = if(binding.emailET.text.toString()!="") binding.emailET.text.toString() else binding.emailET.hint.toString()
+        var typeId = binding.idTypeSpinner.selectedItem.toString()
+        var colaborador = binding.companySpinner.selectedItem.toString()
+        var rol = binding.rolSpinner.selectedItem.toString()
+
+        return User(firstLastName,secondLastName,name,colaborador,false,email,status,userNumber,userPhone,id,typeId,rol)
+    }
+
     /*
         Aqui se debería de implementar el cargar la información del usuario en los editText
         y spinners. El texto en blanco debería de cambiarse por la información del currentUser
      */
-    private fun loadUserInfo(){
-    /*
-        binding.userNumberET.setText("")
-        binding.userPhoneET.setText("")
-        binding.statusET.setText("")
-        binding.idET.setText("")
-        binding.nameET.setText("")
-        binding.firstLastNameET.setText("")
-        binding.secondLastNameET.setText("")
-        binding.emailET.setText("")
-
-        binding.userNumberET.hint = ""
-        binding.userPhoneET.hint = ""
-        binding.statusET.hint = ""
-        binding.idET.hint = ""
-        binding.nameET.hint = ""
-        binding.firstLastNameET.hint = ""
-        binding.secondLastNameET.hint = ""
-        binding.emailET.hint = ""
-
-        setSpinText(binding.companySpinner, "")
-        setSpinText(binding.idTypeSpinner, "")
-        setSpinText(binding.rolSpinner, "")
-         */
+    private fun loadUserInfo(user:User){
+        binding.userNumberET.hint = user.numeroCelular
+        binding.userPhoneET.hint = user.numeroTelefono
+        binding.statusET.hint = user.estado
+        binding.idET.hint = user.numeroidentificacion
+        binding.nameET.hint = user.nombre
+        binding.firstLastNameET.hint = user.apellido1
+        binding.secondLastNameET.hint = user.apellido2
+        binding.emailET.hint = user.email
+        binding.rolSpinner.setSelection(editPersonalInfoSpinnerRol.indexOf(user.rol))
+        binding.companySpinner.setSelection(editPersonalInfoSpinnerCompany.indexOf(user.colaborador))
+        binding.idTypeSpinner.setSelection(editPersonalInfoSpinnerId.indexOf(user.tipoIdetificacion))
     }
 
     /*
@@ -202,13 +234,13 @@ class CreateOrEditUserFragment : Fragment() {
     }
 
     interface Listener{
-        fun onSaveUserInfo()
+        fun onSaveUserInfo(user: User)
         fun onBackHome()
 
-        fun onCreateNewUser()
+        fun onCreateNewUser(user: User)
         fun onBackUserAdmin()
 
-        fun onEditUser()
+        fun onEditUser(user: User)
         fun onBackEditUser()
     }
 }

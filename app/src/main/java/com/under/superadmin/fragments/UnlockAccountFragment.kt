@@ -23,8 +23,8 @@ class UnlockAccountFragment : Fragment() {
 
         binding.unlockUserBackButton.setOnClickListener { listener!!.onBackUserAdmin() }
         binding.unlockAccountSearchButton.setOnClickListener { listener!!.onSearchLockedAccount(
-            binding.unlockAccountAccountField.toString(),
-            binding.unlockAccountIdentificationField.toString()
+            binding.unlockAccountAccountField.text.toString(),
+            binding.unlockAccountIdentificationField.text.toString()
         ) }
 
         return binding.root

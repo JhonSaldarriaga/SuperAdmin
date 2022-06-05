@@ -15,6 +15,7 @@ import com.under.superadmin.databinding.ActivityMainBinding
 import com.under.superadmin.dialog_fragment.UserConfirmationDialogFragment
 import com.under.superadmin.fragments.*
 import com.under.superadmin.fragments.search_user_recycler_model.ResultViewHolder
+import com.under.superadmin.model.Client
 import com.under.superadmin.model.User
 import java.util.*
 import kotlin.collections.ArrayList
@@ -296,7 +297,22 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onSearchLockedAccount (account: String, identification: String) {
-        
+        Firebase.firestore.collection("clients").whereEqualTo("numeroCelular", account).get().addOnCompleteListener{ task ->
+            if(task.result?.size() != 0){
+                var clientsFound = ArrayList<Client>()
+                for(document in task.result!!) {
+                    val clientFound = document.toObject(Client::class.java)
+                    if(identification == clientFound.numeroIdentificacion) {
+                        clientsFound.add(clientFound)
+                    }
+                }
+
+                if(clientsFound.size > 0){
+
+                }else Toast.makeText(this, R.string.clients_not_found, Toast.LENGTH_SHORT).show()
+
+            }else Toast.makeText(this, R.string.clients_not_found, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onValidateTransactionClickListener() {

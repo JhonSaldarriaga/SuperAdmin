@@ -91,6 +91,8 @@ class ChangePasswordActivity : AppCompatActivity() {
             .setNegativeButton("No"){ dialog, _ ->
                 dialog.dismiss()
             }
+
+        builder.show()
     }
 
     private fun changePasswordFirstTime(newPass:String){

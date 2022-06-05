@@ -6,6 +6,7 @@ data class Client(
     var fechaExpedicionDocumento: String = "",
     var fechaNacimiento: String = "",
     var genero: String = "",
+    var listaRestrictiva: String = "",
     var lugarExpedicionDocumento: String = "",
     var numeroCelular: String = "",
     var numeroIdentificacion: String = "",

@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(),
     UnlockAccountFragment.Listener,
     UpdateClientFragment.Listener,
     UpdateClientFormFragment.Listener,
+    UpdateClientFormFragment2.Listener,
     UnlockAccountResultFragment.Listener,
     UnlockResultViewHolder.Listener,
     TicketFragment.Listener{
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity(),
     private lateinit var unlockAccountResultFragment: UnlockAccountResultFragment
     private lateinit var  updateClientFragment: UpdateClientFragment
     private lateinit var  updateClientFormFragment: UpdateClientFormFragment
+    private lateinit var  updateClientForm2Fragment: UpdateClientFormFragment2
     private lateinit var ticketFragment: TicketFragment
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
 
@@ -74,6 +76,7 @@ class MainActivity : AppCompatActivity(),
         unlockAccountResultFragment = UnlockAccountResultFragment.newInstance()
         updateClientFragment = UpdateClientFragment.newInstance()
         updateClientFormFragment = UpdateClientFormFragment.newInstance()
+        updateClientForm2Fragment = UpdateClientFormFragment2.newInstance()
         ticketFragment = TicketFragment.newInstance()
 
         // SE PASA EL LISTENER PARA EL PATRON OBSERVER DE CADA FRAGMENT
@@ -89,6 +92,7 @@ class MainActivity : AppCompatActivity(),
         unlockAccountResultFragment.listener = this
         updateClientFragment.listener =this
         updateClientFormFragment.listener =this
+        updateClientForm2Fragment.listener =this
         ticketFragment.listener = this
 
         /*
@@ -371,6 +375,10 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
+    override fun onGoToSecondForm(clientUpdate: Client){
+        updateClientForm2Fragment.client2 = clientUpdate
+        showFragment(updateClientForm2Fragment)
+    }
 
     override fun onValidateTransactionClickListener() {
         TODO("Not yet implemented")

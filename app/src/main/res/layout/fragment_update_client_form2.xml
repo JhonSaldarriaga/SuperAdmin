@@ -18,7 +18,7 @@
             android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Siguiente"
+            android:text="@string/unlock_account_button_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintPage1" />
@@ -37,66 +37,55 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView16">
 
-            <Spinner
-                android:id="@+id/genderTypeSpinner"
-                style="@style/spinnerStyle1"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/birthdayET"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <Spinner
-                android:id="@+id/idTypeSpinner"
-                style="@style/spinnerStyle1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
-
             <EditText
-                android:id="@+id/idET"
+                android:id="@+id/nameUpdateET"
                 style="@style/editTextStyle1"
-                android:layout_marginTop="16dp"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idTypeSpinner"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:hint="1193476214" />
 
             <EditText
-                android:id="@+id/idExpiditionDateET"
+                android:id="@+id/snUpdateET"
                 style="@style/editTextStyle1"
                 android:layout_marginTop="16dp"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idET"
+                app:layout_constraintTop_toBottomOf="@+id/nameUpdateET"
                 tools:hint="JHON" />
 
             <EditText
-                android:id="@+id/idExpiditionPlaceET"
+                android:id="@+id/faUpdateET"
                 style="@style/editTextStyle1"
                 android:layout_marginTop="16dp"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idExpiditionDateET"
+                app:layout_constraintTop_toBottomOf="@+id/snUpdateET"
                 tools:hint="SALDARRIAGA" />
 
             <EditText
-                android:id="@+id/birthdayET"
+                android:id="@+id/saUpdateET"
                 style="@style/editTextStyle1"
                 android:layout_marginTop="16dp"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idExpiditionPlaceET"
+                app:layout_constraintTop_toBottomOf="@+id/faUpdateET"
                 tools:hint="LÓPEZ" />
+
+            <EditText
+                android:id="@+id/emailET"
+                style="@style/editTextStyle1"
+                android:layout_marginTop="16dp"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/saUpdateET"
+                tools:hint="jhonsaldarriagalopez@gmail.com" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -105,7 +94,7 @@
             android:layout_width="48sp"
             android:layout_height="48sp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="24dp"
             android:src="@drawable/ic_baseline_keyboard_backspace_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

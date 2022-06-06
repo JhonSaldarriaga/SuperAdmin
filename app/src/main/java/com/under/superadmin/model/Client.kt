@@ -1,7 +1,7 @@
 package com.under.superadmin.model
 
 data class Client(
-    var cuentaBloqueada: Boolean,
+    var cuentaBloqueada: Boolean = false,
     var email: String = "",
     var fechaExpedicionDocumento: String = "",
     var fechaNacimiento: String = "",
@@ -12,9 +12,9 @@ data class Client(
     var numeroIdentificacion: String = "",
     var primerApellido: String = "",
     var primerNombre: String = "",
-    var reconocimientoFacialBloqueado: Boolean,
+    var reconocimientoFacialBloqueado: Boolean = false,
     var segundoApellido: String = "",
     var segundoNombre: String = "",
     var tipoIdentificacion: String = "",
-    var usuarioBloqueado: Boolean
+    var usuarioBloqueado: Boolean = false
 )

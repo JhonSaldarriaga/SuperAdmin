@@ -385,4 +385,17 @@ class MainActivity : AppCompatActivity(),
         TODO("Not yet implemented")
     }
 
+    //Metodos para devolverse cuando se esta en la pagina de ticket
+    override fun onBackToUnlockAccount() {
+        showFragment(unlockAccountFragment)
+    }
+
+    override fun onBackToUpdateClient() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onBackToReactiveTransaction() {
+        TODO("Not yet implemented")
+    }
+
 }

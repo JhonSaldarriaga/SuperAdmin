@@ -59,6 +59,7 @@ class TicketFragment : Fragment() {
 
         binding.ticketTitle.text = mode
         binding.ticketConfirmationButton.setOnClickListener { validateTicket() }
+        binding.ticketBackButton.setOnClickListener { returnToPreviousPage() }
 
         return binding.root
     }
@@ -90,6 +91,13 @@ class TicketFragment : Fragment() {
         }
     }
 
+    //Aqui mira qué metodo se le va a asignar al boton de ir para atras, depeniendo del modo
+    private fun returnToPreviousPage() {
+        if(mode == getString(R.string.unlock_account_title)){
+            listener!!.onBackToUnlockAccount()
+        }
+    }
+
 
     private fun unlockAccount(client: Client) {
         if(listChanges[0].compareTo(getString(R.string.result_unlock_account_locked_account)) == 0) {
@@ -115,6 +123,15 @@ class TicketFragment : Fragment() {
 
         //usar este metodo cuando se viene desde la pagina de reactivar transaccion P2P
         fun onReactiveTransaction()
+
+        //usar este metodo para devolverse a la pagina anterior cuando se viene desde desbloquear cuenta
+        fun onBackToUnlockAccount()
+
+        //usar este metodo para devolverse a la pagina anterior cuando se viene desde actualizar cliente
+        fun onBackToUpdateClient()
+
+        //usar este metodo para devolverse a la pagina anterior cuando se viene desde reactivar transaccion
+        fun onBackToReactiveTransaction()
     }
 
     companion object {

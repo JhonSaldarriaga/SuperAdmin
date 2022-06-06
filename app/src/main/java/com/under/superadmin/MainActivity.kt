@@ -7,16 +7,16 @@ import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.under.superadmin.databinding.ActivityMainBinding
 import com.under.superadmin.dialog_fragment.UserConfirmationDialogFragment
 import com.under.superadmin.fragments.*
+import com.under.superadmin.fragments.search_user_recycler_model.EnviosViewHolder
 import com.under.superadmin.fragments.search_user_recycler_model.ResultViewHolder
 import com.under.superadmin.model.User
-import java.util.*
+import com.under.superadmin.model.envio
 import kotlin.collections.ArrayList
 
 // ACTIVIDAD QUE SOPORTA EL BOTTOM NAVIGATION BAR
@@ -27,7 +27,10 @@ class MainActivity : AppCompatActivity(),
     AdminFragment.Listener,
     SearchUserFragment.Listener,
     SearchResultFragment.Listener,
-    ResultViewHolder.Listener {
+    EnviosViewHolder.Listener,
+    SendComprobante.Listener,
+    ListaEnvios.Listener,
+    ResultViewHolder.Listener{
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var createOrEditUserFragment: CreateOrEditUserFragment
@@ -35,6 +38,8 @@ class MainActivity : AppCompatActivity(),
     private lateinit var searchUserFragment: SearchUserFragment
     private lateinit var resultSearchUserFragment: SearchResultFragment
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
+    private lateinit var sendComprobante: SendComprobante
+    private lateinit var listaEnvios: ListaEnvios
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var user : User? = null
@@ -53,19 +58,27 @@ class MainActivity : AppCompatActivity(),
         // SE GUARDAN LAS INSTANCIAS DE LOS FRAGMENTS
         binding.bottomNavigationView.selectedItemId = R.id.homeMenu
         homeFragment = HomeFragment.newInstance()
+        sendComprobante = SendComprobante.newInstance()
         createOrEditUserFragment = CreateOrEditUserFragment.newInstance()
         adminFragment = AdminFragment.newInstance()
         searchUserFragment = SearchUserFragment.newInstance()
         resultSearchUserFragment = SearchResultFragment.newInstance()
+        listaEnvios = ListaEnvios.newInstance()
 
         // SE PASA EL LISTENER PARA EL PATRON OBSERVER DE CADA FRAGMENT
         homeFragment.listener = this
+        sendComprobante.listener = this
         createOrEditUserFragment.listener = this
         adminFragment.listener = this
         userConfirmationDialogFragment.listener = this
         searchUserFragment.listener = this
         resultSearchUserFragment.listenerViewHolder = this
         resultSearchUserFragment.listener = this
+        listaEnvios.listener = this
+        listaEnvios.listenerViewHolder = this
+
+
+
 
         /*
          Cada que se quisiera hacer showFragment(homeFragment) debería de hacerse:
@@ -308,10 +321,35 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onForwardingOfReceiptClickListener() {
-        TODO("Not yet implemented")
+        showFragment(sendComprobante)
     }
 
     override fun onColabClickListener() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSearchComprobante(numeroCuenta: String, fecha: String, tipo: String) {
+        Log.e("entra",numeroCuenta)
+        Log.e("entra",tipo)
+        Firebase.firestore.collection("comprobantes").
+        document(numeroCuenta).collection("envios").get().addOnCompleteListener() { task ->
+
+            if(task.result?.size() != 0){
+                var envios = ArrayList<envio>()
+                for(document in task.result!!) {
+                    val envioEncontrado = document.toObject(envio::class.java)
+                    envios.add(envioEncontrado)
+                }
+                if(envios.size>0){
+                    listaEnvios.envioList = envios
+                    showFragment(listaEnvios)
+                }else Toast.makeText(this, R.string.users_not_found, Toast.LENGTH_SHORT).show()
+            }else Toast.makeText(this, R.string.users_not_found, Toast.LENGTH_SHORT).show()
+
+        }
+    }
+
+    override fun envioComprobante() {
         TODO("Not yet implemented")
     }
 

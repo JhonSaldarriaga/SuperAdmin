@@ -15,9 +15,12 @@ import com.under.superadmin.databinding.ActivityMainBinding
 import com.under.superadmin.dialog_fragment.UserConfirmationDialogFragment
 import com.under.superadmin.fragments.*
 import com.under.superadmin.fragments.search_user_recycler_model.ResultViewHolder
+import com.under.superadmin.fragments.unlock_account_recycler_model.UnlockResultViewHolder
+import com.under.superadmin.model.Client
 import com.under.superadmin.model.User
 import java.util.*
 import kotlin.collections.ArrayList
+import com.under.superadmin.model.Transaction
 
 // ACTIVIDAD QUE SOPORTA EL BOTTOM NAVIGATION BAR
 class MainActivity : AppCompatActivity(),
@@ -27,14 +30,32 @@ class MainActivity : AppCompatActivity(),
     AdminFragment.Listener,
     SearchUserFragment.Listener,
     SearchResultFragment.Listener,
-    ResultViewHolder.Listener {
+    ResultViewHolder.Listener,
+    UnlockAccountFragment.Listener,
+    UpdateClientFragment.Listener,
+    UpdateClientFormFragment.Listener,
+    UpdateClientFormFragment2.Listener,
+    UnlockAccountResultFragment.Listener,
+    UnlockResultViewHolder.Listener,
+    TicketFragment.Listener,
+    PtoPFragment.Listener,
+    P2PConsult.Listener {
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var createOrEditUserFragment: CreateOrEditUserFragment
     private lateinit var adminFragment: AdminFragment
     private lateinit var searchUserFragment: SearchUserFragment
     private lateinit var resultSearchUserFragment: SearchResultFragment
+    private lateinit var unlockAccountFragment: UnlockAccountFragment
+    private lateinit var unlockAccountResultFragment: UnlockAccountResultFragment
+    private lateinit var  updateClientFragment: UpdateClientFragment
+    private lateinit var  updateClientFormFragment: UpdateClientFormFragment
+    private lateinit var  updateClientForm2Fragment: UpdateClientFormFragment2
+    private lateinit var ticketFragment: TicketFragment
+    private lateinit var p2pFragment: PtoPFragment
+    private lateinit var p2PConsult: P2PConsult
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
+
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var user : User? = null
@@ -57,6 +78,14 @@ class MainActivity : AppCompatActivity(),
         adminFragment = AdminFragment.newInstance()
         searchUserFragment = SearchUserFragment.newInstance()
         resultSearchUserFragment = SearchResultFragment.newInstance()
+        unlockAccountFragment = UnlockAccountFragment.newInstance()
+        unlockAccountResultFragment = UnlockAccountResultFragment.newInstance()
+        updateClientFragment = UpdateClientFragment.newInstance()
+        updateClientFormFragment = UpdateClientFormFragment.newInstance()
+        updateClientForm2Fragment = UpdateClientFormFragment2.newInstance()
+        ticketFragment = TicketFragment.newInstance()
+        p2pFragment = PtoPFragment.newInstance()
+        p2PConsult = P2PConsult.newInstance()
 
         // SE PASA EL LISTENER PARA EL PATRON OBSERVER DE CADA FRAGMENT
         homeFragment.listener = this
@@ -66,6 +95,15 @@ class MainActivity : AppCompatActivity(),
         searchUserFragment.listener = this
         resultSearchUserFragment.listenerViewHolder = this
         resultSearchUserFragment.listener = this
+        unlockAccountFragment.listener = this
+        unlockAccountResultFragment.listenerViewHolder = this
+        unlockAccountResultFragment.listener = this
+        updateClientFragment.listener =this
+        updateClientFormFragment.listener =this
+        updateClientForm2Fragment.listener =this
+        ticketFragment.listener = this
+        p2pFragment.listener = this
+        p2PConsult.listener = this
 
         /*
          Cada que se quisiera hacer showFragment(homeFragment) debería de hacerse:
@@ -163,10 +201,36 @@ class MainActivity : AppCompatActivity(),
             saveUser(passUser)
         }
     }
+
+    override fun onConsultTransaction(dateTransaction: String, account: String, transaction: String) {
+
+        if(!(dateTransaction.equals("")) && !(account.equals("")) && !(transaction.equals(""))){
+
+            Firebase.firestore.collection("transacciones").whereEqualTo("transaccion",transaction).get().addOnCompleteListener{
+                    task ->
+
+                if(task.result?.size() != 0) {
+                    for (document in task.result!!) {
+                        val transactionFound = document.toObject(Transaction::class.java)
+                        transactionFound.Apellidos?.let { Log.e("", it) }
+                        if(transactionFound.Fecha.compareTo(dateTransaction) == 0 && transactionFound.Cuenta.compareTo(account) == 0){
+                            Log.e("",transaction)
+
+                            p2PConsult.transaction = transactionFound
+                            showFragment(p2PConsult)
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // Vuelve al fragmentHome
     override fun onBackHome() {
         showFragment(homeFragment)
     }
+
 
     //<CREATE NEW USER>
     /* Crea un nuevo usuario en la base de datos
@@ -274,9 +338,10 @@ class MainActivity : AppCompatActivity(),
         showFragment(createOrEditUserFragment)
     }
 
+
     // <TRANSACTIONAL_MODULE>
     override fun onUpdateClientClickListener() {
-        TODO("Not yet implemented")
+        showFragment(updateClientFragment)
     }
 
     override fun onCloseCompanyClickListener() {
@@ -287,12 +352,80 @@ class MainActivity : AppCompatActivity(),
         TODO("Not yet implemented")
     }
 
+
+
     override fun onUnlockAccountClickListener() {
-        TODO("Not yet implemented")
+        showFragment(unlockAccountFragment)
+    }
+
+    override fun onSearchLockedAccount (account: String, identification: String) {
+        Firebase.firestore.collection("clients").whereEqualTo("numeroCelular", account).get().addOnCompleteListener{ task ->
+            if(task.result?.size() != 0){
+                var clientsFound = ArrayList<Client>()
+                for(document in task.result!!) {
+                    val clientFound = document.toObject(Client::class.java)
+                    if(identification == clientFound.numeroIdentificacion) {
+                        clientsFound.add(clientFound)
+                    }
+                }
+
+                if(clientsFound.size > 0){
+                    unlockAccountResultFragment.clientList = clientsFound
+                    showFragment(unlockAccountResultFragment)
+
+                }else Toast.makeText(this, R.string.clients_not_found, Toast.LENGTH_SHORT).show()
+
+            }else Toast.makeText(this, R.string.clients_not_found, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onBackUnlockAccountSearchResult() {
+        showFragment(unlockAccountFragment)
+    }
+
+    override fun onGoToUnlockClientConfirmation(mode: String, client: Client, changesList: ArrayList<String>) {
+        ticketFragment.mode = mode
+        ticketFragment.listChanges = changesList
+        ticketFragment.currentUser = user
+        ticketFragment.unlockAccountClient = client
+        showFragment(ticketFragment)
+    }
+
+    override fun onGoToUdapteClientConfirmation(mode: String, client: Client) {
+        ticketFragment.mode = mode
+        ticketFragment.currentUser = user
+        ticketFragment.unlockAccountClient = client
+        showFragment(ticketFragment)
+    }
+
+    override fun onSearchClientUpdateAccount (account: String, identification: String) {
+        Firebase.firestore.collection("clients").whereEqualTo("numeroIdentificacion", identification).get().addOnCompleteListener{ task ->
+            if(task.result?.size() != 0){
+                var clientFound : Client? = null
+                for(document in task.result!!) {
+                    val currentFound = document.toObject(Client::class.java)
+                    if(identification == currentFound.numeroIdentificacion) {
+                        clientFound = currentFound
+                    }
+                }
+
+                if(clientFound !== null ){
+                    updateClientFormFragment.client = clientFound
+                    showFragment(updateClientFormFragment)
+
+                }else Toast.makeText(this, R.string.clients_not_found, Toast.LENGTH_SHORT).show()
+
+            }else Toast.makeText(this, R.string.clients_not_found, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onGoToSecondForm(clientUpdate: Client){
+        updateClientForm2Fragment.client2 = clientUpdate
+        showFragment(updateClientForm2Fragment)
     }
 
     override fun onValidateTransactionClickListener() {
-        TODO("Not yet implemented")
+        showFragment(p2pFragment)
     }
 
     override fun onHomologationsClickListener() {
@@ -313,6 +446,51 @@ class MainActivity : AppCompatActivity(),
 
     override fun onColabClickListener() {
         TODO("Not yet implemented")
+    }
+
+
+    //Metodos para implementar una vez se haya aceptado el ticket exitosamente
+    override fun onUnlockAccount(client: Client) {
+        Firebase.firestore.collection("clients").document(client.numeroCelular).set(client)
+
+        showFragment(unlockAccountFragment)
+    }
+
+    override fun onUpdateClient(client: Client) {
+        Log.e(">>>", client.toString())
+        Firebase.firestore.collection("clients").document(client.numeroCelular).set(client)
+    }
+
+    override fun onReactiveTransaction(transaction: Transaction) {
+        Firebase.firestore.collection("transacciones").document(transaction.Transaccion).set(transaction)
+        showFragment(p2pFragment)
+    }
+
+    //Metodos para devolverse cuando se esta en la pagina de ticket
+    override fun onBackToUnlockAccount() {
+        showFragment(unlockAccountFragment)
+    }
+
+    override fun onBackToUpdateClient() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onBackToReactiveTransaction() {
+        showFragment(p2pFragment)
+    }
+
+    override fun onBackP2P() {
+        showFragment(p2pFragment)
+    }
+
+    override fun onTicketP2P(transaction: Transaction, mode: String) {
+        ticketFragment.transaction = transaction
+        ticketFragment.mode = mode
+        ticketFragment.currentUser = user
+        var changes = ArrayList<String>()
+        changes.add("¿Está seguro que desea reactivar la transacción?")
+        ticketFragment.listChanges = changes
+        showFragment(ticketFragment)
     }
 
 }

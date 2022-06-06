@@ -75,6 +75,31 @@
     <string name="cel_string">Celular:</string>
     <string name="edit_button">Editar</string>
     <string name="users_not_found">No se han encontrado usuarios con los parametros escogidos</string>
+    <string name="unlock_account_title">Desbloquar Cuenta</string>
+    <string name="unlock_account_text">Por favor ingresa la cuenta o la identificación del propietario de la cuenta para validar su estado</string>
+    <string name="unlock_account_hint_1">Cuenta</string>
+    <string name="unlock_account_hint_2">Identificación</string>
+    <string name="unlock_account_button_text">Buscar</string>
+    <string name="clients_not_found">No se han encontrado clientes con los parametros escogidos</string>
+    <string name="result_unlock_account_identification">Identificación:</string>
+    <string name="result_unlock_account_restrictive_list">Propietaria lista restrictiva:</string>
+    <string name="result_unlock_account_account">Cuenta:</string>
+    <string name="result_unlock_account_locked_account">¿Cuenta Bloqueada?</string>
+    <string name="result_unlock_account_user_locked">¿Usuario Bloqueado?</string>
+    <string name="result_unlock_account_facial_locked">¿Bloqueado por reconocimiento facial?</string>
+    <string name="ticket_changes_made">Cambios realizados:</string>
+    <string name="titcket_title">TICKET</string>
+    <string name="ticket_number_field">Número Ticket</string>
+    <string name="ticket_changes_confirmation_button">CONFIRMAR</string>
+    <string name="ticket_unlock_account_title">Confirmación de Desbloqueo</string>
+    <string name="clean_p2p">Limpiar</string>
+    <string name="consult_p2p">Consultar</string>
+    <string name="dataTransaction_p2p">Fecha de la transacción</string>
+    <string name="account_p2p">Cuenta</string>
+    <string name="transaction_p2p">Transaccion</string>
+    <string name="title_P2P">Reactivar La Transacción Place To Pay</string>
+    <string name="update_client_msg"> Por favor ingresea la cuenta ó la identificación del propietario de la cuenta</string>
+    <string name="update_client_title">Actualizar Cliente</string>
 
     <string-array name="search_option_spinner">
         <item>Tipo de identificación</item>
@@ -96,6 +121,12 @@
         <item>SUPERGIROS</item>
         <item>CODESA</item>
         <item>GANE</item>
+    </string-array>
+
+    <string-array name="gender_options">
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Otro</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

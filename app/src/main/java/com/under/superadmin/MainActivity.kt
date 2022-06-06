@@ -408,6 +408,8 @@ class MainActivity : AppCompatActivity(),
     //Metodos para implementar una vez se haya aceptado el ticket exitosamente
     override fun onUnlockAccount(client: Client) {
         Firebase.firestore.collection("clients").document(client.numeroCelular).set(client)
+
+        showFragment(unlockAccountFragment)
     }
 
     override fun onUpdateClient(client: Client) {
@@ -415,6 +417,19 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onReactiveTransaction() {
+        TODO("Not yet implemented")
+    }
+
+    //Metodos para devolverse cuando se esta en la pagina de ticket
+    override fun onBackToUnlockAccount() {
+        showFragment(unlockAccountFragment)
+    }
+
+    override fun onBackToUpdateClient() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onBackToReactiveTransaction() {
         TODO("Not yet implemented")
     }
 

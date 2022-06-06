@@ -97,6 +97,7 @@
     <string name="dataTransaction_p2p">Fecha de la transacción</string>
     <string name="account_p2p">Cuenta</string>
     <string name="transaction_p2p">Transaccion</string>
+    <string name="title_P2P">Reactivar La Transacción Place To Pay</string>
 
     <string-array name="search_option_spinner">
         <item>Tipo de identificación</item>

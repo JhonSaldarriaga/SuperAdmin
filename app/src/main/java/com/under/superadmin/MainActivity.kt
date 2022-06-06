@@ -419,8 +419,9 @@ class MainActivity : AppCompatActivity(),
         TODO("Not yet implemented")
     }
 
-    override fun onReactiveTransaction() {
-        TODO("Not yet implemented")
+    override fun onReactiveTransaction(transaction: Transaction) {
+        Firebase.firestore.collection("transacciones").document(transaction.Transaccion).set(transaction)
+        showFragment(p2pFragment)
     }
 
     //Metodos para devolverse cuando se esta en la pagina de ticket
@@ -433,7 +434,21 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onBackToReactiveTransaction() {
-        TODO("Not yet implemented")
+        showFragment(p2pFragment)
+    }
+
+    override fun onBackP2P() {
+        showFragment(p2pFragment)
+    }
+
+    override fun onTicketP2P(transaction: Transaction, mode: String) {
+        ticketFragment.transaction = transaction
+        ticketFragment.mode = mode
+        ticketFragment.currentUser = user
+        var changes = ArrayList<String>()
+        changes.add("¿Está seguro que desea reactivar la transacción?")
+        ticketFragment.listChanges = changes
+        showFragment(ticketFragment)
     }
 
 }

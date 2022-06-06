@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.under.superadmin.R
 import com.under.superadmin.databinding.FragmentP2PConsultBinding
 import com.under.superadmin.model.Transaction
 
@@ -48,9 +49,9 @@ class P2PConsult : Fragment() {
         binding.urlTxt.text = url
         binding.dateTxt.text = date
 
-        binding.activeButton.setOnClickListener{
-
-        }
+        binding.backB.setOnClickListener{ listener?.onBackP2P() }
+        binding.activeButton.setOnClickListener{ listener?.onTicketP2P(transaction!!, container?.context!!.getString(
+            R.string.title_P2P)) }
         return binding.root
     }
 
@@ -61,8 +62,8 @@ class P2PConsult : Fragment() {
 
     interface Listener{
 
-        fun onBackUserAdmin()
-
+        fun onBackP2P()
+        fun onTicketP2P(transaction: Transaction, mode: String)
 
     }
 }

@@ -13,6 +13,7 @@ import com.under.superadmin.R
 import com.under.superadmin.databinding.FragmentTicketBinding
 import com.under.superadmin.model.Client
 import com.under.superadmin.model.Ticket
+import com.under.superadmin.model.Transaction
 import com.under.superadmin.model.User
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,6 +28,7 @@ class TicketFragment : Fragment() {
     var currentUser: User? = null
 
     var unlockAccountClient: Client? = null
+    var transaction: Transaction? = null
 
 
     /*
@@ -88,6 +90,8 @@ class TicketFragment : Fragment() {
         //Aqui mira qué metodo se le va a asignar al boton Confirmar depeniendo del modo
         if(mode == getString(R.string.unlock_account_title)){
             unlockAccountClient?.let { unlockAccount(it) }
+        }else if(mode == getString(R.string.title_P2P)){
+            reactivateTransaction(transaction!!)
         }
     }
 
@@ -95,6 +99,8 @@ class TicketFragment : Fragment() {
     private fun returnToPreviousPage() {
         if(mode == getString(R.string.unlock_account_title)){
             listener!!.onBackToUnlockAccount()
+        }else if(mode == getString(R.string.title_P2P)){
+            listener?.onBackToReactiveTransaction()
         }
     }
 
@@ -113,6 +119,11 @@ class TicketFragment : Fragment() {
         listener!!.onUnlockAccount(client)
     }
 
+    private fun reactivateTransaction(transaction: Transaction){
+        transaction.Estado = "ACTIVA"
+        listener?.onReactiveTransaction(transaction)
+    }
+
     interface Listener{
 
         //usar este metodo cuando se viene desde la pagina de desbloquear cuenta en el modulo transaccional
@@ -122,7 +133,7 @@ class TicketFragment : Fragment() {
         fun onUpdateClient()
 
         //usar este metodo cuando se viene desde la pagina de reactivar transaccion P2P
-        fun onReactiveTransaction()
+        fun onReactiveTransaction(transaction: Transaction)
 
         //usar este metodo para devolverse a la pagina anterior cuando se viene desde desbloquear cuenta
         fun onBackToUnlockAccount()

@@ -101,6 +101,8 @@ class TicketFragment : Fragment() {
             listener!!.onBackToUnlockAccount()
         }else if(mode == getString(R.string.title_P2P)){
             listener?.onBackToReactiveTransaction()
+        }else if(mode == "Actualizar cliente"){
+            listener!!.onUpdateClient(unlockAccountClient!!)
         }
     }
 

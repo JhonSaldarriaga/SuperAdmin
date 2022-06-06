@@ -39,6 +39,11 @@ class UpdateClientFormFragment : Fragment() {
         }
 
         binding.updateClientSearchBtn3.setOnClickListener(){
+            client!!.numeroIdentificacion = binding.idET.text.toString()
+            client!!.fechaNacimiento = binding.birthdayET.text.toString()
+            client!!.fechaExpedicionDocumento = binding.idExpiditionDateET.text.toString()
+            client!!.lugarExpedicionDocumento = binding.idExpiditionPlaceET.text.toString()
+
             listener!!.onGoToSecondForm(client!!)
         }
 

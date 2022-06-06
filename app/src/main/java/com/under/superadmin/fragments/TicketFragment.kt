@@ -88,6 +88,8 @@ class TicketFragment : Fragment() {
         //Aqui mira qué metodo se le va a asignar al boton Confirmar depeniendo del modo
         if(mode == getString(R.string.unlock_account_title)){
             unlockAccountClient?.let { unlockAccount(it) }
+        }else if(mode == "Actualizar cliente"){
+            listener!!.onUpdateClient(unlockAccountClient!!)
         }
     }
 

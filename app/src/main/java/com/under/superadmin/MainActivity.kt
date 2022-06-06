@@ -354,6 +354,13 @@ class MainActivity : AppCompatActivity(),
         showFragment(ticketFragment)
     }
 
+    override fun onGoToUdapteClientConfirmation(mode: String, client: Client) {
+        ticketFragment.mode = mode
+        ticketFragment.currentUser = user
+        ticketFragment.unlockAccountClient = client
+        showFragment(ticketFragment)
+    }
+
     override fun onSearchClientUpdateAccount (account: String, identification: String) {
         Firebase.firestore.collection("clients").whereEqualTo("numeroIdentificacion", identification).get().addOnCompleteListener{ task ->
             if(task.result?.size() != 0){
@@ -414,6 +421,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun onUpdateClient(client: Client) {
         Log.e(">>>", client.toString())
+        Firebase.firestore.collection("clients").document(client.numeroCelular).set(client)
     }
 
     override fun onReactiveTransaction() {

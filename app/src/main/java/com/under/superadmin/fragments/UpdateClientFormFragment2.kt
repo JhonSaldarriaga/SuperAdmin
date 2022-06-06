@@ -33,6 +33,18 @@ class UpdateClientFormFragment2 : Fragment() {
             setData()
         }
 
+        binding.updateClientSearchBtn3.setOnClickListener(){
+            if(validateData()){
+                client2!!.primerNombre = binding.nameUpdateET.text.toString()
+                client2!!.segundoNombre = binding.snUpdateET.text.toString()
+                client2!!.primerApellido = binding.faUpdateET.text.toString()
+                client2!!.segundoApellido = binding.saUpdateET.text.toString()
+                client2!!.email = binding.emailET.text.toString()
+
+                listener!!.onGoToUdapteClientConfirmation("Actualizar cliente", client2!!)
+            }
+        }
+
         return binding.root
     }
 
@@ -44,6 +56,16 @@ class UpdateClientFormFragment2 : Fragment() {
         binding.emailET.setText(client2!!.email)
     }
 
+    private fun validateData(): Boolean {
+        if(!binding.nameUpdateET.text.isNullOrBlank() && !binding.snUpdateET.text.isNullOrBlank() &&
+            !binding.faUpdateET.text.isNullOrBlank() && !binding.saUpdateET.text.isNullOrBlank() &&
+            !binding.emailET.text.isNullOrBlank() ){
+            return true
+        }
+        return false
+
+    }
+
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
@@ -51,7 +73,7 @@ class UpdateClientFormFragment2 : Fragment() {
 
     interface Listener{
         fun onBackUserAdmin()
-        fun onUpdateClient(client: Client)
+        fun onGoToUdapteClientConfirmation(mode: String, client: Client)
     }
 
     companion object {

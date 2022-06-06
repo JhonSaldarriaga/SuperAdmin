@@ -1,6 +1,7 @@
 package com.under.superadmin.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,12 +34,10 @@ class PtoPFragment : Fragment(){
             listener?.onBackUserAdmin()
         }
         binding.consultButton.setOnClickListener {
-
             dataTransaction = binding.dataTransaction.text.toString()
             account = binding.account.text.toString()
             transaction = binding.transaction.text.toString()
             listener?.onConsultTransaction(dataTransaction!!, account!!, transaction!!)
-
         }
 
         binding.cleanButton.setOnClickListener{

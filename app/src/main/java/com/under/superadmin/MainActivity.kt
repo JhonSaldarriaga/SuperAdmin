@@ -194,12 +194,11 @@ class MainActivity : AppCompatActivity(),
 
         if(!(dateTransaction.equals("")) && !(account.equals("")) && !(transaction.equals(""))){
 
-            Firebase.firestore.collection("transacciones").whereEqualTo("Transaccion",transaction).get().addOnCompleteListener{
+            Firebase.firestore.collection("transacciones").whereEqualTo("transaccion",transaction).get().addOnCompleteListener{
                     task ->
+
                 if(task.result?.size() != 0) {
-
                     for (document in task.result!!) {
-
                         val transactionFound = document.toObject(Transaction::class.java)
                         transactionFound.Apellidos?.let { Log.e("", it) }
                         if(transactionFound.Fecha.compareTo(dateTransaction) == 0 && transactionFound.Cuenta.compareTo(account) == 0){

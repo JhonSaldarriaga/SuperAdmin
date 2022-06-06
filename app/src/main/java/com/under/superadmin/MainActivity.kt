@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity(),
     private lateinit var ticketFragment: TicketFragment
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
 
+
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var user : User? = null
 
@@ -179,10 +180,37 @@ class MainActivity : AppCompatActivity(),
             saveUser(passUser)
         }
     }
+
+    override fun onConsultTransaction(dateTransaction: String, account: String, transaction: String) {
+
+        if(!(dateTransaction.equals("")) && !(account.equals("")) && !(transaction.equals(""))){
+
+            Firebase.firestore.collection("transacciones").whereEqualTo("Transaccion",transaction).get().addOnCompleteListener{
+                    task ->
+                if(task.result?.size() != 0) {
+
+                    for (document in task.result!!) {
+
+                        val transactionFound = document.toObject(Transaction::class.java)
+                        transactionFound.Apellidos?.let { Log.e("", it) }
+                        if(transactionFound.Fecha.compareTo(dateTransaction) == 0 && transactionFound.Cuenta.compareTo(account) == 0){
+                            Log.e("",transaction)
+
+                            p2PConsult.transaction = transactionFound
+                            showFragment(p2PConsult)
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // Vuelve al fragmentHome
     override fun onBackHome() {
         showFragment(homeFragment)
     }
+
 
     //<CREATE NEW USER>
     /* Crea un nuevo usuario en la base de datos
@@ -290,6 +318,7 @@ class MainActivity : AppCompatActivity(),
         showFragment(createOrEditUserFragment)
     }
 
+
     // <TRANSACTIONAL_MODULE>
     override fun onUpdateClientClickListener() {
         TODO("Not yet implemented")
@@ -346,7 +375,7 @@ class MainActivity : AppCompatActivity(),
 
 
     override fun onValidateTransactionClickListener() {
-        TODO("Not yet implemented")
+        showFragment(p2pFragment)
     }
 
     override fun onHomologationsClickListener() {

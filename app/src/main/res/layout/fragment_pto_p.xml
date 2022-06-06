@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.PtoPFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".fragments.CreateOrEditUserFragment">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintPage1"
+                android:layout_width="327dp"
+                android:layout_height="266dp"
+                android:layout_marginTop="40dp"
+                android:background="@color/white"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleEditOrCreatTV2">
+
+                <EditText
+                    android:id="@+id/account"
+                    style="@style/editTextStyle1"
+                    android:layout_width="313dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dataTransaction"
+                    tools:hint="@string/account_p2p" />
+
+                <EditText
+                    android:id="@+id/dataTransaction"
+                    style="@style/editTextStyle1"
+                    android:layout_width="317dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="24dp"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:hint="@string/dataTransaction_p2p" />
+
+                <EditText
+                    android:id="@+id/transaction"
+                    style="@style/editTextStyle1"
+                    android:layout_width="314dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/account"
+                    tools:hint="@string/transaction_p2p" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/backP2P"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="36dp"
+                android:src="@drawable/ic_baseline_keyboard_backspace_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.132"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/titleEditOrCreatTV2"
+                style="@style/titleFragmentStyle1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="176dp"
+                android:layout_marginEnd="48dp"
+                android:text="Reactivar La Transacción Place To Pay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/cleanButton"
+                style="@style/buttonStyle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/clean_p2p"
+                app:layout_constraintEnd_toEndOf="@+id/titleEditOrCreatTV2"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="@+id/titleEditOrCreatTV2"
+                app:layout_constraintTop_toBottomOf="@+id/constraintPage1" />
+
+            <Button
+                android:id="@+id/consultButton"
+                style="@style/buttonStyle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/consult_p2p"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cleanButton"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

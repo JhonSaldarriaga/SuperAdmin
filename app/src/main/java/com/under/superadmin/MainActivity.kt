@@ -327,11 +327,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onBackUnlockAccountSearchResult() {
-        TODO("Not yet implemented")
+        showFragment(unlockAccountFragment)
     }
 
     override fun onGoToUnlockAccount(client: Client) {
-        TODO("Not yet implemented")
+
     }
 
 

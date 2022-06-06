@@ -44,7 +44,6 @@ class UnlockAccountResultFragment : Fragment() {
         binding.unlockAccountResulRecycler.layoutManager = layoutManager
         binding.unlockAccountResulRecycler.setHasFixedSize(true)
 
-        //adapter = UnlockResultAdapter()
         adapter.listener = listenerViewHolder!!
         adapter.clientList = clientList
         binding.unlockAccountResulRecycler.adapter = adapter

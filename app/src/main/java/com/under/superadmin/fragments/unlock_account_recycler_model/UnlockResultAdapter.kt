@@ -29,6 +29,7 @@ class UnlockResultAdapter: RecyclerView.Adapter<UnlockResultViewHolder>() {
         holder.identification_txt.text = clientResult.numeroIdentificacion
         holder.restrictiveList_txt.text = clientResult.listaRestrictiva
         holder.account_txt.text = clientResult.numeroCelular
+        holder.addButtonsFunctionality()
     }
 
     override fun getItemCount(): Int {

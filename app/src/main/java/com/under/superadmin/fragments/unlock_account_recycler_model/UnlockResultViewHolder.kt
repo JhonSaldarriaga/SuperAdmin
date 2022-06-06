@@ -1,5 +1,6 @@
 package com.under.superadmin.fragments.unlock_account_recycler_model
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,7 +25,8 @@ class UnlockResultViewHolder(itemView: View) :  RecyclerView.ViewHolder(itemView
     val facialLocked: ImageView = itemView.findViewById(R.id.unlockAccount_facialButton)
 
 
-    init {
+    fun addButtonsFunctionality() {
+
         client?.let { setStateButtons(accountLocked, it.cuentaBloqueada) }
         client?.let { setStateButtons(userLocked, it.usuarioBloqueado) }
         client?.let { setStateButtons(facialLocked, it.reconocimientoFacialBloqueado) }
@@ -32,6 +34,7 @@ class UnlockResultViewHolder(itemView: View) :  RecyclerView.ViewHolder(itemView
 
     private fun setStateButtons(button: ImageView, state: Boolean) {
         if (state){
+
             button.setOnClickListener { client?.let { it1 -> listener.onGoToUnlockAccount(it1) } }
             button.background = ContextCompat.getDrawable(itemView.context, R.drawable.circle_red)
 

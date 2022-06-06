@@ -92,6 +92,8 @@ class TicketFragment : Fragment() {
             unlockAccountClient?.let { unlockAccount(it) }
         }else if(mode == getString(R.string.title_P2P)){
             reactivateTransaction(transaction!!)
+        }else if(mode == "Actualizar cliente"){
+            listener!!.onUpdateClient(unlockAccountClient!!)
         }
     }
 
@@ -102,7 +104,7 @@ class TicketFragment : Fragment() {
         }else if(mode == getString(R.string.title_P2P)){
             listener?.onBackToReactiveTransaction()
         }else if(mode == "Actualizar cliente"){
-            listener!!.onUpdateClient(unlockAccountClient!!)
+            
         }
     }
 

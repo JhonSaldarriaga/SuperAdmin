@@ -7,18 +7,18 @@ import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.under.superadmin.databinding.ActivityMainBinding
 import com.under.superadmin.dialog_fragment.UserConfirmationDialogFragment
 import com.under.superadmin.fragments.*
+import com.under.superadmin.fragments.search_user_recycler_model.EnviosViewHolder
 import com.under.superadmin.fragments.search_user_recycler_model.ResultViewHolder
 import com.under.superadmin.fragments.unlock_account_recycler_model.UnlockResultViewHolder
 import com.under.superadmin.model.Client
 import com.under.superadmin.model.User
-import java.util.*
+import com.under.superadmin.model.envio
 import kotlin.collections.ArrayList
 import com.under.superadmin.model.Transaction
 
@@ -55,6 +55,8 @@ class MainActivity : AppCompatActivity(),
     private lateinit var p2pFragment: PtoPFragment
     private lateinit var p2PConsult: P2PConsult
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
+    private lateinit var sendComprobante: SendComprobante
+    private lateinit var listaEnvios: ListaEnvios
 
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -74,6 +76,7 @@ class MainActivity : AppCompatActivity(),
         // SE GUARDAN LAS INSTANCIAS DE LOS FRAGMENTS
         binding.bottomNavigationView.selectedItemId = R.id.homeMenu
         homeFragment = HomeFragment.newInstance()
+        sendComprobante = SendComprobante.newInstance()
         createOrEditUserFragment = CreateOrEditUserFragment.newInstance()
         adminFragment = AdminFragment.newInstance()
         searchUserFragment = SearchUserFragment.newInstance()
@@ -89,6 +92,7 @@ class MainActivity : AppCompatActivity(),
 
         // SE PASA EL LISTENER PARA EL PATRON OBSERVER DE CADA FRAGMENT
         homeFragment.listener = this
+        sendComprobante.listener = this
         createOrEditUserFragment.listener = this
         adminFragment.listener = this
         userConfirmationDialogFragment.listener = this
@@ -104,6 +108,9 @@ class MainActivity : AppCompatActivity(),
         ticketFragment.listener = this
         p2pFragment.listener = this
         p2PConsult.listener = this
+
+
+
 
         /*
          Cada que se quisiera hacer showFragment(homeFragment) debería de hacerse:
@@ -441,7 +448,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onForwardingOfReceiptClickListener() {
-        TODO("Not yet implemented")
+        showFragment(sendComprobante)
     }
 
     override fun onColabClickListener() {

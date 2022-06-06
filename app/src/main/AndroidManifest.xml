@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SuperAdmin">
         <activity
+            android:name=".SendComprobanteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
             android:name=".ChangePasswordActivity"
             android:exported="false" />
         <activity

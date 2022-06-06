@@ -92,6 +92,10 @@
     <string name="ticket_number_field">Número Ticket</string>
     <string name="ticket_changes_confirmation_button">CONFIRMAR</string>
     <string name="ticket_unlock_account_title">Confirmación de Desbloqueo</string>
+    <string name="clean_p2p">Limpiar</string> <string name="consult_p2p">Consultar</string>
+    <string name="dataTransaction_p2p">Fecha de la transacción</string>
+    <string name="account_p2p">Cuenta</string>
+    <string name="transaction_p2p">Transaccion</string>
 
     <string-array name="search_option_spinner">
         <item>Tipo de identificación</item>

@@ -20,6 +20,7 @@ import com.under.superadmin.model.Client
 import com.under.superadmin.model.User
 import java.util.*
 import kotlin.collections.ArrayList
+import com.under.superadmin.model.Transaction
 
 // ACTIVIDAD QUE SOPORTA EL BOTTOM NAVIGATION BAR
 class MainActivity : AppCompatActivity(),
@@ -33,7 +34,9 @@ class MainActivity : AppCompatActivity(),
     UnlockAccountFragment.Listener,
     UnlockAccountResultFragment.Listener,
     UnlockResultViewHolder.Listener,
-    TicketFragment.Listener{
+    TicketFragment.Listener,
+    PtoPFragment.Listener,
+    P2PConsult.Listener {
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var createOrEditUserFragment: CreateOrEditUserFragment
@@ -43,6 +46,8 @@ class MainActivity : AppCompatActivity(),
     private lateinit var unlockAccountFragment: UnlockAccountFragment
     private lateinit var unlockAccountResultFragment: UnlockAccountResultFragment
     private lateinit var ticketFragment: TicketFragment
+    private lateinit var p2pFragment: PtoPFragment
+    private lateinit var p2PConsult: P2PConsult
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
 
 
@@ -70,6 +75,8 @@ class MainActivity : AppCompatActivity(),
         unlockAccountFragment = UnlockAccountFragment.newInstance()
         unlockAccountResultFragment = UnlockAccountResultFragment.newInstance()
         ticketFragment = TicketFragment.newInstance()
+        p2pFragment = PtoPFragment.newInstance()
+        p2PConsult = P2PConsult.newInstance()
 
         // SE PASA EL LISTENER PARA EL PATRON OBSERVER DE CADA FRAGMENT
         homeFragment.listener = this
@@ -83,6 +90,8 @@ class MainActivity : AppCompatActivity(),
         unlockAccountResultFragment.listenerViewHolder = this
         unlockAccountResultFragment.listener = this
         ticketFragment.listener = this
+        p2pFragment.listener = this
+        p2PConsult.listener = this
 
         /*
          Cada que se quisiera hacer showFragment(homeFragment) debería de hacerse:

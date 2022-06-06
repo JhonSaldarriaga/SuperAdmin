@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView18"
+            android:id="@+id/ticketBackButton"
             android:layout_width="48sp"
             android:layout_height="48sp"
             android:layout_marginStart="32dp"
@@ -30,7 +30,7 @@
             android:textColor="@color/blue_super_admin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView18" />
+            app:layout_constraintTop_toBottomOf="@+id/ticketBackButton" />
 
         <TextView
             android:id="@+id/textView18"

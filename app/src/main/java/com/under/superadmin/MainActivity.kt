@@ -15,6 +15,7 @@ import com.under.superadmin.databinding.ActivityMainBinding
 import com.under.superadmin.dialog_fragment.UserConfirmationDialogFragment
 import com.under.superadmin.fragments.*
 import com.under.superadmin.fragments.search_user_recycler_model.ResultViewHolder
+import com.under.superadmin.fragments.unlock_account_recycler_model.UnlockResultViewHolder
 import com.under.superadmin.model.Client
 import com.under.superadmin.model.User
 import java.util.*
@@ -29,7 +30,9 @@ class MainActivity : AppCompatActivity(),
     SearchUserFragment.Listener,
     SearchResultFragment.Listener,
     ResultViewHolder.Listener,
-    UnlockAccountFragment.Listener {
+    UnlockAccountFragment.Listener,
+    UnlockAccountResultFragment.Listener,
+    UnlockResultViewHolder.Listener {
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var createOrEditUserFragment: CreateOrEditUserFragment
@@ -37,6 +40,7 @@ class MainActivity : AppCompatActivity(),
     private lateinit var searchUserFragment: SearchUserFragment
     private lateinit var resultSearchUserFragment: SearchResultFragment
     private lateinit var unlockAccountFragment: UnlockAccountFragment
+    private lateinit var unlockAccountResultFragment: UnlockAccountResultFragment
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -61,6 +65,7 @@ class MainActivity : AppCompatActivity(),
         searchUserFragment = SearchUserFragment.newInstance()
         resultSearchUserFragment = SearchResultFragment.newInstance()
         unlockAccountFragment = UnlockAccountFragment.newInstance()
+        unlockAccountResultFragment = UnlockAccountResultFragment.newInstance()
 
         // SE PASA EL LISTENER PARA EL PATRON OBSERVER DE CADA FRAGMENT
         homeFragment.listener = this
@@ -71,6 +76,8 @@ class MainActivity : AppCompatActivity(),
         resultSearchUserFragment.listenerViewHolder = this
         resultSearchUserFragment.listener = this
         unlockAccountFragment.listener = this
+        unlockAccountResultFragment.listenerViewHolder = this
+        unlockAccountResultFragment.listener = this
 
         /*
          Cada que se quisiera hacer showFragment(homeFragment) debería de hacerse:
@@ -292,6 +299,8 @@ class MainActivity : AppCompatActivity(),
         TODO("Not yet implemented")
     }
 
+
+
     override fun onUnlockAccountClickListener() {
         showFragment(unlockAccountFragment)
     }
@@ -308,12 +317,25 @@ class MainActivity : AppCompatActivity(),
                 }
 
                 if(clientsFound.size > 0){
+                    unlockAccountResultFragment.clientList = clientsFound
+                    showFragment(unlockAccountResultFragment)
 
                 }else Toast.makeText(this, R.string.clients_not_found, Toast.LENGTH_SHORT).show()
 
             }else Toast.makeText(this, R.string.clients_not_found, Toast.LENGTH_SHORT).show()
         }
     }
+
+    override fun onBackUnlockAccountSearchResult() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onGoToUnlockAccount(client: Client) {
+        TODO("Not yet implemented")
+    }
+
+
+
 
     override fun onValidateTransactionClickListener() {
         TODO("Not yet implemented")

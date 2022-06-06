@@ -15,6 +15,7 @@ import com.under.superadmin.databinding.ActivityMainBinding
 import com.under.superadmin.dialog_fragment.UserConfirmationDialogFragment
 import com.under.superadmin.fragments.*
 import com.under.superadmin.fragments.search_user_recycler_model.ResultViewHolder
+import com.under.superadmin.model.Transaction
 import com.under.superadmin.model.User
 import java.util.*
 import kotlin.collections.ArrayList
@@ -27,14 +28,17 @@ class MainActivity : AppCompatActivity(),
     AdminFragment.Listener,
     SearchUserFragment.Listener,
     SearchResultFragment.Listener,
-    ResultViewHolder.Listener {
+    ResultViewHolder.Listener, PtoPFragment.Listener, P2PConsult.Listener {
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var createOrEditUserFragment: CreateOrEditUserFragment
     private lateinit var adminFragment: AdminFragment
     private lateinit var searchUserFragment: SearchUserFragment
     private lateinit var resultSearchUserFragment: SearchResultFragment
+    private lateinit var p2pFragment: PtoPFragment
+    private lateinit var p2PConsult: P2PConsult
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
+
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var user : User? = null
@@ -57,6 +61,8 @@ class MainActivity : AppCompatActivity(),
         adminFragment = AdminFragment.newInstance()
         searchUserFragment = SearchUserFragment.newInstance()
         resultSearchUserFragment = SearchResultFragment.newInstance()
+        p2pFragment = PtoPFragment.newInstance()
+        p2PConsult = P2PConsult.newInstance()
 
         // SE PASA EL LISTENER PARA EL PATRON OBSERVER DE CADA FRAGMENT
         homeFragment.listener = this
@@ -66,6 +72,8 @@ class MainActivity : AppCompatActivity(),
         searchUserFragment.listener = this
         resultSearchUserFragment.listenerViewHolder = this
         resultSearchUserFragment.listener = this
+        p2pFragment.listener = this
+        p2PConsult.listener = this
 
         /*
          Cada que se quisiera hacer showFragment(homeFragment) debería de hacerse:
@@ -163,10 +171,37 @@ class MainActivity : AppCompatActivity(),
             saveUser(passUser)
         }
     }
+
+    override fun onConsultTransaction(dateTransaction: String, account: String, transaction: String) {
+
+        if(!(dateTransaction.equals("")) && !(account.equals("")) && !(transaction.equals(""))){
+
+            Firebase.firestore.collection("transacciones").whereEqualTo("Transaccion",transaction).get().addOnCompleteListener{
+                    task ->
+                if(task.result?.size() != 0) {
+
+                    for (document in task.result!!) {
+
+                        val transactionFound = document.toObject(Transaction::class.java)
+                        transactionFound.Apellidos?.let { Log.e("", it) }
+                        if(transactionFound.Fecha.compareTo(dateTransaction) == 0 && transactionFound.Cuenta.compareTo(account) == 0){
+                            Log.e("",transaction)
+
+                            p2PConsult.transaction = transactionFound
+                            showFragment(p2PConsult)
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // Vuelve al fragmentHome
     override fun onBackHome() {
         showFragment(homeFragment)
     }
+
 
     //<CREATE NEW USER>
     /* Crea un nuevo usuario en la base de datos
@@ -274,6 +309,7 @@ class MainActivity : AppCompatActivity(),
         showFragment(createOrEditUserFragment)
     }
 
+
     // <TRANSACTIONAL_MODULE>
     override fun onUpdateClientClickListener() {
         TODO("Not yet implemented")
@@ -292,7 +328,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onValidateTransactionClickListener() {
-        TODO("Not yet implemented")
+        showFragment(p2pFragment)
     }
 
     override fun onHomologationsClickListener() {

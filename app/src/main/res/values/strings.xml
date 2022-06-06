@@ -75,7 +75,11 @@
     <string name="cel_string">Celular:</string>
     <string name="edit_button">Editar</string>
     <string name="users_not_found">No se han encontrado usuarios con los parametros escogidos</string>
-
+    <string name="clean_p2p">Limpiar</string>
+    <string name="consult_p2p">Consultar</string>
+    <string name="dataTransaction_p2p">Fecha de la transacción</string>
+    <string name="account_p2p">Cuenta</string>
+    <string name="transaction_p2p">Transaccion</string>
     <string-array name="search_option_spinner">
         <item>Tipo de identificación</item>
         <item>Rol</item>

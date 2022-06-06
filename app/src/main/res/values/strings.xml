@@ -129,6 +129,11 @@
         <item>Otro</item>
     </string-array>
 
+    <string-array name="tipo_transaccion">
+        <item>Giros - transferencia postal</item>
+        <item>Pagos</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cuenta">numero de cuenta</string>

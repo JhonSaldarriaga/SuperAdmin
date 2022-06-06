@@ -32,6 +32,9 @@ class MainActivity : AppCompatActivity(),
     SearchResultFragment.Listener,
     ResultViewHolder.Listener,
     UnlockAccountFragment.Listener,
+    UpdateClientFragment.Listener,
+    UpdateClientFormFragment.Listener,
+    UpdateClientFormFragment2.Listener,
     UnlockAccountResultFragment.Listener,
     UnlockResultViewHolder.Listener,
     TicketFragment.Listener,
@@ -45,6 +48,9 @@ class MainActivity : AppCompatActivity(),
     private lateinit var resultSearchUserFragment: SearchResultFragment
     private lateinit var unlockAccountFragment: UnlockAccountFragment
     private lateinit var unlockAccountResultFragment: UnlockAccountResultFragment
+    private lateinit var  updateClientFragment: UpdateClientFragment
+    private lateinit var  updateClientFormFragment: UpdateClientFormFragment
+    private lateinit var  updateClientForm2Fragment: UpdateClientFormFragment2
     private lateinit var ticketFragment: TicketFragment
     private lateinit var p2pFragment: PtoPFragment
     private lateinit var p2PConsult: P2PConsult
@@ -74,6 +80,9 @@ class MainActivity : AppCompatActivity(),
         resultSearchUserFragment = SearchResultFragment.newInstance()
         unlockAccountFragment = UnlockAccountFragment.newInstance()
         unlockAccountResultFragment = UnlockAccountResultFragment.newInstance()
+        updateClientFragment = UpdateClientFragment.newInstance()
+        updateClientFormFragment = UpdateClientFormFragment.newInstance()
+        updateClientForm2Fragment = UpdateClientFormFragment2.newInstance()
         ticketFragment = TicketFragment.newInstance()
         p2pFragment = PtoPFragment.newInstance()
         p2PConsult = P2PConsult.newInstance()
@@ -89,6 +98,9 @@ class MainActivity : AppCompatActivity(),
         unlockAccountFragment.listener = this
         unlockAccountResultFragment.listenerViewHolder = this
         unlockAccountResultFragment.listener = this
+        updateClientFragment.listener =this
+        updateClientFormFragment.listener =this
+        updateClientForm2Fragment.listener =this
         ticketFragment.listener = this
         p2pFragment.listener = this
         p2PConsult.listener = this
@@ -329,7 +341,7 @@ class MainActivity : AppCompatActivity(),
 
     // <TRANSACTIONAL_MODULE>
     override fun onUpdateClientClickListener() {
-        TODO("Not yet implemented")
+        showFragment(updateClientFragment)
     }
 
     override fun onCloseCompanyClickListener() {
@@ -379,8 +391,38 @@ class MainActivity : AppCompatActivity(),
         showFragment(ticketFragment)
     }
 
+    override fun onGoToUdapteClientConfirmation(mode: String, client: Client) {
+        ticketFragment.mode = mode
+        ticketFragment.currentUser = user
+        ticketFragment.unlockAccountClient = client
+        showFragment(ticketFragment)
+    }
 
+    override fun onSearchClientUpdateAccount (account: String, identification: String) {
+        Firebase.firestore.collection("clients").whereEqualTo("numeroIdentificacion", identification).get().addOnCompleteListener{ task ->
+            if(task.result?.size() != 0){
+                var clientFound : Client? = null
+                for(document in task.result!!) {
+                    val currentFound = document.toObject(Client::class.java)
+                    if(identification == currentFound.numeroIdentificacion) {
+                        clientFound = currentFound
+                    }
+                }
 
+                if(clientFound !== null ){
+                    updateClientFormFragment.client = clientFound
+                    showFragment(updateClientFormFragment)
+
+                }else Toast.makeText(this, R.string.clients_not_found, Toast.LENGTH_SHORT).show()
+
+            }else Toast.makeText(this, R.string.clients_not_found, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onGoToSecondForm(clientUpdate: Client){
+        updateClientForm2Fragment.client2 = clientUpdate
+        showFragment(updateClientForm2Fragment)
+    }
 
     override fun onValidateTransactionClickListener() {
         showFragment(p2pFragment)
@@ -414,8 +456,9 @@ class MainActivity : AppCompatActivity(),
         showFragment(unlockAccountFragment)
     }
 
-    override fun onUpdateClient() {
-        TODO("Not yet implemented")
+    override fun onUpdateClient(client: Client) {
+        Log.e(">>>", client.toString())
+        Firebase.firestore.collection("clients").document(client.numeroCelular).set(client)
     }
 
     override fun onReactiveTransaction(transaction: Transaction) {

@@ -1,6 +1,7 @@
 package com.under.superadmin.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +23,7 @@ class UnlockAccountResultFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var layoutManager: LinearLayoutManager
-    private lateinit var adapter: UnlockResultAdapter
+    private var adapter = UnlockResultAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +44,7 @@ class UnlockAccountResultFragment : Fragment() {
         binding.unlockAccountResulRecycler.layoutManager = layoutManager
         binding.unlockAccountResulRecycler.setHasFixedSize(true)
 
-        adapter = UnlockResultAdapter()
+        //adapter = UnlockResultAdapter()
         adapter.listener = listenerViewHolder!!
         adapter.clientList = clientList
         binding.unlockAccountResulRecycler.adapter = adapter

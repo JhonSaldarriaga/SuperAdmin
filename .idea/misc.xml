@@ -3,6 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/drawable/circle.xml" value="0.1" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/drawable/circle_button.xml" value="0.1705" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/drawable/circle_green.xml" value="0.1705" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/drawable/circle_red.xml" value="0.1705" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/drawable/ic_baseline_admin_panel_settings_24.xml" value="0.1705" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/drawable/ic_baseline_navigate_next_24.xml" value="0.1705" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/drawable/menuitem_admin_selector.xml" value="0.1705" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/drawable/menuitem_home_selector.xml" value="0.1705" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/drawable/menuitem_report_selector.xml" value="0.1705" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/layout/fragment_admin.xml" value="0.18802083333333333" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/layout/fragment_create_or_edit_user.xml" value="0.25" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/layout/fragment_unlock_account.xml" value="0.18802083333333333" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/layout/fragment_unlock_account_result.xml" value="0.18802083333333333" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/layout/fragment_update_client.xml" value="0.25" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/layout/fragment_update_client_form.xml" value="0.25" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/layout/result_row.xml" value="0.1" />
+        <entry key="..\:/Universidad/Repos/apps/app/src/main/res/menu/menu.xml" value="0.3605128205128205" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/drawable/circle.xml" value="0.264" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/drawable/circle_button.xml" value="0.264" />
         <entry key="..\:/Users/jhons/AndroidStudioProjects/SuperAdmin/app/src/main/res/drawable/circle_green.xml" value="0.264" />

@@ -92,6 +92,8 @@
     <string name="ticket_number_field">Número Ticket</string>
     <string name="ticket_changes_confirmation_button">CONFIRMAR</string>
     <string name="ticket_unlock_account_title">Confirmación de Desbloqueo</string>
+    <string name="update_client_title">Actualizar Cliente</string>
+    <string name="update_client_msg">Por favor ingresa la cuenta o la identificación  del propietario de la cuenta</string>
 
     <string-array name="search_option_spinner">
         <item>Tipo de identificación</item>

@@ -111,7 +111,7 @@ class TicketFragment : Fragment() {
         fun onUnlockAccount(client: Client)
 
         //usar este metodo cuando se viene desde la pagina de actualizar cliente
-        fun onUpdateClient()
+        fun onUpdateClient(client: Client)
 
         //usar este metodo cuando se viene desde la pagina de reactivar transaccion P2P
         fun onReactiveTransaction()

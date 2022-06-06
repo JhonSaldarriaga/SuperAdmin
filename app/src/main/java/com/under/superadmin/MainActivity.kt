@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity(),
     SearchResultFragment.Listener,
     ResultViewHolder.Listener,
     UnlockAccountFragment.Listener,
+    UpdateClientFragment.Listener,
+    UpdateClientFormFragment.Listener,
     UnlockAccountResultFragment.Listener,
     UnlockResultViewHolder.Listener,
     TicketFragment.Listener{
@@ -42,6 +44,8 @@ class MainActivity : AppCompatActivity(),
     private lateinit var resultSearchUserFragment: SearchResultFragment
     private lateinit var unlockAccountFragment: UnlockAccountFragment
     private lateinit var unlockAccountResultFragment: UnlockAccountResultFragment
+    private lateinit var  updateClientFragment: UpdateClientFragment
+    private lateinit var  updateClientFormFragment: UpdateClientFormFragment
     private lateinit var ticketFragment: TicketFragment
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
 
@@ -68,6 +72,8 @@ class MainActivity : AppCompatActivity(),
         resultSearchUserFragment = SearchResultFragment.newInstance()
         unlockAccountFragment = UnlockAccountFragment.newInstance()
         unlockAccountResultFragment = UnlockAccountResultFragment.newInstance()
+        updateClientFragment = UpdateClientFragment.newInstance()
+        updateClientFormFragment = UpdateClientFormFragment.newInstance()
         ticketFragment = TicketFragment.newInstance()
 
         // SE PASA EL LISTENER PARA EL PATRON OBSERVER DE CADA FRAGMENT
@@ -81,6 +87,8 @@ class MainActivity : AppCompatActivity(),
         unlockAccountFragment.listener = this
         unlockAccountResultFragment.listenerViewHolder = this
         unlockAccountResultFragment.listener = this
+        updateClientFragment.listener =this
+        updateClientFormFragment.listener =this
         ticketFragment.listener = this
 
         /*
@@ -292,7 +300,7 @@ class MainActivity : AppCompatActivity(),
 
     // <TRANSACTIONAL_MODULE>
     override fun onUpdateClientClickListener() {
-        TODO("Not yet implemented")
+        showFragment(updateClientFragment)
     }
 
     override fun onCloseCompanyClickListener() {
@@ -342,7 +350,26 @@ class MainActivity : AppCompatActivity(),
         showFragment(ticketFragment)
     }
 
+    override fun onSearchClientUpdateAccount (account: String, identification: String) {
+        Firebase.firestore.collection("clients").whereEqualTo("numeroIdentificacion", identification).get().addOnCompleteListener{ task ->
+            if(task.result?.size() != 0){
+                var clientFound : Client? = null
+                for(document in task.result!!) {
+                    val currentFound = document.toObject(Client::class.java)
+                    if(identification == currentFound.numeroIdentificacion) {
+                        clientFound = currentFound
+                    }
+                }
 
+                if(clientFound !== null ){
+                    updateClientFormFragment.client = clientFound
+                    showFragment(updateClientFormFragment)
+
+                }else Toast.makeText(this, R.string.clients_not_found, Toast.LENGTH_SHORT).show()
+
+            }else Toast.makeText(this, R.string.clients_not_found, Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
     override fun onValidateTransactionClickListener() {
@@ -375,8 +402,8 @@ class MainActivity : AppCompatActivity(),
         Firebase.firestore.collection("clients").document(client.numeroCelular).set(client)
     }
 
-    override fun onUpdateClient() {
-        TODO("Not yet implemented")
+    override fun onUpdateClient(client: Client) {
+        Log.e(">>>", client.toString())
     }
 
     override fun onReactiveTransaction() {

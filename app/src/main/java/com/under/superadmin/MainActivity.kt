@@ -39,7 +39,10 @@ class MainActivity : AppCompatActivity(),
     UnlockResultViewHolder.Listener,
     TicketFragment.Listener,
     PtoPFragment.Listener,
-    P2PConsult.Listener {
+    P2PConsult.Listener,
+    EnviosViewHolder.Listener,
+    SendComprobante.Listener,
+    ListaEnvios.Listener {
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var createOrEditUserFragment: CreateOrEditUserFragment
@@ -89,6 +92,7 @@ class MainActivity : AppCompatActivity(),
         ticketFragment = TicketFragment.newInstance()
         p2pFragment = PtoPFragment.newInstance()
         p2PConsult = P2PConsult.newInstance()
+        listaEnvios = ListaEnvios.newInstance()
 
         // SE PASA EL LISTENER PARA EL PATRON OBSERVER DE CADA FRAGMENT
         homeFragment.listener = this
@@ -108,6 +112,8 @@ class MainActivity : AppCompatActivity(),
         ticketFragment.listener = this
         p2pFragment.listener = this
         p2PConsult.listener = this
+        listaEnvios.listener = this
+        listaEnvios.listenerViewHolder = this
 
 
 
@@ -498,6 +504,32 @@ class MainActivity : AppCompatActivity(),
         changes.add("¿Está seguro que desea reactivar la transacción?")
         ticketFragment.listChanges = changes
         showFragment(ticketFragment)
+    }
+
+
+    override fun onSearchComprobante(numeroCuenta: String, fecha: String, tipo: String) {
+        Log.e("entra",numeroCuenta)
+        Log.e("entra",tipo)
+        Firebase.firestore.collection("comprobantes").
+        document(numeroCuenta).collection("envios").get().addOnCompleteListener() { task ->
+
+            if(task.result?.size() != 0){
+                var envios = ArrayList<envio>()
+                for(document in task.result!!) {
+                    val envioEncontrado = document.toObject(envio::class.java)
+                    envios.add(envioEncontrado)
+                }
+                if(envios.size>0){
+                    listaEnvios.envioList = envios
+                    showFragment(listaEnvios)
+                }else Toast.makeText(this, R.string.users_not_found, Toast.LENGTH_SHORT).show()
+            }else Toast.makeText(this, R.string.users_not_found, Toast.LENGTH_SHORT).show()
+
+        }
+    }
+
+    override fun envioComprobante() {
+        TODO("Not yet implemented")
     }
 
 }

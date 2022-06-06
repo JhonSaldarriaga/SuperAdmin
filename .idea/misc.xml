@@ -38,6 +38,7 @@
         <entry key="app/src/main/res/layout/fragment_create_or_edit_user.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_search_result.xml" value="0.15172101449275363" />
         <entry key="app/src/main/res/layout/fragment_search_user.xml" value="0.2015625" />
+        <entry key="app/src/main/res/layout/fragment_ticket.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_unlock_account.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_unlock_account_result.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_user_confirmation_dialog.xml" value="0.2015625" />

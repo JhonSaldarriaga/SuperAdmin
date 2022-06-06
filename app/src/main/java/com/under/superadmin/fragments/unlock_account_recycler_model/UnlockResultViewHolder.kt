@@ -13,6 +13,7 @@ class UnlockResultViewHolder(itemView: View) :  RecyclerView.ViewHolder(itemView
 
     var client: Client? = null
     lateinit var listener: Listener
+    private var listChanges = ArrayList<String>()
 
     /// UI Components
     val clientName_txt: TextView = itemView.findViewById(R.id.unlockAccount_nameClient)
@@ -26,24 +27,56 @@ class UnlockResultViewHolder(itemView: View) :  RecyclerView.ViewHolder(itemView
 
 
     fun addButtonsFunctionality() {
-
-        client?.let { setStateButtons(accountLocked, it.cuentaBloqueada) }
-        client?.let { setStateButtons(userLocked, it.usuarioBloqueado) }
-        client?.let { setStateButtons(facialLocked, it.reconocimientoFacialBloqueado) }
-    }
-
-    private fun setStateButtons(button: ImageView, state: Boolean) {
-        if (state){
-
-            button.setOnClickListener { client?.let { it1 -> listener.onGoToUnlockAccount(it1) } }
-            button.background = ContextCompat.getDrawable(itemView.context, R.drawable.circle_red)
+        if (client?.cuentaBloqueada == true){
+            accountLocked.background = ContextCompat.getDrawable(itemView.context, R.drawable.circle_red)
+            accountLocked()
 
         }else {
-            button.background = ContextCompat.getDrawable(itemView.context, R.drawable.circle_green)
+            accountLocked.background = ContextCompat.getDrawable(itemView.context, R.drawable.circle_green)
+        }
+
+        if(client?.usuarioBloqueado == true){
+            userLocked.background = ContextCompat.getDrawable(itemView.context, R.drawable.circle_red)
+            userLocked()
+
+        }else {
+            userLocked.background = ContextCompat.getDrawable(itemView.context, R.drawable.circle_green)
+        }
+
+        if(client?.reconocimientoFacialBloqueado == true){
+            facialLocked.background = ContextCompat.getDrawable(itemView.context, R.drawable.circle_red)
+            facialRecognitionLocked()
+
+        }else {
+            facialLocked.background = ContextCompat.getDrawable(itemView.context, R.drawable.circle_green)
+        }
+    }
+
+    private fun accountLocked(){
+        accountLocked.setOnClickListener {
+            listChanges.add(itemView.context.getString(R.string.result_unlock_account_locked_account))
+            client?.let { it1 ->
+                listener.onGoToUnlockClientConfirmation(itemView.context.getString(R.string.unlock_account_title), it1, listChanges) }
+        }
+    }
+
+    private fun userLocked() {
+        userLocked.setOnClickListener {
+            listChanges.add(itemView.context.getString(R.string.result_unlock_account_user_locked))
+            client?.let { it1 ->
+                listener.onGoToUnlockClientConfirmation(itemView.context.getString(R.string.unlock_account_title), it1, listChanges) }
+        }
+    }
+
+    private fun facialRecognitionLocked() {
+        facialLocked.setOnClickListener {
+            listChanges.add(itemView.context.getString(R.string.result_unlock_account_facial_locked))
+            client?.let { it1 ->
+                listener.onGoToUnlockClientConfirmation(itemView.context.getString(R.string.unlock_account_title), it1, listChanges) }
         }
     }
 
     interface Listener {
-        fun onGoToUnlockAccount(client: Client)
+        fun onGoToUnlockClientConfirmation(mode: String, client: Client, changesList: ArrayList<String>)
     }
 }

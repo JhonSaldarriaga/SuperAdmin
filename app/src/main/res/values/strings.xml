@@ -87,6 +87,11 @@
     <string name="result_unlock_account_locked_account">¿Cuenta Bloqueada?</string>
     <string name="result_unlock_account_user_locked">¿Usuario Bloqueado?</string>
     <string name="result_unlock_account_facial_locked">¿Bloqueado por reconocimiento facial?</string>
+    <string name="ticket_changes_made">Cambios realizados:</string>
+    <string name="titcket_title">TICKET</string>
+    <string name="ticket_number_field">Número Ticket</string>
+    <string name="ticket_changes_confirmation_button">CONFIRMAR</string>
+    <string name="ticket_unlock_account_title">Confirmación de Desbloqueo</string>
 
     <string-array name="search_option_spinner">
         <item>Tipo de identificación</item>

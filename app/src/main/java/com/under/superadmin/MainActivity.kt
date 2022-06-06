@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity(),
     ResultViewHolder.Listener,
     UnlockAccountFragment.Listener,
     UnlockAccountResultFragment.Listener,
-    UnlockResultViewHolder.Listener {
+    UnlockResultViewHolder.Listener,
+    TicketFragment.Listener{
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var createOrEditUserFragment: CreateOrEditUserFragment
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity(),
     private lateinit var resultSearchUserFragment: SearchResultFragment
     private lateinit var unlockAccountFragment: UnlockAccountFragment
     private lateinit var unlockAccountResultFragment: UnlockAccountResultFragment
+    private lateinit var ticketFragment: TicketFragment
     private var userConfirmationDialogFragment = UserConfirmationDialogFragment()
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -66,6 +68,7 @@ class MainActivity : AppCompatActivity(),
         resultSearchUserFragment = SearchResultFragment.newInstance()
         unlockAccountFragment = UnlockAccountFragment.newInstance()
         unlockAccountResultFragment = UnlockAccountResultFragment.newInstance()
+        ticketFragment = TicketFragment.newInstance()
 
         // SE PASA EL LISTENER PARA EL PATRON OBSERVER DE CADA FRAGMENT
         homeFragment.listener = this
@@ -78,6 +81,7 @@ class MainActivity : AppCompatActivity(),
         unlockAccountFragment.listener = this
         unlockAccountResultFragment.listenerViewHolder = this
         unlockAccountResultFragment.listener = this
+        ticketFragment.listener = this
 
         /*
          Cada que se quisiera hacer showFragment(homeFragment) debería de hacerse:
@@ -330,8 +334,12 @@ class MainActivity : AppCompatActivity(),
         showFragment(unlockAccountFragment)
     }
 
-    override fun onGoToUnlockAccount(client: Client) {
-
+    override fun onGoToUnlockClientConfirmation(mode: String, client: Client, changesList: ArrayList<String>) {
+        ticketFragment.mode = mode
+        ticketFragment.listChanges = changesList
+        ticketFragment.currentUser = user
+        ticketFragment.unlockAccountClient = client
+        showFragment(ticketFragment)
     }
 
 
@@ -358,6 +366,20 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onColabClickListener() {
+        TODO("Not yet implemented")
+    }
+
+
+    //Metodos para implementar una vez se haya aceptado el ticket exitosamente
+    override fun onUnlockAccount(client: Client) {
+        Firebase.firestore.collection("clients").document(client.numeroCelular).set(client)
+    }
+
+    override fun onUpdateClient() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onReactiveTransaction() {
         TODO("Not yet implemented")
     }
 

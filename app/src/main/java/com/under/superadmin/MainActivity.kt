@@ -373,6 +373,8 @@ class MainActivity : AppCompatActivity(),
     //Metodos para implementar una vez se haya aceptado el ticket exitosamente
     override fun onUnlockAccount(client: Client) {
         Firebase.firestore.collection("clients").document(client.numeroCelular).set(client)
+
+        showFragment(unlockAccountFragment)
     }
 
     override fun onUpdateClient() {

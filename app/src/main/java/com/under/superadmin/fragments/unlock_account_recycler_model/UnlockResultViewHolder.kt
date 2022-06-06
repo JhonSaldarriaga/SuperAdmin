@@ -10,7 +10,7 @@ import com.under.superadmin.model.Client
 
 class UnlockResultViewHolder(itemView: View) :  RecyclerView.ViewHolder(itemView) {
 
-    lateinit var client: Client
+    var client: Client? = null
     lateinit var listener: Listener
 
     /// UI Components
@@ -25,14 +25,14 @@ class UnlockResultViewHolder(itemView: View) :  RecyclerView.ViewHolder(itemView
 
 
     init {
-        setStateButtons(accountLocked, client.cuentaBloqueada)
-        setStateButtons(userLocked, client.usuarioBloqueado)
-        setStateButtons(facialLocked, client.reconocimientoFacialBloqueado)
+        client?.let { setStateButtons(accountLocked, it.cuentaBloqueada) }
+        client?.let { setStateButtons(userLocked, it.usuarioBloqueado) }
+        client?.let { setStateButtons(facialLocked, it.reconocimientoFacialBloqueado) }
     }
 
     private fun setStateButtons(button: ImageView, state: Boolean) {
         if (state){
-            button.setOnClickListener { listener.onGoToUnlockAccount(client) }
+            button.setOnClickListener { client?.let { it1 -> listener.onGoToUnlockAccount(it1) } }
             button.background = ContextCompat.getDrawable(itemView.context, R.drawable.circle_red)
 
         }else {
